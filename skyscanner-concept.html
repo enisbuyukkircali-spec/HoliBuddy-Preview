@@ -66,7 +66,7 @@
       border-radius: 18px;
       box-shadow: var(--hb-shadow);
     }
-    #hbMock .hb-fields { display: grid; grid-template-columns: 1.45fr 1fr 1fr .9fr auto; align-items: stretch; gap: 9px; }
+    #hbMock .hb-fields { display: grid; grid-template-columns: 1.45fr 1fr 1fr auto; align-items: stretch; gap: 9px; }
     #hbMock .hb-field { min-width: 0; min-height: 76px; padding: 12px 14px; border: 1px solid #d8e5ec; border-radius: 11px; background: white; display: flex; flex-direction: column; justify-content: center; gap: 5px; }
     #hbMock .hb-field label { color: #637b8a; font-size: 11px; font-weight: 500; }
     #hbMock .hb-field input { width: 100%; min-width: 0; border: 0; outline: 0; color: #163a53; background: transparent; font-size: 14px; font-weight: 600; }
@@ -76,7 +76,12 @@
     #hbMock .hb-search-bottom { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 13px; color: #526e81; }
     #hbMock .hb-check { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
     #hbMock .hb-check input { accent-color: #078dc5; width: 16px; height: 16px; }
-    #hbMock .hb-promo { color: #087fb0; text-decoration: none; font-weight: 500; }
+    #hbMock .hb-promo { border: 0; padding: 0; color: #087fb0; background: transparent; font: inherit; font-weight: 600; cursor: pointer; }
+    #hbMock .hb-promo-panel { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding: 11px; border: 1px solid #d8e5ec; border-radius: 11px; background: #f8fcfe; }
+    #hbMock .hb-promo-panel[hidden] { display: none; }
+    #hbMock .hb-promo-panel input { min-width: 0; flex: 1; border: 1px solid #d8e5ec; border-radius: 8px; padding: 10px 12px; color: #163a53; background: white; font: inherit; }
+    #hbMock .hb-promo-apply { border: 0; border-radius: 8px; padding: 10px 14px; color: white; background: #078dc5; font: inherit; font-weight: 600; cursor: pointer; }
+    #hbMock .hb-field input[type="datetime-local"] { min-height: 24px; }
     #hbMock .hb-note { min-height: 20px; margin: 8px 2px 0; color: #08719e; font-size: 12px; }
     #hbMock .hb-main { padding: 36px clamp(20px, 7vw, 90px) 54px; }
     #hbMock .hb-points { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; padding: 0 4px 32px; border-bottom: 1px solid var(--hb-line); }
@@ -148,9 +153,6 @@
 
   <header class="hb-header">
     <a class="hb-brand" href="#" aria-label="HoliBuddy ana sayfa"><img src="images/newRentACarLogo.png" alt="HoliBuddy"></a>
-    <nav class="hb-nav" aria-label="Ana menü">
-      <a href="#">Araç kirala</a><a href="#">Lokasyonlar</a><a href="#">Kampanyalar</a><a href="#">Yardım</a>
-    </nav>
     <div class="hb-actions"><span class="hb-lang">TR&nbsp; · &nbsp;₺</span><button class="hb-login" type="button">Giriş yap</button></div>
   </header>
 
@@ -161,15 +163,19 @@
 
     <div class="hb-search">
       <div class="hb-fields">
-        <div class="hb-field"><label for="hb-pickup">Teslim alma noktası</label><input id="hb-pickup" value="İstanbul Havalimanı (IST)" aria-label="Teslim alma noktası"></div>
-        <div class="hb-field"><label for="hb-start">Alış tarihi ve saati</label><input id="hb-start" value="8 Eki · 10:00" aria-label="Alış tarihi ve saati"></div>
-        <div class="hb-field"><label for="hb-end">İade tarihi ve saati</label><input id="hb-end" value="10 Eki · 10:00" aria-label="İade tarihi ve saati"></div>
-        <div class="hb-field"><label for="hb-age">Sürücü yaşı</label><input id="hb-age" value="25–70" aria-label="Sürücü yaşı"></div>
+        <div class="hb-field"><label for="hb-pickup">Alış noktası</label><input id="hb-pickup" value="İstanbul Havalimanı (IST)" aria-label="Alış noktası"></div>
+        <div class="hb-field" id="hb-return-wrap" hidden><label for="hb-return">İade noktası</label><input id="hb-return" value="Sabiha Gökçen Havalimanı (SAW)" aria-label="İade noktası"></div>
+        <div class="hb-field"><label for="hb-start">Alış tarihi ve saati</label><input id="hb-start" type="datetime-local" value="2026-10-08T10:00" aria-label="Alış tarihi ve saati"></div>
+        <div class="hb-field"><label for="hb-end">İade tarihi ve saati</label><input id="hb-end" type="datetime-local" value="2026-10-10T10:00" aria-label="İade tarihi ve saati"></div>
         <button class="hb-search-button" type="button">Araçları bul</button>
       </div>
       <div class="hb-search-bottom">
         <label class="hb-check"><input id="hb-same" type="checkbox" checked> Aracı aynı noktaya bırak</label>
-        <a class="hb-promo" href="#">Promosyon kodum var</a>
+        <button class="hb-promo" type="button" aria-expanded="false" aria-controls="hb-promo-panel">Promosyon kodum var</button>
+      </div>
+      <div class="hb-promo-panel" id="hb-promo-panel" hidden>
+        <input id="hb-promo-code" type="text" autocomplete="off" placeholder="Kampanya kodunu girin" aria-label="Kampanya kodu">
+        <button class="hb-promo-apply" type="button">Uygula</button>
       </div>
       <div class="hb-note" aria-live="polite"></div>
     </div>
@@ -201,6 +207,22 @@
     (() => {
       const root = document.getElementById("hbMock");
       const note = root.querySelector(".hb-note");
+      const sameLocation = root.querySelector("#hb-same");
+      const returnField = root.querySelector("#hb-return-wrap");
+      const promoToggle = root.querySelector(".hb-promo");
+      const promoPanel = root.querySelector("#hb-promo-panel");
+      sameLocation.addEventListener("change", () => {
+        returnField.hidden = sameLocation.checked;
+      });
+      promoToggle.addEventListener("click", () => {
+        promoPanel.hidden = !promoPanel.hidden;
+        promoToggle.setAttribute("aria-expanded", String(!promoPanel.hidden));
+        if (!promoPanel.hidden) root.querySelector("#hb-promo-code").focus();
+      });
+      root.querySelector(".hb-promo-apply").addEventListener("click", () => {
+        const code = root.querySelector("#hb-promo-code").value.trim();
+        note.textContent = code ? "Kod önizlemede alındı · Kampanya sistemi henüz bağlı değil." : "Lütfen kampanya kodunu girin.";
+      });
       root.querySelector(".hb-search-button").addEventListener("click", () => {
         note.textContent = "Tasarım önizlemesi · Arama ve rezervasyon sistemi henüz bağlanmadı.";
       });
