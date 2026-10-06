@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HoliBuddy | Rezervasyon Motoru Tasarım Alternatifleri</title>
+<meta name="description" content="HoliBuddy rezervasyon arama motoru için üç tasarım alternatifi.">
+<style>
+:root{--ink:#0c3150;--muted:#5d7487;--blue:#008dca;--blue-dark:#006da6;--pale:#e8f6fc;--page:#f3f9fc;--line:#d5e3ec;--white:#fff;--shadow:0 18px 52px rgba(9,54,84,.12)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--page);color:var(--ink);font:16px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:inherit}
+header{height:76px;background:#fff;border-bottom:1px solid var(--line)}
+.head-inner{max-width:1180px;height:100%;padding:0 24px;margin:auto;display:flex;align-items:center;justify-content:space-between}
+.brand img{display:block;width:154px;height:auto}
+.back{font-size:14px;font-weight:700;color:var(--blue-dark);text-decoration:none}
+main{max-width:1180px;margin:0 auto;padding:46px 24px 70px}
+.intro{margin:0 0 30px}
+.eyebrow{margin:0 0 8px;color:var(--blue-dark);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.04em;line-height:1.12;margin:0 0 12px}
+.intro p{max-width:760px;color:var(--muted);margin:0}
+.options{display:grid;gap:24px}
+.option{background:var(--white);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:var(--shadow)}
+.option-head{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 28px 18px}
+.option-name{display:flex;align-items:center;gap:13px}
+.number{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--pale);color:var(--blue-dark);font-weight:800}
+.option h2{font-size:19px;line-height:1.2;margin:0 0 4px;letter-spacing:-.02em}
+.option-head p{font-size:13px;color:var(--muted);margin:0}
+.tag{border:1px solid #bfe4f4;color:var(--blue-dark);background:#f3fbff;padding:7px 12px;border-radius:999px;font-size:12px;font-weight:750;white-space:nowrap}
+.stage{padding:30px clamp(18px,5vw,58px) 32px;background:linear-gradient(100deg,rgba(3,37,63,.82),rgba(3,53,79,.62) 58%,rgba(3,45,70,.46)),url("images/dublin.jpg") center 48%/cover no-repeat}
+.stage-inner{max-width:1060px;margin:0 auto}
+.hero-copy{text-align:center;color:#fff;margin:0 auto 21px}
+.hero-copy .mini{font-size:11px;letter-spacing:.16em;font-weight:850;opacity:.88;margin:0 0 5px}
+.hero-copy h3{font-size:clamp(23px,3vw,31px);line-height:1.12;letter-spacing:-.035em;margin:0 0 6px}
+.hero-copy p{margin:0;color:rgba(255,255,255,.86);font-size:14px}
+.motor{background:#fff;border:1px solid rgba(255,255,255,.75);border-radius:20px;padding:14px;box-shadow:0 15px 42px rgba(0,25,48,.18)}
+.grid{display:grid;gap:8px}
+.grid-a{grid-template-columns:1.12fr 1fr 1fr 150px}
+.grid-b{grid-template-columns:1fr 1fr}
+.grid-b-dates{grid-template-columns:1fr 1fr 180px;margin-top:8px}
+.grid-c{grid-template-columns:1fr 1fr}
+.field{min-width:0;border:1px solid var(--line);border-radius:12px;background:#fff;padding:10px 13px;min-height:67px;display:flex;flex-direction:column;justify-content:center;text-align:left}
+.label{font-size:11px;color:var(--muted);line-height:1.2;margin-bottom:5px}
+.value{width:100%;border:0;outline:0;background:transparent;color:var(--ink);font:700 14px/1.3 inherit;min-width:0}
+input.value{font-family:inherit}
+select.value{font-family:inherit}
+.actions{min-height:67px;display:flex}
+.search{width:100%;border:0;border-radius:12px;background:var(--blue);color:#fff;font:800 14px inherit;cursor:pointer;padding:12px 16px;transition:.18s}
+.search:hover{background:var(--blue-dark);transform:translateY(-1px)}
+.search-note{display:block;font-size:10px;font-weight:550;opacity:.84;margin-top:4px}
+.motor-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:11px 5px 0}
+.toggle,.promo{border:0;background:transparent;color:var(--blue-dark);font:700 13px inherit;cursor:pointer;padding:4px 2px}
+.toggle{display:flex;align-items:center;gap:8px;color:var(--muted)}
+.toggle .check{width:17px;height:17px;border:1.5px solid #9ab5c4;border-radius:5px;display:grid;place-items:center}
+.toggle[aria-pressed=true] .check{background:var(--blue);border-color:var(--blue);color:white}
+.toggle[aria-pressed=true] .check:after{content:"✓";font-size:12px;line-height:1}
+.promo:hover,.toggle:hover{color:var(--blue)}
+.extra{display:none;margin-top:8px}
+.extra.open{display:block}
+.location-extra{grid-template-columns:1fr 1fr}
+.promo-extra{grid-template-columns:1fr}
+.field.compact{min-height:58px}
+.grid-c-date{grid-template-columns:1fr 1fr}
+.grid-c .field{min-height:72px}
+.c-button{display:flex;justify-content:center;margin-top:10px}
+.c-button .search{max-width:340px;min-height:52px}
+.note{display:flex;align-items:center;justify-content:center;gap:7px;margin:13px auto 0;color:rgba(255,255,255,.92);font-size:11px}
+.note svg{width:14px;height:14px;flex:none}
+@media(max-width:800px){
+ main{padding:34px 16px 48px}
+ .head-inner{padding:0 16px}
+ .brand img{width:136px}
+ .option-head{padding:18px 18px 15px}
+ .stage{padding:26px 18px}
+ .grid-a{grid-template-columns:1fr 1fr}
+ .grid-a .actions{grid-column:1/-1}
+ .grid-a .actions .search{min-height:54px}
+ .grid-b-dates{grid-template-columns:1fr 1fr}
+ .grid-b-dates .actions{grid-column:1/-1}
+}
+@media(max-width:540px){
+ header{height:64px}
+ main{padding:29px 12px 38px}
+ .back{font-size:12px}
+ .brand img{width:122px}
+ .option{border-radius:18px}
+ .option-head{align-items:flex-start;padding:16px 14px 13px}
+ .option-name{gap:10px}
+ .number{width:33px;height:33px;flex:none}
+ .option h2{font-size:16px}
+ .option-head p{font-size:12px}
+ .tag{font-size:10px;padding:6px 8px}
+ .stage{padding:23px 12px 24px}
+ .hero-copy{margin-bottom:16px}
+ .hero-copy p{font-size:12px}
+ .motor{padding:10px;border-radius:16px}
+ .grid-a,.grid-b,.grid-b-dates,.grid-c,.location-extra,.grid-c-date{grid-template-columns:1fr}
+ .grid-a .actions,.grid-b-dates .actions{grid-column:auto}
+ .grid-b-dates{margin-top:8px}
+ .motor-foot{align-items:flex-start}
+ .toggle,.promo{font-size:12px}
+ .note{font-size:10px}
+}
+</style>
+</head>
+<body>
+<header><div class="head-inner"><a class="brand" href="skyscanner-concept.html" aria-label="HoliBuddy ana sayfa"><img src="images/newRentACarLogo.png" alt="HoliBuddy"></a><a class="back" href="skyscanner-concept.html">Ana sayfaya dön&nbsp; →</a></div></header>
+<main>
+<section class="intro">
+<p class="eyebrow">HoliBuddy tasarım çalışması</p>
+<h1>Rezervasyon motoru için 3 alternatif</h1>
+<p>Üç seçenekte de aynı HoliBuddy görünümünü ve aynı arama alanlarını korudum. Fark; motorun genişliği, alanların dizilimi ve sayfayla kurduğu dengede. Bu ayrı bir karşılaştırma taslağıdır; mevcut ana sayfanın tasarımını değiştirmez.</p>
+</section>
+<div class="options">
+<section class="option" aria-labelledby="a-title">
+<div class="option-head"><div class="option-name"><span class="number">A</span><div><h2 id="a-title">Skyscanner’a yakın, tek satır</h2><p>Tanıdık arama düzeni; motor hero alanının ortasına hizalı.</p></div></div><span class="tag">En tanıdık</span></div>
+<div class="stage"><div class="stage-inner"><div class="hero-copy"><p class="mini">HOLIBUDDY İLE YOLA ÇIK</p><h3>Araç kiralamayı kolayca karşılaştırın</h3><p>Konumunu ve tarihlerini seç, sana uygun kiralama seçeneklerini bul</p></div>
+<div class="motor" data-motor="a">
+<div class="grid grid-a">
+<label class="field"><span class="label">Alış noktası</span><select class="value"><option>İstanbul Havalimanı (IST)</option><option>İstanbul şehir merkezi</option><option>Antalya Havalimanı (AYT)</option></select></label>
+<label class="field"><span class="label">Alış tarihi ve saati</span><input class="value" type="datetime-local" value="2026-10-12T10:00"></label>
+<label class="field"><span class="label">İade tarihi ve saati</span><input class="value" type="datetime-local" value="2026-10-16T10:00"></label>
+<div class="actions"><button class="search" type="button">Araçları bul <span class="search-note">Seçenekleri karşılaştır</span></button></div>
+</div>
+<div class="extra location-extra"><label class="field compact"><span class="label">İade noktası</span><input class="value" placeholder="Şehir veya havalimanı ara"></label></div>
+<div class="extra promo-extra"><label class="field compact"><span class="label">Promosyon kodu</span><input class="value" placeholder="Kampanya kodunu gir"></label></div>
+<div class="motor-foot"><button class="toggle" type="button" aria-pressed="false" data-show-location><span class="check"></span>Aracı farklı lokasyonda bırak</button><button class="promo" type="button" data-show-promo>Promosyon kodum var</button></div>
+</div><p class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="10" width="18" height="11" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg>Güvenli ödeme · Mastercard · Visa · American Express</p></div></div>
+</section>
+<section class="option" aria-labelledby="b-title">
+<div class="option-head"><div class="option-name"><span class="number">B</span><div><h2 id="b-title">Daha ferah, iki satır</h2><p>Lokasyonlar üstte; tarih ve arama eylemi ayrı ve net bir sırada.</p></div></div><span class="tag">Daha rahat</span></div>
+<div class="stage"><div class="stage-inner"><div class="hero-copy"><p class="mini">HOLIBUDDY İLE YOLA ÇIK</p><h3>Araç kiralamayı kolayca karşılaştırın</h3><p>Konumunu ve tarihlerini seç, sana uygun kiralama seçeneklerini bul</p></div>
+<div class="motor" data-motor="b">
+<div class="grid grid-b">
+<label class="field"><span class="label">Alış noktası</span><select class="value"><option>İstanbul Havalimanı (IST)</option><option>İstanbul şehir merkezi</option><option>Antalya Havalimanı (AYT)</option></select></label>
+<label class="field location-main"><span class="label">İade noktası</span><input class="value" placeholder="Aynı noktaya iade" readonly></label>
+</div>
+<div class="extra location-extra"><label class="field compact"><span class="label">Farklı iade noktası</span><input class="value" placeholder="Şehir veya havalimanı ara"></label><div class="field compact"><span class="label">İade tercihi</span><span class="value">Başka lokasyonda bırak</span></div></div>
+<div class="grid grid-b-dates">
+<label class="field"><span class="label">Alış tarihi ve saati</span><input class="value" type="datetime-local" value="2026-10-12T10:00"></label>
+<label class="field"><span class="label">İade tarihi ve saati</span><input class="value" type="datetime-local" value="2026-10-16T10:00"></label>
+<div class="actions"><button class="search" type="button">Araçları bul <span class="search-note">Seçenekleri karşılaştır</span></button></div>
+</div>
+<div class="extra promo-extra"><label class="field compact"><span class="label">Promosyon kodu</span><input class="value" placeholder="Kampanya kodunu gir"></label></div>
+<div class="motor-foot"><button class="toggle" type="button" aria-pressed="false" data-show-location><span class="check"></span>Aracı farklı lokasyonda bırak</button><button class="promo" type="button" data-show-promo>Promosyon kodum var</button></div>
+</div><p class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="10" width="18" height="11" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg>Güvenli ödeme · Mastercard · Visa · American Express</p></div></div>
+</section>
+<section class="option" aria-labelledby="c-title">
+<div class="option-head"><div class="option-name"><span class="number">C</span><div><h2 id="c-title">Sade, merkez odaklı</h2><p>Daha kompakt panel; alanlar dengeli, arama düğmesi merkezde.</p></div></div><span class="tag">En dengeli</span></div>
+<div class="stage"><div class="stage-inner"><div class="hero-copy"><p class="mini">HOLIBUDDY İLE YOLA ÇIK</p><h3>Araç kiralamayı kolayca karşılaştırın</h3><p>Konumunu ve tarihlerini seç, sana uygun kiralama seçeneklerini bul</p></div>
+<div class="motor" data-motor="c">
+<div class="grid grid-c">
+<label class="field"><span class="label">Alış noktası</span><select class="value"><option>İstanbul Havalimanı (IST)</option><option>İstanbul şehir merkezi</option><option>Antalya Havalimanı (AYT)</option></select></label>
+<label class="field location-main"><span class="label">İade noktası</span><input class="value" placeholder="Aynı noktaya iade" readonly></label>
+</div>
+<div class="extra location-extra"><label class="field compact"><span class="label">Farklı iade noktası</span><input class="value" placeholder="Şehir veya havalimanı ara"></label></div>
+<div class="grid grid-c-date" style="margin-top:8px">
+<label class="field"><span class="label">Alış tarihi ve saati</span><input class="value" type="datetime-local" value="2026-10-12T10:00"></label>
+<label class="field"><span class="label">İade tarihi ve saati</span><input class="value" type="datetime-local" value="2026-10-16T10:00"></label>
+</div>
+<div class="c-button"><button class="search" type="button">Seçenekleri karşılaştır <span class="search-note">Sana uygun aracı bul</span></button></div>
+<div class="extra promo-extra"><label class="field compact"><span class="label">Promosyon kodu</span><input class="value" placeholder="Kampanya kodunu gir"></label></div>
+<div class="motor-foot"><button class="toggle" type="button" aria-pressed="false" data-show-location><span class="check"></span>Aracı farklı lokasyonda bırak</button><button class="promo" type="button" data-show-promo>Promosyon kodum var</button></div>
+</div><p class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="10" width="18" height="11" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg>Güvenli ödeme · Mastercard · Visa · American Express</p></div></div>
+</section>
+</div>
+</main>
+<script>
+document.querySelectorAll("[data-motor]").forEach(motor=>{
+ const locationButton=motor.querySelector("[data-show-location]");
+ const locationFields=motor.querySelector(".location-extra");
+ const promoButton=motor.querySelector("[data-show-promo]");
+ const promoFields=motor.querySelector(".promo-extra");
+ locationButton.addEventListener("click",()=>{
+  const open=locationButton.getAttribute("aria-pressed")!=="true";
+  locationButton.setAttribute("aria-pressed",String(open));
+  locationFields.classList.toggle("open",open);
+  const input=locationFields.querySelector("input");
+  if(input) input.focus({preventScroll:true});
+ });
+ promoButton.addEventListener("click",()=>{
+  promoFields.classList.toggle("open");
+  promoButton.setAttribute("aria-expanded",String(promoFields.classList.contains("open")));
+  const input=promoFields.querySelector("input");
+  if(input) input.focus({preventScroll:true});
+ });
+});
+</script>
+</body>
+</html>
