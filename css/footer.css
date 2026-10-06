@@ -1,0 +1,16 @@
+@media (min-width:320px) and (max-width:480px) {
+    .b-footer .wrapper{
+        display: block !important;
+    }
+    #copyrightContainer{
+        margin-left: 10px !important;
+    }
+}
+@media (min-width:1926px){
+
+    #copyrightContainer{
+        text-align: center !important;
+        margin-left: 0px !important;
+    }
+
+}

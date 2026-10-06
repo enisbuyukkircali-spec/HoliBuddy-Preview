@@ -1,0 +1,526 @@
+.lang_menu{
+	margin-top: 7px;
+	padding: 8px;
+}
+.lang_menu ul{
+	margin:0;
+	padding: 0;
+	background-color: #FFFFFF;
+	padding: 5px;
+	border: 1px solid #f8f8f8;
+	box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+	border-radius: 5px;
+	display: none;
+	position: absolute;
+	z-index: 100;
+	top: calc(100% + 5px);
+	left:74%;
+}
+.lang_menu ul li{
+	list-style: none;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 5px;
+}
+.lang_menu ul li a:hover{
+	background-color: #f2f2f2;
+}
+.lang_menu ul li a:before{
+	/* content: '';
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	margin-right: 5px;
+	vertical-align: middle;
+	background-color: cover; */
+	display: none;
+	vertical-align: middle;
+}
+
+.selected-lang{
+	cursor: pointer;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+}
+.selected-lang.active{
+	padding-bottom: 0;
+}
+
+/* .selected-lang::before{
+	content:'';
+	display: block;
+	width: 32px;
+	height: 32px;
+	background-image: url(https://flagsapi.com/BE/flat/32.png);
+} */
+.lang_menu:hover > ul {
+    display: block;
+}
+a{
+	text-decoration: none;
+}
+.de:before{
+	display: none;
+	/* background-image: url(https://flagsapi.com/BE/flat/32.png); */
+}
+.uk::before{
+	display: none;
+	/* background-image: url(https://flagsapi.com/GB/flat/32.png); */
+}
+.fr:before{
+	display: none;
+	/* background-image: url(https://flagsapi.com/FR/flat/32.png); */
+}
+.tr:before{
+	display: none;
+	/* background-image: url(https://flagsapi.com/TR/flat/32.png); */
+}
+.lang_menu:hover ul{
+	display: block;
+}
+.afterLoginDropdownItem:hover{
+	background-color: #ccc;
+}
+@media (min-width:320px) and (max-width:480px){
+	.afterLogin{
+		margin-top: -18px !important;
+	}
+	.lang_menu{
+		margin-bottom: 105px !important;
+	}
+	.select_box{
+		margin-bottom: 105px !important;
+	}
+	.header .logo{
+		height: 30px;
+		margin-left: 20px;
+		margin-top: 20px !important;
+		
+	}
+	.header .logo a{
+		height: 0;
+		width: 150px !important;
+		height: 25px !important;
+	}
+	.lang_menu ul{
+		margin-left: -30px !important;
+	}
+	.accountItems{
+		margin-bottom: 50px;
+		justify-content: space-between !important;
+	}
+	#accountContainer{
+		margin: -40px 5px 0 0 !important;
+	}
+	#manageBooking{
+		margin-top:-22px;
+	}
+	#manageBookingText{
+		font-size: 14px !important;
+	}
+	#uc1_userlogin{
+		margin-top: -22px;
+	}
+	#registerText{
+		font-size: 14px !important;
+	}
+	#uc1_register{
+		margin-top: -22px;
+	}
+	#loginText{
+		font-size: 14px !important;
+	}
+	#opportunityText{
+		margin-left: 2px;
+	}
+	.main-layout .wrapper{
+		margin: 0px 0px 0px 0px;
+	}
+	#txtPickUp{
+		width: 300px !important;
+	}
+	/* #pickAndDropLocationContainer{
+		margin-left: -50px;
+	} */
+	#pickUpLocationIcon{
+		display: none;
+	}
+	.main-layout{
+		height: auto;
+	}
+	#fromDateContainer{
+		margin-top:0px !important;
+	}
+	#toDateContainer{
+		margin-left: 25px;
+		margin-top: 0px !important;
+	}
+	#selectAgeContainer{
+		gap:15px !important;
+	}
+	#selectAgeAndCountry{
+		position: absolute;
+		top: 230px;
+		left: 250px;
+		z-index: 998;
+	}
+	#selectAgeText{
+		width: 35px !important;
+		font-weight: 400 !important;
+	}
+	#promotionalCodeContainer{
+		position: absolute !important;
+		top: 230px;
+		z-index: 997;
+	}
+	#lbSearch{
+		margin-top: 80px;
+	}
+	#resultsContainer{
+		top:27% !important;
+		left: 9% !important;
+		z-index: 999;
+	}
+	#resultsContainerDropUp{
+		top:27% !important;
+		z-index: 999;
+	}
+	#totalContainer {
+        margin-left: 20px !important;
+        margin-right: 20px !important;
+        padding: 20px !important;
+    }
+	#toDateAndTimeContainer{
+		margin-top: 0px !important;
+		margin-left: 10px !important;
+	}
+    #totalContainerText {
+        font-size: 24px !important;
+    }
+
+    #totalContainerInformation {
+        flex-direction: column !important;
+        gap: 20px !important; /* Mobilde kutular arasındaki boşluğu arttır */
+    }
+
+    #totalContainerInformation > div {
+        justify-content: center !important;
+        width: 100% !important; /* Elemanların tam genişlik kaplamasını sağla */
+    }
+
+    #totalContainerInformation div {
+        font-size: 18px !important; /* Metin boyutunu mobil için küçült */
+    }
+
+    #worldImg {
+        width: 20px !important; /* Görsel boyutunu mobilde küçült */
+        height: 20px !important;
+    }
+	#ageSelectContainer{
+		margin-left: 0px !important;
+	}
+	#dropdownContent{
+		left: -60px !important;
+
+	}
+	
+}
+@media (min-width: 480px) and (max-width: 768px) {
+    #totalContainer {
+        margin-left: 40px !important;
+        margin-right: 40px !important;
+        padding: 25px !important;
+    }
+
+    #totalContainerText {
+        font-size: 28px !important;
+    }
+
+    #totalContainerInformation {
+        flex-direction: column !important;
+        gap: 30px !important;
+    }
+
+    #totalContainerInformation > div {
+        justify-content: center !important;
+        width: 100% !important;
+    }
+
+    #totalContainerInformation div {
+        font-size: 20px !important; /* Tablet için metin boyutunu ayarla */
+    }
+	.main-layout{
+		height: auto;
+	}
+	#pickUpLocationIcon{
+		display: none;
+	}
+	#txtPickUp{
+		width: 300px !important;
+	}
+	#fromDateContainer{
+		margin-left: 25px !important;
+		margin-top: 0px !important;
+	}
+	#toDateAndTimeContainer{
+		margin-top: 0px !important;
+		
+	}
+	/* #toDateContainer{
+		margin-left: 20px !important;
+		margin-top: 0px !important;
+	} */
+	#selectAgeAndCountry{
+		position: absolute;
+		top: 230px;
+		left: 250px;
+		z-index: 998;
+	}
+	
+}
+@media (min-width: 769px) and (max-width:1024px){
+	
+	.main-layout .wrapper{
+		flex-direction: column !important;
+		margin: 39px 170px 0px 170px !important;
+	}
+	.header .logo{
+		margin: 15px 10px 0 50px !important;
+	}
+	#sloganContainer{
+		margin-top:40px !important;
+		font-size: 28px !important;
+	}
+	#pickUpLocationIcon{
+		margin-bottom: 0px !important;
+	}
+	#toDateAndTimeContainer{
+		margin-top: 0px !important;
+	}
+	#txtPickUp{
+		width:325px !important;
+	}
+	#opportunityText{
+		top:70px !important;
+	}
+	#promotionalCodeContainer{
+		position: absolute !important;
+		top: 210px;
+	}
+	#selectAgeAndCountry{
+		position: absolute !important;
+		top: 5px;
+		top: 210px;
+		left: 276px !important;
+	}
+	#toDateContainer{
+		margin-top: 0px !important;
+		margin-left: 18px !important;
+	}
+	
+	#lbSearch{
+		margin-top: 50px;
+	}
+	#fromDateContainer{
+		margin-top:0px !important;
+		margin-left: 17px !important;
+	}
+	#selectAgeText{
+		width: 30px;
+		font-weight: 500 !important;
+	}
+	#totalContainer {
+        margin-left: 50px;
+        margin-right: 50px;
+        padding: 30px;
+    }
+
+    #totalContainerText {
+        font-size: 30px;
+    }
+
+    #totalContainerInformation {
+        flex-direction: row;
+        flex-wrap: wrap; /* Elemanları satır başına geçirmeyi etkinleştir */
+        gap: 30px; /* Elemanlar arasındaki boşluğu ayarla */
+    }
+
+    #totalContainerInformation > div {
+        width: auto; /* Otomatik genişlik */
+    }
+
+    #totalContainerInformation div {
+        font-size: 22px; /* Geniş ekranlar için metin boyutunu ayarla */
+    }
+	#resultsContainer{
+		top: 27% !important;
+		left: 11% !important;
+	}
+	#resultsContainerDropUp{
+		top:27% !important;
+	}
+
+
+}
+@media (min-width: 1025px) and (max-width:1280px){
+	.main-layout .wrapper{
+		margin: 90px 30px 0px 30px !important;
+	}
+	#totalContainer {
+		margin-left: 100px !important; /* Kenar boşluklarını azalt */
+		margin-right: 100px !important;
+		padding: 20px !important; /* İç boşluğu arttır */
+		background-color: #E0E0E0 !important; /* Arka plan rengini biraz değiştir */
+	}
+
+	#totalContainerText {
+		font-size: 28px !important; /* Metin boyutunu küçült */
+	}
+
+	#totalContainerInformation {
+		flex-direction: column !important; /* Bilgileri alt alta diz */
+		gap: 20px !important; /* Bilgiler arasındaki boşluğu daralt */
+	}
+
+	#totalContainerInformation div {
+		flex-direction: row !important; /* Bilgileri satır bazında hizala */
+		gap: 8px !important; /* Simgeler ve metin arasındaki boşluğu sabit tut */
+	}
+
+	#worldImg {
+		width: 25px !important; /* Resim boyutunu küçült */
+		height: 25px !important;
+	}
+
+	#totalContainerInformation img {
+		width: 25px !important; /* Tüm resim boyutlarını küçült */
+		height: 25px !important;
+	}
+
+	#totalContainerInformation div:nth-child(3) img {
+		width: 35px !important; /* Özel olarak araba logosunun boyutunu belirle */
+		height: 35px !important;
+	}
+
+	#totalContainerInformation div {
+		font-size: 20px !important; /* Metin boyutunu küçült */
+	}
+	.header .logo{
+		margin-left: 50px !important;
+	}
+
+}
+
+@media(min-width:1280px) and (max-width:1440px){
+	.main-layout .wrapper{
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		border-radius: 8px;
+		margin: 0px 30px 0px 30px !important;
+		background-color: rgba(255, 255, 255, .8);
+		position: relative;
+		top:130px;
+		z-index: 8;
+		padding: 10px 0px 1px 0px;
+		flex-wrap: wrap;
+	}
+	#sloganText{
+		margin-top: 120px !important;
+	}
+	#flagsContainer{
+		left: 1120px;
+	}
+	#totalContainer {
+		margin-left: 100px !important; /* Kenar boşluklarını azalt */
+		margin-right: 100px !important;
+		padding: 20px !important; /* İç boşluğu arttır */
+		background-color: #E0E0E0 !important; /* Arka plan rengini biraz değiştir */
+	}
+
+	#totalContainerText {
+		font-size: 28px !important; /* Metin boyutunu küçült */
+	}
+
+	#totalContainerInformation {
+		flex-direction: column !important; /* Bilgileri alt alta diz */
+		gap: 20px !important; /* Bilgiler arasındaki boşluğu daralt */
+	}
+
+	#totalContainerInformation div {
+		flex-direction: row !important; /* Bilgileri satır bazında hizala */
+		gap: 8px !important; /* Simgeler ve metin arasındaki boşluğu sabit tut */
+	}
+
+	#worldImg {
+		width: 25px !important; /* Resim boyutunu küçült */
+		height: 25px !important;
+	}
+
+	#totalContainerInformation img {
+		width: 25px !important; /* Tüm resim boyutlarını küçült */
+		height: 25px !important;
+	}
+
+	#totalContainerInformation div:nth-child(3) img {
+		width: 25px !important; /* Özel olarak araba logosunun boyutunu belirle */
+		height: 35px !important;
+	}
+
+	#totalContainerInformation div {
+		font-size: 20px !important; /* Metin boyutunu küçült */
+	}
+}
+@media (min-width:1440px) and (max-width:1920px){
+
+}
+@media (min-width:1921px){
+	.lang_menu ul{
+		left: 67%;
+	}
+}
+
+@media (max-width: 320px){
+	.fa {
+		display: none;
+	}
+	#manageBooking{
+		margin-top:-10px !important;
+	}
+	#manageBookingText{
+		font-size: 16px !important;
+	}
+	#uc1_userlogin{
+		margin-top: -10px !important;
+	}
+	#uc1_register{
+		margin-top: -10px !important;
+	}
+	#loginText{
+		font-size: 16px !important;
+	}
+	#registerText{
+		font-size: 16px !important;
+	}
+	.header .logo{
+		margin-left: 0px !important;
+		height: 25px !important;
+	}
+	.select_box{
+		z-index: 500;
+	}
+	#toDateAndTimeContainer{
+		margin-left: 0px !important;
+	}
+	#toDateContainer{
+		margin-left: 3px !important;
+	}
+	#lbSearch{
+		margin-top: 80px !important;
+	}
+	#selectAgeAndCountry{
+		left: 220px;
+	}
+}
