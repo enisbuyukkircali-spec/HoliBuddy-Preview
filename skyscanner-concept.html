@@ -67,7 +67,7 @@
     #hbMock button, #hbMock input { font: inherit; }
     #hbMock .hb-header { min-height:74px; padding:0 clamp(20px,5vw,68px); display:flex; align-items:center; justify-content:space-between; gap:24px; color:#fff; background:#062847; border-bottom:1px solid rgba(255,255,255,.14); }
     #hbMock .hb-brand { display:flex; align-items:center; gap:10px; color:#fff; text-decoration:none; font-size:23px; font-weight:700; letter-spacing:-.8px; white-space:nowrap; }
-    #hbMock .hb-brand img { display:block; width:154px; height:auto; filter:brightness(0) invert(1); }
+    #hbMock .hb-brand img { display:block; width:154px; height:auto; padding:5px 9px; border-radius:6px; background:#fff; filter:none; }
     #hbMock .hb-nav { display:flex; align-items:center; gap:clamp(16px,2.5vw,34px); color:rgba(255,255,255,.85); }
     #hbMock .hb-nav a { color:inherit; text-decoration:none; white-space:nowrap; }
     #hbMock .hb-nav a:first-child { color:#fff; font-weight:600; }
@@ -91,7 +91,7 @@
     #hbMock [hidden] { display: none !important; }
     #hbMock .hb-fields.is-different { grid-template-columns: 1.45fr 1.25fr 1fr 1fr auto; }
     #hbMock .hb-field { min-width: 0; min-height: 76px; padding: 12px 14px; border: 1px solid #d8e5ec; border-radius: 11px; background: white; display: flex; flex-direction: column; justify-content: center; gap: 5px; }
-    #hbMock .hb-field label { color: #637b8a; font-size: 11px; font-weight: 500; }
+    #hbMock .hb-field label { align-self:flex-start; width:100%; color:#637b8a; font-size:11px; font-weight:500; text-align:left; }
     #hbMock .hb-field input { width: 100%; min-width: 0; border: 0; outline: 0; color: #163a53; background: transparent; font-size: 14px; font-weight: 600; }
     #hbMock .hb-field input::placeholder { color: #163a53; opacity: 1; }
     #hbMock .hb-search-button { min-width: 112px; border: 0; border-radius: 11px; padding: 0 22px; color: white; background: #0063e5; font-weight: 650; cursor: pointer; box-shadow: 0 5px 12px rgba(0, 75, 190, .24); }
@@ -181,16 +181,20 @@
     #hbMock .hb-auth-or { display:flex; align-items:center; gap:12px; margin:17px 0 12px; color:#657989; font-size:12px; }
     #hbMock .hb-auth-or::before,#hbMock .hb-auth-or::after { content:""; height:1px; flex:1; background:#e0e7ec; }
     #hbMock .hb-socials { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; }
-    #hbMock .hb-social { min-height:59px; display:flex; align-items:center; justify-content:center; gap:8px; border:1px solid #d5dfe5; border-radius:9px; color:#1b3549; background:#fff; font:inherit; font-size:13px; font-weight:650; cursor:pointer; }
-    #hbMock .hb-social:hover { border-color:#8298a8; background:#f8fbfd; }
-    #hbMock .hb-social svg { width:19px; height:19px; flex:0 0 19px; }\n    #hbMock .hb-social .hb-g { color:#4285f4; font-size:20px; font-weight:800; }\n    #hbMock .hb-social .hb-f { width:19px; height:19px; display:grid; place-items:center; border-radius:50%; color:white; background:#1877f2; font:bold 17px/1 Arial,sans-serif; }
+    #hbMock .hb-social { min-height:52px; display:flex; align-items:center; justify-content:center; gap:8px; border:0; border-radius:8px; color:#1b3549; background:#e1e5e9; font:inherit; font-weight:650; cursor:pointer; }
+    #hbMock .hb-social:hover { background:#d6dce1; }
+    #hbMock .hb-social svg { width:21px; height:21px; flex:0 0 21px; }
+    #hbMock .hb-social span { display:none; }
+    #hbMock .hb-social .hb-g { color:transparent; font:800 23px/1 Arial,sans-serif; background:conic-gradient(from -45deg,#4285f4 0 27%,#34a853 27% 49%,#fbbc05 49% 73%,#ea4335 73% 90%,#4285f4 90%); background-clip:text; -webkit-background-clip:text; }
+    #hbMock .hb-social .hb-f { width:22px; height:22px; display:grid; place-items:center; border-radius:50%; color:white; background:#1877f2; font:bold 18px/1 Arial,sans-serif; }
     #hbMock .hb-auth-legal { margin:15px 0 0; color:#798a96; font-size:10px; line-height:1.55; }
     #hbMock .hb-auth-feedback { min-height:18px; margin:7px 0 0; color:#08719e; font-size:12px; }
     #hbMock .hb-auth-visual { position:relative; min-height:560px; overflow:hidden; background:#d6e9ee; }
     #hbMock .hb-auth-visual img { display:block; width:100%; height:100%; min-height:560px; object-fit:cover; }
     #hbMock .hb-auth-visual::after { content:""; position:absolute; inset:45% 0 0; background:linear-gradient(0deg,rgba(3,34,55,.64),transparent); pointer-events:none; }
-    #hbMock .hb-auth-badge { position:absolute; z-index:1; top:42%; right:26px; width:92px; height:92px; display:grid; place-items:center; border-radius:50%; color:#073954; background:#8df0d8; box-shadow:0 12px 28px rgba(4,38,55,.18); }
-    #hbMock .hb-auth-badge svg { width:42px; height:42px; }
+    #hbMock .hb-auth-badge { position:absolute; z-index:1; top:42%; left:22px; width:92px; height:92px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; border-radius:50%; color:#075479; background:#8df0d8; box-shadow:0 12px 28px rgba(4,38,55,.2); }
+    #hbMock .hb-auth-badge b { font-size:27px; line-height:1; font-weight:800; letter-spacing:-1.5px; }
+    #hbMock .hb-auth-badge i { width:39px; height:3px; border-radius:99px; background:#078dc5; }
     #hbMock .hb-auth-caption { position:absolute; z-index:1; right:27px; bottom:28px; left:27px; color:#fff; text-align:left; }
     #hbMock .hb-auth-caption strong { display:block; font-size:22px; line-height:1.2; }
     #hbMock .hb-auth-caption span { display:block; margin-top:6px; color:rgba(255,255,255,.86); font-size:13px; }
@@ -217,8 +221,9 @@
       #hbMock .hb-auth-copy { margin-bottom:15px; font-size:14px; }
       #hbMock .hb-auth-visual { min-height:150px; max-height:170px; grid-row:1; }
       #hbMock .hb-auth-visual img { min-height:170px; max-height:170px; }
-      #hbMock .hb-auth-badge { top:25px; right:24px; width:64px; height:64px; }
-      #hbMock .hb-auth-badge svg { width:30px; height:30px; }
+      #hbMock .hb-auth-badge { top:25px; left:18px; width:64px; height:64px; gap:2px; }
+      #hbMock .hb-auth-badge b { font-size:19px; }
+      #hbMock .hb-auth-badge i { width:29px; height:2px; }
       #hbMock .hb-auth-caption { left:20px; bottom:15px; }
       #hbMock .hb-auth-caption strong { font-size:17px; }
       #hbMock .hb-auth-caption span { display:none; }
@@ -277,13 +282,13 @@
         <form class="hb-auth-form"><label for="hb-auth-email">E-posta adresi</label><input class="hb-auth-email" id="hb-auth-email" type="email" autocomplete="email" placeholder="ornek@email.com" required><button class="hb-auth-continue" type="submit">E-posta ile devam et</button></form>
         <div class="hb-auth-or"><span>ya da hesabınla devam et</span></div>
         <div class="hb-socials">
-          <button class="hb-social" type="button" data-provider="Google" aria-label="Google ile devam et"><b class="hb-g">G</b><span>Google</span></button>
-          <button class="hb-social" type="button" data-provider="Apple" aria-label="Apple ile devam et"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.2c0 2.2 2 3 2 3-.02.05-.3 1.1-1 2.1-.6.9-1.3 1.8-2.3 1.8s-1.3-.6-2.4-.6-1.5.6-2.4.6c-1 .1-1.7-1-2.3-1.9-1.3-1.8-2.3-5.2-1-7.5.7-1.1 1.8-1.8 3.1-1.9 1 0 1.9.7 2.5.7s1.7-.8 2.9-.7c.5 0 1.9.2 2.8 1.5-.1 0-1.7 1-1.8 2.8ZM14.5 6.7c.5-.6.8-1.4.8-2.3-.8 0-1.6.5-2.1 1.1-.5.5-.9 1.4-.8 2.2.8.1 1.6-.4 2.1-1Z"/></svg><span>Apple</span></button>
-          <button class="hb-social" type="button" data-provider="Facebook" aria-label="Facebook ile devam et"><b class="hb-f">f</b><span>Facebook</span></button>
+          <button class="hb-social" type="button" data-provider="Google" aria-label="Google ile devam et"><b class="hb-g" aria-hidden="true">G</b></button>
+          <button class="hb-social" type="button" data-provider="Apple" aria-label="Apple ile devam et"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.2c0 2.2 2 3 2 3-.02.05-.3 1.1-1 2.1-.6.9-1.3 1.8-2.3 1.8s-1.3-.6-2.4-.6-1.5.6-2.4.6c-1 .1-1.7-1-2.3-1.9-1.3-1.8-2.3-5.2-1-7.5.7-1.1 1.8-1.8 3.1-1.9 1 0 1.9.7 2.5.7s1.7-.8 2.9-.7c.5 0 1.9.2 2.8 1.5-.1 0-1.7 1-1.8 2.8ZM14.5 6.7c.5-.6.8-1.4.8-2.3-.8 0-1.6.5-2.1 1.1-.5.5-.9 1.4-.8 2.2.8.1 1.6-.4 2.1-1Z"/></svg></button>
+          <button class="hb-social" type="button" data-provider="Facebook" aria-label="Facebook ile devam et"><b class="hb-f">f</b></button>
         </div>
         <p class="hb-auth-legal">Devam ederek HoliBuddy üyelik ve gizlilik koşullarını kabul etmiş olursun.</p><p class="hb-auth-feedback" aria-live="polite"></p>
       </div>
-      <div class="hb-auth-visual"><img src="images/destination-paris.svg?v=20261006-2" alt="Yeni rotalara açılan bir şehir manzarası"><span class="hb-auth-badge" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="16" r="8" stroke="currentColor" stroke-width="2.8"/><path d="M9 39c1.4-7.2 6.8-11 15-11s13.6 3.8 15 11M35 13v8m-4-4h8" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></svg></span><div class="hb-auth-caption"><strong>Yeni rotalar, güzel anılar.</strong><span>Yolculuk seçeneklerini HoliBuddy’de takip et.</span></div></div>
+      <div class="hb-auth-visual"><img src="images/holibuddy-login-travel.webp" alt="Gün batımında şehir sokağında yolculuğa çıkan iki gezgin"><span class="hb-auth-badge" aria-label="HoliBuddy HB amblemi"><b>HB</b><i></i></span><div class="hb-auth-caption"><strong>Yeni rotalar, güzel anılar.</strong><span>Yolculuk seçeneklerini HoliBuddy’de takip et.</span></div></div>
     </section>
   </div>
 
