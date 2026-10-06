@@ -67,6 +67,7 @@
       box-shadow: var(--hb-shadow);
     }
     #hbMock .hb-fields { display: grid; grid-template-columns: 1.45fr 1fr 1fr auto; align-items: stretch; gap: 9px; }
+    #hbMock .hb-fields.is-different { grid-template-columns: 1.45fr 1.25fr 1fr 1fr auto; }
     #hbMock .hb-field { min-width: 0; min-height: 76px; padding: 12px 14px; border: 1px solid #d8e5ec; border-radius: 11px; background: white; display: flex; flex-direction: column; justify-content: center; gap: 5px; }
     #hbMock .hb-field label { color: #637b8a; font-size: 11px; font-weight: 500; }
     #hbMock .hb-field input { width: 100%; min-width: 0; border: 0; outline: 0; color: #163a53; background: transparent; font-size: 14px; font-weight: 600; }
@@ -117,7 +118,7 @@
     #hbMock .hb-payment.ssl svg { width: 15px; height: 15px; }
     @media (max-width: 800px) {
       #hbMock .hb-nav { display: none; }
-      #hbMock .hb-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      #hbMock .hb-fields, #hbMock .hb-fields.is-different { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       #hbMock .hb-search-button { min-height: 52px; grid-column: 1 / -1; }
       #hbMock .hb-points { gap: 15px; }
     }
@@ -213,6 +214,7 @@
       const promoPanel = root.querySelector("#hb-promo-panel");
       sameLocation.addEventListener("change", () => {
         returnField.hidden = sameLocation.checked;
+        root.querySelector(".hb-fields").classList.toggle("is-different", !sameLocation.checked);
       });
       promoToggle.addEventListener("click", () => {
         promoPanel.hidden = !promoPanel.hidden;
