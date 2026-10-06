@@ -104,10 +104,10 @@
     #hbMock .hb-footer a { color: inherit; text-decoration: none; }
     #hbMock .hb-footer-bottom { padding-top: 13px; }
     #hbMock .hb-payments { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px; }
-    #hbMock .hb-payment-logo { position: relative; width: 62px; height: 34px; padding: 0; display: inline-block; overflow: hidden; border: 1px solid var(--hb-line); border-radius: 6px; background: #fff; }
-    #hbMock .hb-payment-logo img { position: absolute; top: 0; left: 6px; display: block; width: 48px; max-width: none; height: 162px; object-fit: fill; }
-    #hbMock .hb-payment-logo.mastercard img { top: -64.8px; }
-    #hbMock .hb-payment-logo.visa img { top: -97.2px; }
+    #hbMock .hb-payment-logo { height: 30px; min-width: 50px; padding: 4px 8px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--hb-line); border-radius: 6px; background: var(--hb-surface); }
+    #hbMock .hb-payment-logo img { display: block; max-width: 54px; height: 19px; object-fit: contain; }
+    #hbMock .hb-payment-logo.mastercard img { width: 22px; height: 22px; }
+    #hbMock .hb-payment-logo.amex img { width: 34px; height: 22px; }
     #hbMock .hb-payment.ssl { min-height: 30px; padding: 4px 9px; display: inline-flex; align-items: center; gap: 5px; border: 1px solid var(--hb-line); border-radius: 6px; color: #27724d; background: var(--hb-surface); font-weight: 600; }
     #hbMock .hb-payment.ssl svg { width: 15px; height: 15px; }
     @media (max-width: 800px) {
@@ -194,7 +194,7 @@
   </main>
   <footer class="hb-footer">
     <div class="hb-footer-top"><span>HoliBuddy · Araç kiralama</span><nav class="hb-footer-links" aria-label="Alt menü"><a href="#">Hakkımızda</a><a href="#">Yardım</a><a href="#">İletişim</a><a href="#">Gizlilik</a></nav></div>
-    <div class="hb-footer-bottom"><span>© HoliBuddy</span><div class="hb-payments" aria-label="Ödeme seçenekleri"><span class="hb-payment-logo mastercard"><img src="images/payment-types.svg" alt="Mastercard"></span><span class="hb-payment-logo visa"><img src="images/payment-types.svg" alt="Visa"></span><span class="hb-payment-logo amex"><img src="images/payment-types.svg" alt="American Express"></span><span class="hb-payment ssl"><i data-lucide="lock" aria-hidden="true"></i> SSL güvenli ödeme</span></div></div>
+    <div class="hb-footer-bottom"><span>© HoliBuddy</span><div class="hb-payments" aria-label="Ödeme seçenekleri"><span class="hb-payment-logo mastercard"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v15/icons/mastercard.svg" alt="Mastercard"></span><span class="hb-payment-logo"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v15/icons/visa.svg" alt="Visa"></span><span class="hb-payment-logo amex"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v15/icons/americanexpress.svg" alt="American Express"></span><span class="hb-payment ssl"><i data-lucide="lock" aria-hidden="true"></i> SSL güvenli ödeme</span></div></div>
   </footer>
 
   <script>
