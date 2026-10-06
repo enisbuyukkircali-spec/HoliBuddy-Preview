@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08324f">
+  <title>HoliBuddy | Araç kiralama</title>
+  <meta name="description" content="HoliBuddy araç kiralama ana sayfa konsept önizlemesi">
+  <style>html,body{margin:0;min-height:100%;}body{background:#f3f9fc;}#hbMock{border-radius:0!important;}</style>
+</head>
+<body>
+<div id="hbMock" aria-label="HoliBuddy ana sayfa tasarım taslağı">
+  <style>
+    #hbMock {
+      color-scheme: light dark;
+      --hb-ink: light-dark(#0c3150, #eaf6fc);
+      --hb-muted: light-dark(#5d7487, #afc2d0);
+      --hb-surface: light-dark(#ffffff, #132a3d);
+      --hb-page: light-dark(#f3f9fc, #0b1b29);
+      --hb-line: light-dark(#d5e3ec, #2b455a);
+      --hb-blue: light-dark(#008dca, #42bff2);
+      --hb-blue-dark: light-dark(#006da6, #78d5fa);
+      --hb-pale: light-dark(#e8f6fc, #173b51);
+      --hb-shadow: 0 18px 52px rgba(9, 54, 84, .12);
+      color: var(--hb-ink);
+      font: 400 14px/1.45 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--hb-page);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+    #hbMock * { box-sizing: border-box; }
+    #hbMock button, #hbMock input { font: inherit; }
+    #hbMock .hb-header {
+      min-height: 74px;
+      padding: 0 clamp(20px, 5vw, 68px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      background: var(--hb-surface);
+      border-bottom: 1px solid var(--hb-line);
+    }
+    #hbMock .hb-brand { display: flex; align-items: center; gap: 10px; color: var(--hb-ink); text-decoration: none; font-size: 23px; font-weight: 700; letter-spacing: -.8px; white-space: nowrap; }
+    #hbMock .hb-brand img { display: block; width: 154px; height: auto; }
+    #hbMock .hb-nav { display: flex; align-items: center; gap: clamp(16px, 2.5vw, 34px); color: var(--hb-muted); }
+    #hbMock .hb-nav a { color: inherit; text-decoration: none; white-space: nowrap; }
+    #hbMock .hb-nav a:first-child { color: var(--hb-ink); font-weight: 500; }
+    #hbMock .hb-actions { display: flex; align-items: center; gap: 12px; white-space: nowrap; }
+    #hbMock .hb-lang { color: var(--hb-muted); }
+    #hbMock .hb-login { border: 1px solid var(--hb-line); color: var(--hb-ink); background: transparent; border-radius: 999px; padding: 10px 16px; }
+    #hbMock .hb-hero {
+      position: relative;
+      padding: 54px clamp(20px, 7vw, 90px) 46px;
+      background: linear-gradient(100deg, rgba(3, 37, 63, .84), rgba(3, 53, 79, .62) 58%, rgba(3, 45, 70, .43)), url("images/dublin.jpg") center 48% / cover no-repeat;
+      color: #fff;
+    }
+    #hbMock .hb-kicker { margin: 0 0 12px; color: #9be4ff; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    #hbMock h1 { max-width: 650px; margin: 0; font-size: clamp(34px, 5vw, 54px); line-height: 1.04; letter-spacing: -1.8px; font-weight: 650; }
+    #hbMock .hb-subtitle { max-width: 610px; margin: 14px 0 28px; color: rgba(255, 255, 255, .88); font-size: 16px; }
+    #hbMock .hb-search {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 18px;
+      background: #fff;
+      border: 1px solid rgba(17, 102, 144, .12);
+      border-radius: 18px;
+      box-shadow: var(--hb-shadow);
+    }
+    #hbMock .hb-fields { display: grid; grid-template-columns: 1.45fr 1fr 1fr .9fr auto; align-items: stretch; gap: 9px; }
+    #hbMock .hb-field { min-width: 0; min-height: 76px; padding: 12px 14px; border: 1px solid #d8e5ec; border-radius: 11px; background: white; display: flex; flex-direction: column; justify-content: center; gap: 5px; }
+    #hbMock .hb-field label { color: #637b8a; font-size: 11px; font-weight: 500; }
+    #hbMock .hb-field input { width: 100%; min-width: 0; border: 0; outline: 0; color: #163a53; background: transparent; font-size: 14px; font-weight: 600; }
+    #hbMock .hb-field input::placeholder { color: #163a53; opacity: 1; }
+    #hbMock .hb-search-button { min-width: 112px; border: 0; border-radius: 11px; padding: 0 22px; color: white; background: #078dc5; font-weight: 650; cursor: pointer; box-shadow: 0 5px 12px rgba(0, 123, 178, .16); }
+    #hbMock .hb-search-button:hover { background: #0078ad; }
+    #hbMock .hb-search-bottom { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 13px; color: #526e81; }
+    #hbMock .hb-check { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+    #hbMock .hb-check input { accent-color: #078dc5; width: 16px; height: 16px; }
+    #hbMock .hb-promo { color: #087fb0; text-decoration: none; font-weight: 500; }
+    #hbMock .hb-note { min-height: 20px; margin: 8px 2px 0; color: #08719e; font-size: 12px; }
+    #hbMock .hb-main { padding: 36px clamp(20px, 7vw, 90px) 54px; }
+    #hbMock .hb-points { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; padding: 0 4px 32px; border-bottom: 1px solid var(--hb-line); }
+    #hbMock .hb-point { min-height: 104px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 9px; color: var(--hb-muted); text-align: center; }
+    #hbMock .hb-point strong { display: block; color: var(--hb-ink); font-size: 14px; font-weight: 600; }
+    #hbMock .hb-point span { display: block; font-size: 12px; }
+    #hbMock .hb-icon { width: 46px; height: 46px; flex: 0 0 46px; display: grid; place-items: center; border-radius: 50%; color: #007eaf; background: var(--hb-pale); box-shadow: inset 0 0 0 1px rgba(0, 126, 175, .08); }
+    #hbMock .hb-icon i svg { display: block; width: 21px; height: 21px; stroke-width: 1.8; }
+    #hbMock .hb-section-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin: 32px 0 17px; }
+    #hbMock .hb-section-head h2 { margin: 0; font-size: 23px; letter-spacing: -.5px; }
+    #hbMock .hb-section-head p { margin: 5px 0 0; color: var(--hb-muted); }
+    #hbMock .hb-all { color: var(--hb-blue-dark); text-decoration: none; font-weight: 600; white-space: nowrap; }
+    #hbMock .hb-destinations { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    #hbMock .hb-destination { overflow: hidden; background: var(--hb-surface); border: 1px solid var(--hb-line); border-radius: 14px; }
+    #hbMock .hb-scene { height: 126px; overflow: hidden; background: #b8dce8; }
+    #hbMock .hb-scene img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    #hbMock .hb-dest-copy { padding: 14px 16px 16px; }
+    #hbMock .hb-dest-copy small { color: var(--hb-muted); }
+    #hbMock .hb-dest-copy h3 { margin: 3px 0 7px; font-size: 17px; }
+    #hbMock .hb-dest-copy p { margin: 0; color: var(--hb-muted); font-size: 12px; }
+    #hbMock .hb-footer { padding: 18px clamp(20px, 7vw, 90px); color: var(--hb-muted); background: var(--hb-surface); border-top: 1px solid var(--hb-line); font-size: 12px; }
+    #hbMock .hb-footer-top, #hbMock .hb-footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    #hbMock .hb-footer-top { padding-bottom: 13px; border-bottom: 1px solid var(--hb-line); }
+    #hbMock .hb-footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+    #hbMock .hb-footer a { color: inherit; text-decoration: none; }
+    #hbMock .hb-footer-bottom { padding-top: 13px; }
+    #hbMock .hb-payments { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px; }
+    #hbMock .hb-payment-logo { height: 30px; min-width: 50px; padding: 4px 8px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--hb-line); border-radius: 6px; background: var(--hb-surface); }
+    #hbMock .hb-payment-logo img { display: block; max-width: 54px; height: 19px; object-fit: contain; }
+    #hbMock .hb-payment-logo.mastercard img { width: 22px; height: 22px; }
+    #hbMock .hb-payment-logo.amex img { width: 34px; height: 22px; }
+    #hbMock .hb-payment.ssl { min-height: 30px; padding: 4px 9px; display: inline-flex; align-items: center; gap: 5px; border: 1px solid var(--hb-line); border-radius: 6px; color: #27724d; background: var(--hb-surface); font-weight: 600; }
+    #hbMock .hb-payment.ssl svg { width: 15px; height: 15px; }
+    @media (max-width: 800px) {
+      #hbMock .hb-nav { display: none; }
+      #hbMock .hb-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      #hbMock .hb-search-button { min-height: 52px; grid-column: 1 / -1; }
+      #hbMock .hb-points { gap: 15px; }
+    }
+    @media (max-width: 520px) {
+      #hbMock { border-radius: 12px; }
+      #hbMock .hb-header { min-height: 62px; padding-inline: 16px; gap: 8px; }
+      #hbMock .hb-brand img { width: 132px; }
+      #hbMock .hb-lang { display: none; }
+      #hbMock .hb-login { padding: 8px 12px; }
+      #hbMock .hb-hero { padding: 38px 16px 30px; }
+      #hbMock .hb-subtitle { font-size: 14px; }
+      #hbMock .hb-search { padding: 13px; border-radius: 14px; }
+      #hbMock .hb-fields { grid-template-columns: 1fr 1fr; gap: 7px; }
+      #hbMock .hb-field { min-height: 69px; padding: 9px 10px; }
+      #hbMock .hb-field:first-child { grid-column: 1 / -1; }
+      #hbMock .hb-search-bottom { align-items: flex-start; flex-direction: column; gap: 10px; }
+      #hbMock .hb-main { padding: 27px 16px 38px; }
+      #hbMock .hb-points { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding-bottom: 24px; }
+      #hbMock .hb-point { min-height: 112px; gap: 7px; }
+      #hbMock .hb-point strong { font-size: 12px; }
+      #hbMock .hb-point span { font-size: 11px; }
+      #hbMock .hb-icon { width: 40px; height: 40px; flex-basis: 40px; }
+      #hbMock .hb-icon i svg { width: 19px; height: 19px; }
+      #hbMock .hb-section-head { align-items: flex-start; flex-direction: column; margin-top: 26px; }
+      #hbMock .hb-destinations { grid-template-columns: 1fr; gap: 12px; }
+      #hbMock .hb-scene { height: 94px; }
+      #hbMock .hb-footer { padding: 16px; }
+      #hbMock .hb-footer-top, #hbMock .hb-footer-bottom { align-items: flex-start; flex-direction: column; }
+      #hbMock .hb-footer-links { gap: 12px; }
+      #hbMock .hb-payments { justify-content: flex-start; }
+    }
+  </style>
+
+  <header class="hb-header">
+    <a class="hb-brand" href="#" aria-label="HoliBuddy ana sayfa"><img src="images/newRentACarLogo.png" alt="HoliBuddy"></a>
+    <nav class="hb-nav" aria-label="Ana menü">
+      <a href="#">Araç kirala</a><a href="#">Lokasyonlar</a><a href="#">Kampanyalar</a><a href="#">Yardım</a>
+    </nav>
+    <div class="hb-actions"><span class="hb-lang">TR&nbsp; · &nbsp;₺</span><button class="hb-login" type="button">Giriş yap</button></div>
+  </header>
+
+  <section class="hb-hero">
+    <p class="hb-kicker">HOLIBUDDY İLE YOLA ÇIK</p>
+    <h1>Araç kiralamayı kolayca karşılaştırın</h1>
+    <p class="hb-subtitle">Konumunu ve tarihlerini seç, sana uygun kiralama seçeneklerini bul</p>
+
+    <div class="hb-search">
+      <div class="hb-fields">
+        <div class="hb-field"><label for="hb-pickup">Teslim alma noktası</label><input id="hb-pickup" value="İstanbul Havalimanı (IST)" aria-label="Teslim alma noktası"></div>
+        <div class="hb-field"><label for="hb-start">Alış tarihi ve saati</label><input id="hb-start" value="8 Eki · 10:00" aria-label="Alış tarihi ve saati"></div>
+        <div class="hb-field"><label for="hb-end">İade tarihi ve saati</label><input id="hb-end" value="10 Eki · 10:00" aria-label="İade tarihi ve saati"></div>
+        <div class="hb-field"><label for="hb-age">Sürücü yaşı</label><input id="hb-age" value="25–70" aria-label="Sürücü yaşı"></div>
+        <button class="hb-search-button" type="button">Araçları bul</button>
+      </div>
+      <div class="hb-search-bottom">
+        <label class="hb-check"><input id="hb-same" type="checkbox" checked> Aracı aynı noktaya bırak</label>
+        <a class="hb-promo" href="#">Promosyon kodum var</a>
+      </div>
+      <div class="hb-note" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <main class="hb-main">
+    <div class="hb-points">
+      <div class="hb-point"><span class="hb-icon" aria-hidden="true"><i data-lucide="map-pin"></i></span><span><strong>Konumunu seç</strong>Havalimanı veya şehir noktası</span></div>
+      <div class="hb-point"><span class="hb-icon" aria-hidden="true"><i data-lucide="calendar-check-2"></i></span><span><strong>Tarihini belirle</strong>Alış ve iade saatini seç</span></div>
+      <div class="hb-point"><span class="hb-icon" aria-hidden="true"><i data-lucide="car-front"></i></span><span><strong>Seçenekleri karşılaştır</strong>İhtiyacına uygun aracı bul</span></div>
+    </div>
+
+    <div class="hb-section-head">
+      <div><h2>Popüler teslim alma noktaları</h2><p>Sık tercih edilen şehir ve havalimanı lokasyonları</p></div>
+      <a class="hb-all" href="#">Tüm lokasyonlar →</a>
+    </div>
+    <div class="hb-destinations">
+      <article class="hb-destination"><div class="hb-scene"><img src="images/istanbul.jpg" alt="İstanbul Boğazı ve şehir manzarası"></div><div class="hb-dest-copy"><small>Türkiye</small><h3>İstanbul</h3><p>Şehirde araç kiralama seçenekleri</p></div></article>
+      <article class="hb-destination"><div class="hb-scene"><img src="images/paris.jpg" alt="Paris şehir manzarası"></div><div class="hb-dest-copy"><small>Fransa</small><h3>Paris</h3><p>Şehirde araç kiralama seçenekleri</p></div></article>
+      <article class="hb-destination"><div class="hb-scene"><img src="images/london.jpg" alt="Londra şehir manzarası"></div><div class="hb-dest-copy"><small>Birleşik Krallık</small><h3>Londra</h3><p>Şehirde araç kiralama seçenekleri</p></div></article>
+    </div>
+  </main>
+  <footer class="hb-footer">
+    <div class="hb-footer-top"><span>HoliBuddy · Araç kiralama</span><nav class="hb-footer-links" aria-label="Alt menü"><a href="#">Hakkımızda</a><a href="#">Yardım</a><a href="#">İletişim</a><a href="#">Gizlilik</a></nav></div>
+    <div class="hb-footer-bottom"><span>© HoliBuddy</span><div class="hb-payments" aria-label="Ödeme seçenekleri"><span class="hb-payment-logo mastercard"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v15/icons/mastercard.svg" alt="Mastercard"></span><span class="hb-payment-logo"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v15/icons/visa.svg" alt="Visa"></span><span class="hb-payment-logo amex"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v15/icons/americanexpress.svg" alt="American Express"></span><span class="hb-payment ssl"><i data-lucide="lock" aria-hidden="true"></i> SSL güvenli ödeme</span></div></div>
+  </footer>
+
+  <script>
+    (() => {
+      const root = document.getElementById("hbMock");
+      const note = root.querySelector(".hb-note");
+      root.querySelector(".hb-search-button").addEventListener("click", () => {
+        note.textContent = "Tasarım önizlemesi · Arama ve rezervasyon sistemi henüz bağlanmadı.";
+      });
+    })();
+  </script>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+<script>if (window.lucide) lucide.createIcons();</script>
+</body>
+</html>
