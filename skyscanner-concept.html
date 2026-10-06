@@ -138,12 +138,26 @@
     #hbMock .hb-scene { width: 132px; aspect-ratio: 1 / 1; align-self: center; overflow: hidden; background: #e8f2f6; }
     #hbMock .hb-scene img { display: block; width: 100%; height: 100%; object-fit: contain; }
     #hbMock .hb-dest-copy { align-self: center; padding: 16px; }
-    #hbMock .hb-location-seo { margin-top: 34px; padding: 24px; border: 1px solid var(--hb-line); border-radius: 14px; background: var(--hb-surface); }
-    #hbMock .hb-location-seo h2 { margin: 0 0 7px; font-size: 20px; letter-spacing: -.3px; }
-    #hbMock .hb-location-seo p { margin: 0 0 16px; color: var(--hb-muted); }
-    #hbMock .hb-location-links { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 9px; }
-    #hbMock .hb-location-links a { min-height: 42px; display: flex; align-items: center; padding: 9px 12px; border: 1px solid var(--hb-line); border-radius: 8px; color: var(--hb-blue-dark); background: var(--hb-page); font-weight: 600; text-decoration: none; }
+    #hbMock .hb-location-seo { margin-top: 34px; padding: 28px; border: 1px solid var(--hb-line); border-radius: 16px; background: var(--hb-surface); }
+    #hbMock .hb-location-seo > h2 { margin: 0 0 7px; font-size: 22px; letter-spacing: -.4px; }
+    #hbMock .hb-location-seo > p { max-width: 860px; margin: 0 0 22px; color: var(--hb-muted); }
+    #hbMock .hb-location-groups { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+    #hbMock .hb-location-group { min-width: 0; padding: 17px; border: 1px solid var(--hb-line); border-radius: 12px; background: var(--hb-page); }
+    #hbMock .hb-location-group h3 { margin: 0 0 12px; color: var(--hb-ink); font-size: 15px; }
+    #hbMock .hb-location-links { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 7px; }
+    #hbMock .hb-location-links a { min-height: 38px; display: flex; align-items: center; padding: 8px 9px; border: 1px solid var(--hb-line); border-radius: 8px; color: var(--hb-blue-dark); background: var(--hb-surface); font-size: 12px; font-weight: 600; line-height: 1.25; text-decoration: none; }
     #hbMock .hb-location-links a:hover { border-color: var(--hb-blue); background: var(--hb-pale); }
+    #hbMock .hb-guide-section { margin-top: 36px; }
+    #hbMock .hb-guide-section h2, #hbMock .hb-faq h2 { margin: 0 0 14px; font-size: 20px; letter-spacing: -.3px; }
+    #hbMock .hb-guide-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+    #hbMock .hb-guide-card { padding: 17px; border: 1px solid var(--hb-line); border-radius: 12px; background: var(--hb-page); }
+    #hbMock .hb-guide-card h3 { margin: 0 0 8px; font-size: 15px; }
+    #hbMock .hb-guide-card p { margin: 0; color: var(--hb-muted); font-size: 13px; line-height: 1.55; }
+    #hbMock .hb-faq { margin-top: 34px; }
+    #hbMock .hb-faq details { border-top: 1px solid var(--hb-line); }
+    #hbMock .hb-faq details:last-child { border-bottom: 1px solid var(--hb-line); }
+    #hbMock .hb-faq summary { padding: 14px 2px; color: var(--hb-ink); font-weight: 600; cursor: pointer; }
+    #hbMock .hb-faq details p { max-width: 880px; margin: -2px 0 15px; color: var(--hb-muted); font-size: 13px; line-height: 1.6; }
     #hbMock .hb-dest-copy { padding: 14px 16px 16px; }
     #hbMock .hb-dest-copy small { color: var(--hb-muted); }
     #hbMock .hb-dest-copy h3 { margin: 3px 0 7px; font-size: 17px; }
@@ -166,7 +180,8 @@
       #hbMock .hb-fields, #hbMock .hb-fields.is-different { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       #hbMock .hb-search-button { min-height: 52px; grid-column: 1 / -1; }
       #hbMock .hb-points { gap: 15px; }
-      #hbMock .hb-location-links { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      #hbMock .hb-location-groups { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      #hbMock .hb-guide-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 520px) {
       #hbMock { border-radius: 12px; }
@@ -193,8 +208,13 @@
       #hbMock .hb-destination { min-height: 112px; grid-template-columns: 104px minmax(0, 1fr); }
       #hbMock .hb-scene { width: 104px; aspect-ratio: 1 / 1; }
       #hbMock .hb-location-seo { padding: 18px 14px; }
+      #hbMock .hb-location-groups { grid-template-columns: 1fr; gap: 9px; }
+      #hbMock .hb-location-group { padding: 14px; }
       #hbMock .hb-location-links { gap: 7px; }
-      #hbMock .hb-location-links a { min-height: 40px; padding: 8px; font-size: 11px; }
+      #hbMock .hb-location-links a { min-height: 38px; padding: 8px; font-size: 11px; }
+      #hbMock .hb-guide-section { margin-top: 28px; }
+      #hbMock .hb-guide-grid { grid-template-columns: 1fr; gap: 8px; }
+      #hbMock .hb-faq { margin-top: 26px; }
       #hbMock .hb-footer { padding: 16px; }
       #hbMock .hb-footer-top, #hbMock .hb-footer-bottom { align-items: flex-start; flex-direction: column; }
       #hbMock .hb-footer-links { gap: 12px; }
@@ -249,18 +269,94 @@
       <article class="hb-destination"><div class="hb-scene"><img src="images/london.jpg" alt="Londra şehir manzarası"></div><div class="hb-dest-copy"><small>Birleşik Krallık</small><h3>Londra</h3><p>Şehirde araç kiralama seçenekleri</p></div></article>
     </div>
   <section class="hb-location-seo" aria-labelledby="hb-location-title">
-      <h2 id="hb-location-title">Popüler araç kiralama lokasyonları</h2>
-      <p>İstanbul, havalimanları ve Türkiye’nin öne çıkan şehirlerinde rent a car ve araç kiralama seçeneklerini karşılaştırın.</p>
-      <nav class="hb-location-links" aria-label="Şehre göre araç kiralama">
-        <a href="#hb-pickup" data-location="İstanbul (şehir merkezi)">İstanbul araç kiralama</a>
-        <a href="#hb-pickup" data-location="İstanbul Havalimanı (IST)">İstanbul Havalimanı rent a car</a>
-        <a href="#hb-pickup" data-location="Sabiha Gökçen Havalimanı (SAW)">Sabiha Gökçen araç kiralama</a>
-        <a href="#hb-pickup" data-location="Antalya Havalimanı (AYT)">Antalya rent a car</a>
-        <a href="#hb-pickup" data-location="İzmir Adnan Menderes Havalimanı (ADB)">İzmir araç kiralama</a>
-        <a href="#hb-pickup" data-location="Ankara Esenboğa Havalimanı (ESB)">Ankara araç kiralama</a>
-        <a href="#hb-pickup" data-location="Milas-Bodrum Havalimanı (BJV)">Bodrum araç kiralama</a>
-        <a href="#hb-pickup" data-location="Dalaman Havalimanı (DLM)">Dalaman rent a car</a>
-      </nav>
+      <h2 id="hb-location-title">Türkiye’de ve dünyada popüler araç kiralama lokasyonları</h2>
+      <p>Şehir, havalimanı ve seyahat rotana uygun teslim noktasını seç. HoliBuddy’de araç kiralama ve rent a car aramalarını tek bir noktadan karşılaştırma fikriyle tasarlanan bu önizleme, lokasyonları kolayca bulmana yardımcı olur.</p>
+      <div class="hb-location-groups">
+        <section class="hb-location-group" aria-labelledby="hb-city-heading">
+          <h3 id="hb-city-heading">Türkiye şehirlerinde araç kiralama</h3>
+          <nav class="hb-location-links" aria-label="Türkiye şehirlerinde araç kiralama">
+            <a href="#hb-pickup" data-location="İstanbul (şehir merkezi)">İstanbul’da araç kiralama</a>
+            <a href="#hb-pickup" data-location="Antalya (şehir merkezi)">Antalya’da araç kiralama</a>
+            <a href="#hb-pickup" data-location="İzmir (şehir merkezi)">İzmir’de araç kiralama</a>
+            <a href="#hb-pickup" data-location="Ankara (şehir merkezi)">Ankara’da araç kiralama</a>
+            <a href="#hb-pickup" data-location="Bodrum (şehir merkezi)">Bodrum’da rent a car</a>
+            <a href="#hb-pickup" data-location="Dalaman (şehir merkezi)">Dalaman’da araç kiralama</a>
+            <a href="#hb-pickup" data-location="Trabzon (şehir merkezi)">Trabzon’da araç kiralama</a>
+            <a href="#hb-pickup" data-location="Kayseri (şehir merkezi)">Kayseri’de araç kiralama</a>
+            <a href="#hb-pickup" data-location="Gaziantep (şehir merkezi)">Gaziantep’te araç kiralama</a>
+            <a href="#hb-pickup" data-location="Bursa (şehir merkezi)">Bursa’da araç kiralama</a>
+            <a href="#hb-pickup" data-location="Muğla (şehir merkezi)">Muğla’da araç kiralama</a>
+            <a href="#hb-pickup" data-location="Adana (şehir merkezi)">Adana’da araç kiralama</a>
+          </nav>
+        </section>
+        <section class="hb-location-group" aria-labelledby="hb-airport-heading">
+          <h3 id="hb-airport-heading">Havalimanı araç kiralama</h3>
+          <nav class="hb-location-links" aria-label="Havalimanlarında rent a car">
+            <a href="#hb-pickup" data-location="İstanbul Havalimanı (IST)">İstanbul Havalimanı (IST)</a>
+            <a href="#hb-pickup" data-location="Sabiha Gökçen Havalimanı (SAW)">Sabiha Gökçen (SAW)</a>
+            <a href="#hb-pickup" data-location="Antalya Havalimanı (AYT)">Antalya Havalimanı (AYT)</a>
+            <a href="#hb-pickup" data-location="İzmir Adnan Menderes Havalimanı (ADB)">İzmir Adnan Menderes (ADB)</a>
+            <a href="#hb-pickup" data-location="Ankara Esenboğa Havalimanı (ESB)">Ankara Esenboğa (ESB)</a>
+            <a href="#hb-pickup" data-location="Dalaman Havalimanı (DLM)">Dalaman Havalimanı (DLM)</a>
+            <a href="#hb-pickup" data-location="Milas-Bodrum Havalimanı (BJV)">Milas-Bodrum (BJV)</a>
+            <a href="#hb-pickup" data-location="Trabzon Havalimanı (TZX)">Trabzon Havalimanı (TZX)</a>
+            <a href="#hb-pickup" data-location="Kayseri Erkilet Havalimanı (ASR)">Kayseri Erkilet (ASR)</a>
+            <a href="#hb-pickup" data-location="Gaziantep Havalimanı (GZT)">Gaziantep Havalimanı (GZT)</a>
+            <a href="#hb-pickup" data-location="Çukurova Uluslararası Havalimanı (COV)">Çukurova Havalimanı (COV)</a>
+            <a href="#hb-pickup" data-location="Kapadokya Havalimanı (NAV)">Nevşehir Kapadokya (NAV)</a>
+          </nav>
+        </section>
+        <section class="hb-location-group" aria-labelledby="hb-world-heading">
+          <h3 id="hb-world-heading">Yurt dışında araç kiralama</h3>
+          <nav class="hb-location-links" aria-label="Yurt dışı araç kiralama lokasyonları">
+            <a href="#hb-pickup" data-location="Paris">Paris’te araç kiralama</a>
+            <a href="#hb-pickup" data-location="Londra">Londra’da rent a car</a>
+            <a href="#hb-pickup" data-location="Dublin">Dublin’de araç kiralama</a>
+            <a href="#hb-pickup" data-location="Roma">Roma’da araç kiralama</a>
+            <a href="#hb-pickup" data-location="Atina">Atina’da rent a car</a>
+            <a href="#hb-pickup" data-location="Barselona">Barselona’da araç kiralama</a>
+            <a href="#hb-pickup" data-location="Milano">Milano’da araç kiralama</a>
+            <a href="#hb-pickup" data-location="Amsterdam">Amsterdam’da rent a car</a>
+            <a href="#hb-pickup" data-location="Lizbon">Lizbon’da araç kiralama</a>
+          </nav>
+        </section>
+      </div>
+      <section class="hb-guide-section" aria-labelledby="hb-guides-heading">
+        <h2 id="hb-guides-heading">Yola çıkmadan önce</h2>
+        <div class="hb-guide-grid">
+          <article class="hb-guide-card">
+            <h3>Araç kiralama aramanı hazırla</h3>
+            <p>Teslim alma noktasını, tarih ve saatleri yolculuk planına göre seç. Farklı bir yerde iade edeceksen arama formundaki seçeneği kullan; uygunluk ve ücret sağlayıcıya göre değişebilir.</p>
+          </article>
+          <article class="hb-guide-card">
+            <h3>Havalimanından araç kiralama</h3>
+            <p>Uçuşunun varış havalimanına uygun teslim noktasını seçip saatlerini kontrol et. Havalimanı ve şehir merkezi teslim noktalarının konum ve çalışma koşulları farklı olabilir.</p>
+          </article>
+          <article class="hb-guide-card">
+            <h3>Teklifleri karşılaştırırken</h3>
+            <p>Rezervasyon öncesinde toplam fiyatı, kilometre ve yakıt koşullarını, depozitoyu ve sürücü yaş/ehliyet şartlarını sağlayıcının teklifinde incele.</p>
+          </article>
+        </div>
+      </section>
+      <section class="hb-faq" aria-labelledby="hb-faq-heading">
+        <h2 id="hb-faq-heading">Araç kiralama hakkında sık sorulan sorular</h2>
+        <details>
+          <summary>Farklı bir lokasyonda araç iadesi yapabilir miyim?</summary>
+          <p>Arama formunda “Aracı aynı noktaya bırak” seçimini kaldırıp iade noktasını girebilirsin. Tek yönlü kiralama uygunluğu ve ek ücretler, seçilen lokasyona ve sağlayıcının koşullarına bağlıdır.</p>
+        </details>
+        <details>
+          <summary>Promosyon kodumu nereden girebilirim?</summary>
+          <p>Arama alanının altındaki “Promosyon kodum var” seçeneğini açıp kodunu girebilirsin. Bu tasarım önizlemesinde kod uygulama ve indirim hesaplama altyapısı henüz bağlı değil.</p>
+        </details>
+        <details>
+          <summary>Sürücü yaşı ve ehliyet şartlarını nerede görebilirim?</summary>
+          <p>Bu tasarımda yaş ve ehliyet şartları arama sonuçlarındaki araç kartlarında gösterilmek üzere planlanıyor. Gerçek koşullar aracı sunan kiralama sağlayıcısına ve araç grubuna göre değişebilir.</p>
+        </details>
+        <details>
+          <summary>Bu önizlemede araç arama ve rezervasyon yapılabiliyor mu?</summary>
+          <p>Hayır. Bu sayfa ücretsiz, statik tasarım önizlemesidir; araç envanteri, fiyat karşılaştırma ve rezervasyon altyapısı bağlı değildir.</p>
+        </details>
+      </section>
     </section>
   </main>
   <footer class="hb-footer">
