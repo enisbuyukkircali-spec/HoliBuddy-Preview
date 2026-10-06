@@ -162,8 +162,8 @@
     #hbMock .hb-payment.ssl { min-height: 30px; padding: 4px 9px; display: inline-flex; align-items: center; gap: 5px; border: 1px solid var(--hb-line); border-radius: 6px; color: #27724d; background: var(--hb-surface); font-weight: 600; }
     #hbMock .hb-payment.ssl svg { width: 15px; height: 15px; }
     #hbMock .hb-auth-overlay { position:fixed; inset:0; z-index:9999; display:grid; place-items:center; padding:24px; overflow:auto; background:rgba(2,14,27,.72); backdrop-filter:blur(3px); }
-    #hbMock .hb-auth-modal { position:relative; width:min(1050px,100%); min-height:560px; display:grid; grid-template-columns:minmax(0,1fr) minmax(300px,.84fr); overflow:hidden; border-radius:18px; background:#fff; color:#132b40; box-shadow:0 30px 90px rgba(0,0,0,.32); text-align:left; }
-    #hbMock .hb-auth-content { padding:38px clamp(28px,5vw,64px); display:flex; flex-direction:column; justify-content:center; }
+    #hbMock .hb-auth-modal { position:relative; width:min(1050px,100%); height:640px; min-height:640px; display:grid; grid-template-columns:minmax(0,1fr) minmax(300px,.84fr); overflow:hidden; border-radius:18px; background:#fff; color:#132b40; box-shadow:0 30px 90px rgba(0,0,0,.32); text-align:left; }
+    #hbMock .hb-auth-content { min-height:0; padding:38px clamp(28px,5vw,64px); display:flex; flex-direction:column; justify-content:center; }
     #hbMock .hb-auth-logo { display:block; width:148px; height:auto; margin:0 0 24px; }
     #hbMock .hb-auth-close { position:absolute; top:16px; right:18px; z-index:2; width:40px; height:40px; display:grid; place-items:center; border:0; border-radius:50%; color:#203b50; background:rgba(255,255,255,.9); font-size:26px; line-height:1; cursor:pointer; }
     #hbMock .hb-auth-close:hover { background:#edf4f8; }
@@ -185,8 +185,7 @@
     #hbMock .hb-social:hover { background:#d6dce1; }
     #hbMock .hb-social svg { width:21px; height:21px; flex:0 0 21px; }
     #hbMock .hb-social span { display:none; }
-    #hbMock .hb-social .hb-g { color:transparent; font:800 23px/1 Arial,sans-serif; background:conic-gradient(from -45deg,#4285f4 0 27%,#34a853 27% 49%,#fbbc05 49% 73%,#ea4335 73% 90%,#4285f4 90%); background-clip:text; -webkit-background-clip:text; }
-    #hbMock .hb-social .hb-f { width:22px; height:22px; display:grid; place-items:center; border-radius:50%; color:white; background:#1877f2; font:bold 18px/1 Arial,sans-serif; }
+    #hbMock .hb-social .hb-brand-icon { width:22px; height:22px; flex:0 0 22px; display:block; }
     #hbMock .hb-auth-legal { margin:15px 0 0; color:#798a96; font-size:10px; line-height:1.55; }
     #hbMock .hb-auth-feedback { min-height:18px; margin:7px 0 0; color:#08719e; font-size:12px; }
     #hbMock .hb-auth-visual { position:relative; min-height:560px; overflow:hidden; background:#d6e9ee; }
@@ -214,8 +213,8 @@
       #hbMock .hb-lang .hb-currency { display:none; }
       #hbMock .hb-actions { gap:7px; }
       #hbMock .hb-auth-overlay { padding:10px; align-items:start; }
-      #hbMock .hb-auth-modal { width:100%; min-height:0; grid-template-columns:1fr; border-radius:14px; }
-      #hbMock .hb-auth-content { padding:27px 20px 22px; }
+      #hbMock .hb-auth-modal { width:100%; height:min(700px,calc(100dvh - 20px)); min-height:560px; grid-template-columns:1fr; grid-template-rows:170px minmax(0,1fr); border-radius:14px; }
+      #hbMock .hb-auth-content { min-height:0; overflow-y:auto; padding:27px 20px 22px; }
       #hbMock .hb-auth-logo { width:128px; margin-bottom:17px; }
       #hbMock .hb-auth-title { font-size:27px; padding-right:24px; }
       #hbMock .hb-auth-copy { margin-bottom:15px; font-size:14px; }
@@ -282,9 +281,9 @@
         <form class="hb-auth-form"><label for="hb-auth-email">E-posta adresi</label><input class="hb-auth-email" id="hb-auth-email" type="email" autocomplete="email" placeholder="ornek@email.com" required><button class="hb-auth-continue" type="submit">E-posta ile devam et</button></form>
         <div class="hb-auth-or"><span>ya da hesabınla devam et</span></div>
         <div class="hb-socials">
-          <button class="hb-social" type="button" data-provider="Google" aria-label="Google ile devam et"><b class="hb-g" aria-hidden="true">G</b></button>
-          <button class="hb-social" type="button" data-provider="Apple" aria-label="Apple ile devam et"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.2c0 2.2 2 3 2 3-.02.05-.3 1.1-1 2.1-.6.9-1.3 1.8-2.3 1.8s-1.3-.6-2.4-.6-1.5.6-2.4.6c-1 .1-1.7-1-2.3-1.9-1.3-1.8-2.3-5.2-1-7.5.7-1.1 1.8-1.8 3.1-1.9 1 0 1.9.7 2.5.7s1.7-.8 2.9-.7c.5 0 1.9.2 2.8 1.5-.1 0-1.7 1-1.8 2.8ZM14.5 6.7c.5-.6.8-1.4.8-2.3-.8 0-1.6.5-2.1 1.1-.5.5-.9 1.4-.8 2.2.8.1 1.6-.4 2.1-1Z"/></svg></button>
-          <button class="hb-social" type="button" data-provider="Facebook" aria-label="Facebook ile devam et"><b class="hb-f">f</b></button>
+          <button class="hb-social" type="button" data-provider="Google" aria-label="Google ile devam et"><svg class="hb-brand-icon" viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M43.6 24.5c0-1.4-.1-2.8-.4-4.1H24v7.8h11c-.5 2.5-1.9 4.6-4.1 6v5h6.7c3.9-3.6 6-8.8 6-14.7z"/><path fill="#34A853" d="M24 44c5.5 0 10.1-1.8 13.5-4.9l-6.7-5c-1.8 1.2-4.1 2-6.8 2-5.2 0-9.6-3.5-11.2-8.2H5.9v5.2C9.3 39.6 16.1 44 24 44z"/><path fill="#FBBC05" d="M12.8 27.9c-.4-1.2-.7-2.5-.7-3.9s.3-2.7.7-3.9v-5.2H5.9C4.7 17.4 4 20.6 4 24s.7 6.6 1.9 9.1l6.9-5.2z"/><path fill="#EA4335" d="M24 12.8c3 0 5.6 1 7.7 3l5.8-5.8C34.1 6.7 29.5 4.8 24 4.8 16.1 4.8 9.3 9.2 5.9 15.3l6.9 5.2c1.6-4.7 6-7.7 11.2-7.7z"/></svg></button>
+          <button class="hb-social" type="button" data-provider="Apple" aria-label="Apple ile devam et"><svg class="hb-brand-icon" viewBox="0 0 384 512" aria-hidden="true"><path fill="#111" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.8-44.6-35.6-2.8-74.5 20.8-88.3 20.8-14.6 0-49.2-19.8-76.3-19.8C63.5 141.5 0 185.5 0 273.8c0 26.1 4.8 53.1 14.4 81 12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.9-17.9 31.9 0 48.4 17.9 76.3 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-57.7-90.2-57.7-92zM262.7 104.6c27.4-32.5 24.9-62.1 24.1-72.6-24.2 1.4-52.3 16.5-68.2 35-17.5 19.8-27.8 44.3-25.6 72 26.2 2 50.1-11.4 69.7-34.4z"/></svg></button>
+          <button class="hb-social" type="button" data-provider="Facebook" aria-label="Facebook ile devam et"><svg class="hb-brand-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#0866FF"/><path fill="#fff" d="M13.8 21v-8h2.7l.4-3.1h-3.1v-2c0-.9.3-1.5 1.6-1.5H17V3.6c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.1H7.5V13h2.8v8h3.5z"/></svg></button>
         </div>
         <p class="hb-auth-legal">Devam ederek HoliBuddy üyelik ve gizlilik koşullarını kabul etmiş olursun.</p><p class="hb-auth-feedback" aria-live="polite"></p>
       </div>
