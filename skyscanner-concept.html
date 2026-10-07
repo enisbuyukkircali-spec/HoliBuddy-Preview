@@ -104,11 +104,38 @@
     #hbMock .hb-promo-panel[hidden] { display: none; }
     #hbMock .hb-promo-panel input { min-width: 0; flex: 1; border: 1px solid #d8e5ec; border-radius: 8px; padding: 10px 12px; color: #163a53; background: white; font: inherit; }
     #hbMock .hb-promo-apply { border: 0; border-radius: 8px; padding: 10px 14px; color: white; background: #078dc5; font: inherit; font-weight: 600; cursor: pointer; }
-    #hbMock .hb-field input[type="datetime-local"] { min-height: 24px; }
-    #hbMock .hb-datetime-controls { min-width:0; display:flex; align-items:center; gap:7px; }
-    #hbMock .hb-datetime-controls input[type="date"] { flex:1 1 58%; width:58%; min-width:0; min-height:28px; font-size:13px; cursor:pointer; }
-    #hbMock .hb-datetime-controls select { flex:0 0 86px; width:86px; min-height:30px; border:0; outline:0; border-radius:6px; color:#163a53; background:#f3f8fb; font-family:inherit; font-size:13px; font-weight:600; line-height:1.2; cursor:pointer; }
-    #hbMock .hb-datetime-controls input:focus-visible, #hbMock .hb-datetime-controls select:focus-visible { outline:2px solid #078dc5; outline-offset:2px; border-radius:5px; }
+    #hbMock .hb-control-label { align-self:flex-start; width:100%; color:#637b8a; font-size:11px; font-weight:500; text-align:left; }
+    #hbMock .hb-datetime-controls { min-width:0; display:flex; align-items:center; gap:5px; }
+    #hbMock .hb-date-trigger { flex:1 1 auto; min-width:0; padding:0; border:0; color:#163a53; background:transparent; text-align:left; cursor:pointer; }
+    #hbMock .hb-date-value { display:block; min-width:0; overflow:hidden; color:#163a53; font-size:13px; font-weight:600; line-height:1.2; white-space:nowrap; text-overflow:ellipsis; }
+    #hbMock .hb-time-control { flex:0 0 68px; min-width:0; display:flex; align-items:center; justify-content:flex-end; gap:1px; color:#163a53; }
+    #hbMock .hb-time-control select { width:55px; min-width:0; flex:1 1 auto; padding:0; border:0; outline:0; appearance:none; color:inherit; background:transparent; font-family:inherit; font-size:13px; font-weight:600; line-height:1.2; cursor:pointer; }
+    #hbMock .hb-time-chevron { flex:0 0 auto; color:#637b8a; font-size:12px; line-height:1; pointer-events:none; }
+    #hbMock .hb-date-trigger:focus-visible, #hbMock .hb-time-control select:focus-visible { outline:2px solid #078dc5; outline-offset:3px; border-radius:4px; }
+    #hbMock .hb-date-overlay { position:fixed; inset:0; z-index:10001; display:flex; justify-content:flex-end; background:rgba(2,14,27,.58); backdrop-filter:blur(2px); }
+    #hbMock .hb-date-overlay[hidden] { display:none !important; }
+    #hbMock .hb-date-drawer { width:min(440px,100vw); height:100dvh; overflow-y:auto; padding:24px; color:#163a53; background:#fff; box-shadow:-20px 0 60px rgba(0,20,39,.25); animation:hb-drawer-in .22s ease-out; }
+    @keyframes hb-drawer-in { from { transform:translateX(24px); opacity:.8; } to { transform:translateX(0); opacity:1; } }
+    #hbMock .hb-date-drawer-head { display:flex; align-items:flex-start; justify-content:space-between; gap:14px; margin-bottom:18px; }
+    #hbMock .hb-date-drawer-head h2 { margin:0; color:#163a53; font-size:22px; line-height:1.2; font-weight:650; }
+    #hbMock .hb-date-drawer-head p { margin:6px 0 0; color:#62798a; font-size:13px; }
+    #hbMock .hb-date-close { flex:0 0 36px; width:36px; height:36px; display:grid; place-items:center; border:0; border-radius:50%; color:#163a53; background:#edf4f8; font-size:22px; cursor:pointer; }
+    #hbMock .hb-date-range { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-bottom:18px; }
+    #hbMock .hb-date-range button { min-width:0; padding:11px; border:1px solid #d8e5ec; border-radius:10px; color:#163a53; background:#f7fafc; text-align:left; cursor:pointer; }
+    #hbMock .hb-date-range button[aria-pressed="true"] { border-color:#078dc5; background:#e8f7fc; box-shadow:0 0 0 1px rgba(7,141,197,.12); }
+    #hbMock .hb-date-range span { display:block; margin-bottom:4px; color:#637b8a; font-size:10px; font-weight:600; letter-spacing:.04em; }
+    #hbMock .hb-date-range strong { display:block; color:#163a53; font-size:16px; font-weight:650; }
+    #hbMock .hb-calendar-head { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:9px; }
+    #hbMock .hb-calendar-head strong { color:#163a53; font-size:15px; font-weight:600; }
+    #hbMock .hb-calendar-nav { width:34px; height:34px; border:1px solid #d8e5ec; border-radius:8px; color:#163a53; background:#fff; font-size:18px; cursor:pointer; }
+    #hbMock .hb-calendar-grid { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:5px; }
+    #hbMock .hb-calendar-weekday { padding:7px 0; color:#708695; font-size:11px; text-align:center; }
+    #hbMock .hb-calendar-day { min-width:0; min-height:42px; border:0; border-radius:9px; color:#163a53; background:#f4f8fb; font-size:13px; cursor:pointer; }
+    #hbMock .hb-calendar-day:hover { background:#e0f5fb; }
+    #hbMock .hb-calendar-day[aria-pressed="true"] { color:#fff; background:#087eb4; font-weight:600; }
+    #hbMock .hb-calendar-day:disabled { color:#b9c4cb; background:transparent; cursor:default; }
+    #hbMock .hb-date-help { margin:15px 2px 0; padding:12px; border-radius:9px; color:#4d697c; background:#f3f8fb; font-size:12px; line-height:1.5; }
+    @media (prefers-reduced-motion: reduce) { #hbMock .hb-date-drawer { animation:none; } }
     #hbMock .hb-note { min-height: 20px; margin: 8px 2px 0; color: #b9eaff; font-size: 12px; }
     #hbMock .hb-main { padding: 36px clamp(20px, 7vw, 90px) 54px; }
     #hbMock .hb-points { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; padding: 0 4px 32px; border-bottom: 1px solid var(--hb-line); }
@@ -238,6 +265,11 @@
       #hbMock .hb-subtitle { font-size: 14px; }
       #hbMock .hb-search { padding: 13px; border-radius: 14px; }
       #hbMock .hb-fields { grid-template-columns: 1fr 1fr; gap: 7px; }
+      #hbMock .hb-datetime-controls { gap:4px; }
+      #hbMock .hb-time-control { flex-basis:64px; }
+      #hbMock .hb-time-control select { width:52px; }
+      #hbMock .hb-date-drawer { padding:20px 17px; }
+      #hbMock .hb-calendar-day { min-height:40px; }
       #hbMock .hb-field { min-height: 69px; padding: 9px 10px; }
       #hbMock .hb-field:first-child { grid-column: 1 / -1; }
       #hbMock .hb-search-bottom { align-items: flex-start; flex-direction: column; gap: 10px; }
@@ -305,8 +337,8 @@
       <div class="hb-fields">
         <div class="hb-field"><label for="hb-pickup">Alış noktası</label><input id="hb-pickup" value="İstanbul Havalimanı (IST)" aria-label="Alış noktası"></div>
         <div class="hb-field" id="hb-return-wrap" hidden style="display:none"><label for="hb-return">İade noktası</label><input id="hb-return" value="Sabiha Gökçen Havalimanı (SAW)" aria-label="İade noktası"></div>
-        <div class="hb-field"><label for="hb-start-date">Alış tarihi ve saati</label><div class="hb-datetime-controls"><input id="hb-start-date" type="date" lang="tr-TR" value="2026-10-08" required aria-label="Alış tarihi"><select id="hb-start-time" required aria-label="Alış saati"></select></div></div>
-        <div class="hb-field"><label for="hb-end-date">İade tarihi ve saati</label><div class="hb-datetime-controls"><input id="hb-end-date" type="date" lang="tr-TR" value="2026-10-10" required aria-label="İade tarihi"><select id="hb-end-time" required aria-label="İade saati"></select></div></div>
+        <div class="hb-field"><span class="hb-control-label">Alış tarihi ve saati</span><div class="hb-datetime-controls"><button id="hb-start-date" class="hb-date-trigger" type="button" data-date-trigger="pickup" aria-label="Alış tarihini seç" aria-haspopup="dialog" aria-controls="hb-date-overlay"><span class="hb-date-value" data-pickup-label>8 Eki 2026</span></button><span class="hb-time-control"><select id="hb-start-time" required aria-label="Alış saati"></select><span class="hb-time-chevron" aria-hidden="true">⌄</span></span></div></div>
+        <div class="hb-field"><span class="hb-control-label">İade tarihi ve saati</span><div class="hb-datetime-controls"><button id="hb-end-date" class="hb-date-trigger" type="button" data-date-trigger="return" aria-label="İade tarihini seç" aria-haspopup="dialog" aria-controls="hb-date-overlay"><span class="hb-date-value" data-return-label>10 Eki 2026</span></button><span class="hb-time-control"><select id="hb-end-time" required aria-label="İade saati"></select><span class="hb-time-chevron" aria-hidden="true">⌄</span></span></div></div>
         <button class="hb-search-button" type="button">Araçları bul</button>
       </div>
       <div class="hb-search-bottom">
@@ -320,6 +352,18 @@
       <div class="hb-note" aria-live="polite"></div>
     </div>
   </section>
+  <div class="hb-date-overlay" id="hb-date-overlay" hidden>
+    <section class="hb-date-drawer" role="dialog" aria-modal="true" aria-labelledby="hb-date-title" aria-describedby="hb-date-step">
+      <div class="hb-date-drawer-head"><div><h2 id="hb-date-title">Tarihleri seç</h2><p id="hb-date-step">Önce alış gününü seç.</p></div><button class="hb-date-close" type="button" aria-label="Takvimi kapat">×</button></div>
+      <div class="hb-date-range">
+        <button type="button" data-date-phase="pickup" aria-pressed="true"><span>ALIŞ TARİHİ</span><strong id="hb-date-pickup-label">8 Eki 2026</strong></button>
+        <button type="button" data-date-phase="return" aria-pressed="false"><span>İADE TARİHİ</span><strong id="hb-date-return-label">10 Eki 2026</strong></button>
+      </div>
+      <div class="hb-calendar-head"><button class="hb-calendar-nav" type="button" data-month-shift="-1" aria-label="Önceki ay">‹</button><strong id="hb-calendar-month">Ekim 2026</strong><button class="hb-calendar-nav" type="button" data-month-shift="1" aria-label="Sonraki ay">›</button></div>
+      <div class="hb-calendar-grid" id="hb-calendar-grid" role="grid" aria-label="Tarih seçimi"></div>
+      <p class="hb-date-help">Alış gününü seçtikten sonra iade gününü seç. İade gününe bastığında bu panel kapanır.</p>
+    </section>
+  </div>
 
   <main class="hb-main">
     <div class="hb-points">
@@ -493,61 +537,134 @@
           root.querySelector("#hb-pickup").focus({ preventScroll: true });
         });
       });
-      const startDate = root.querySelector("#hb-start-date");
+      const startButton = root.querySelector("#hb-start-date");
+      const endButton = root.querySelector("#hb-end-date");
       const startTime = root.querySelector("#hb-start-time");
-      const endDate = root.querySelector("#hb-end-date");
       const endTime = root.querySelector("#hb-end-time");
-      const localDate = date => [date.getFullYear(), String(date.getMonth() + 1).padStart(2, "0"), String(date.getDate()).padStart(2, "0")].join("-");
-      const times = Array.from({ length: 48 }, (_, index) => {
-        const hour = String(Math.floor(index / 2)).padStart(2, "0");
-        const minute = index % 2 ? "30" : "00";
-        return hour + ":" + minute;
-      });
-      [startTime, endTime].forEach(select => {
-        times.forEach(time => {
-          const option = document.createElement("option");
-          option.value = time;
-          option.textContent = time;
-          select.append(option);
-        });
-      });
+      const dateOverlay = root.querySelector("#hb-date-overlay");
+      const calendarGrid = root.querySelector("#hb-calendar-grid");
+      const monthTitle = root.querySelector("#hb-calendar-month");
+      const dateStep = root.querySelector("#hb-date-step");
+      const weekdayNames = ["P", "S", "Ç", "P", "C", "C", "P"];
+      const monthNames = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
+      const dateKey = date => [date.getFullYear(), String(date.getMonth()+1).padStart(2,"0"), String(date.getDate()).padStart(2,"0")].join("-");
+      const today = dateKey(new Date());
+      const prettyDate = value => {
+        const [year, month, day] = value.split("-").map(Number);
+        return day + " " + monthNames[month-1] + " " + year;
+      };
+      let pickupDate = "2026-10-08";
+      let returnDate = "2026-10-10";
+      let datePhase = "pickup";
+      let calendarMonth = new Date(2026, 9, 1);
+      const times = Array.from({length:48}, (_, index) => String(Math.floor(index/2)).padStart(2,"0") + ":" + (index%2 ? "30" : "00"));
+      [startTime, endTime].forEach(select => times.forEach(time => {
+        const option = document.createElement("option");
+        option.value = time;
+        option.textContent = time;
+        select.append(option);
+      }));
       startTime.value = "10:00";
       endTime.value = "10:00";
-      const today = localDate(new Date());
-      startDate.min = today;
-      endDate.min = startDate.value || today;
-      const nextSlot = (date, time) => {
-        const [year, month, day] = date.split("-").map(Number);
-        const [hour, minute] = time.split(":").map(Number);
-        const next = new Date(year, month - 1, day, hour, minute + 30);
-        return { date: localDate(next), time: String(next.getHours()).padStart(2, "0") + ":" + String(next.getMinutes()).padStart(2, "0") };
+      const updateDateLabels = () => {
+        root.querySelector("[data-pickup-label]").textContent = prettyDate(pickupDate);
+        root.querySelector("[data-return-label]").textContent = prettyDate(returnDate);
+        root.querySelector("#hb-date-pickup-label").textContent = prettyDate(pickupDate);
+        root.querySelector("#hb-date-return-label").textContent = prettyDate(returnDate);
+        root.querySelectorAll("[data-date-phase]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.datePhase === datePhase)));
+        dateStep.textContent = datePhase === "pickup" ? "Önce alış gününü seç." : "Şimdi iade gününü seç; seçince panel kapanır.";
+        monthTitle.textContent = monthNames[calendarMonth.getMonth()] + " " + calendarMonth.getFullYear();
       };
-      const syncReturn = () => {
-        endDate.min = startDate.value || today;
-        if (!endDate.value || endDate.value < startDate.value) endDate.value = startDate.value;
-        if (endDate.value === startDate.value && endTime.value <= startTime.value) {
-          const next = nextSlot(startDate.value, startTime.value);
-          endDate.value = next.date;
-          endTime.value = next.time;
+      const renderCalendar = () => {
+        calendarGrid.replaceChildren();
+        weekdayNames.forEach(day => {
+          const label = document.createElement("span");
+          label.className = "hb-calendar-weekday";
+          label.setAttribute("role", "columnheader");
+          label.textContent = day;
+          calendarGrid.append(label);
+        });
+        const offset = (new Date(calendarMonth.getFullYear(), calendarMonth.getMonth(), 1).getDay() + 6) % 7;
+        for(let i=0;i<offset;i++) calendarGrid.append(document.createElement("span"));
+        const count = new Date(calendarMonth.getFullYear(), calendarMonth.getMonth()+1, 0).getDate();
+        for(let day=1;day<=count;day++){
+          const value = dateKey(new Date(calendarMonth.getFullYear(), calendarMonth.getMonth(), day));
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "hb-calendar-day";
+          button.setAttribute("role", "gridcell");
+          button.setAttribute("aria-label", prettyDate(value));
+          button.setAttribute("aria-pressed", String(value === pickupDate || value === returnDate));
+          button.textContent = String(day);
+          button.disabled = value < today || (datePhase === "return" && value <= pickupDate);
+          button.addEventListener("click", () => {
+            if(datePhase === "pickup"){
+              pickupDate = value;
+              if(returnDate <= pickupDate){
+                const next = new Date(value + "T12:00:00");
+                next.setDate(next.getDate()+1);
+                returnDate = dateKey(next);
+              }
+              datePhase = "return";
+              updateDateLabels();
+              renderCalendar();
+              return;
+            }
+            if(value <= pickupDate) return;
+            returnDate = value;
+            updateDateLabels();
+            closeDatePicker();
+          });
+          calendarGrid.append(button);
         }
       };
-      startDate.addEventListener("change", syncReturn);
-      startTime.addEventListener("change", syncReturn);
-      endDate.addEventListener("change", () => {
-        if (endDate.value < startDate.value) endDate.value = startDate.value;
-        syncReturn();
-      });
-      endTime.addEventListener("change", syncReturn);
+      const closeDatePicker = () => {
+        dateOverlay.hidden = true;
+        document.body.style.overflow = "";
+      };
+      const openDatePicker = phase => {
+        datePhase = phase;
+        const selected = phase === "pickup" ? pickupDate : returnDate;
+        const [year, month] = selected.split("-").map(Number);
+        calendarMonth = new Date(year, month-1, 1);
+        dateOverlay.hidden = false;
+        document.body.style.overflow = "hidden";
+        updateDateLabels();
+        renderCalendar();
+      };
+      startButton.addEventListener("click", () => openDatePicker("pickup"));
+      endButton.addEventListener("click", () => openDatePicker("return"));
+      dateOverlay.querySelector(".hb-date-close").addEventListener("click", closeDatePicker);
+      dateOverlay.addEventListener("click", event => { if(event.target === dateOverlay) closeDatePicker(); });
+      dateOverlay.querySelectorAll("[data-date-phase]").forEach(button => button.addEventListener("click", () => {
+        datePhase = button.dataset.datePhase;
+        updateDateLabels();
+        renderCalendar();
+      }));
+      dateOverlay.querySelectorAll("[data-month-shift]").forEach(button => button.addEventListener("click", () => {
+        calendarMonth.setMonth(calendarMonth.getMonth() + Number(button.dataset.monthShift));
+        updateDateLabels();
+        renderCalendar();
+      }));
+      document.addEventListener("keydown", event => { if(event.key === "Escape" && !dateOverlay.hidden) closeDatePicker(); });
+      const syncReturnTime = () => {
+        if(pickupDate === returnDate && endTime.value <= startTime.value){
+          const [hour, minute] = startTime.value.split(":").map(Number);
+          const next = new Date(pickupDate + "T12:00:00");
+          next.setHours(hour, minute + 30);
+          returnDate = dateKey(next);
+          endTime.value = String(next.getHours()).padStart(2,"0") + ":" + String(next.getMinutes()).padStart(2,"0");
+          updateDateLabels();
+        }
+      };
+      startTime.addEventListener("change", syncReturnTime);
+      endTime.addEventListener("change", syncReturnTime);
       root.querySelector(".hb-search-button").addEventListener("click", () => {
-        const pickup = startDate.value && new Date(startDate.value + "T" + startTime.value);
-        const dropoff = endDate.value && new Date(endDate.value + "T" + endTime.value);
-        if (!startDate.value || !endDate.value || !startTime.value || !endTime.value) {
-          note.textContent = "Lütfen alış ve iade tarihlerini ve saatlerini seçin.";
-          return;
-        }
-        if (dropoff <= pickup) {
+        const pickup = new Date(pickupDate + "T" + startTime.value);
+        const dropoff = new Date(returnDate + "T" + endTime.value);
+        if(dropoff <= pickup){
           note.textContent = "İade tarihi ve saati, alış tarihinden sonra olmalı.";
-          syncReturn();
+          openDatePicker("return");
           return;
         }
         note.textContent = "Seçimin kaydedildi · Bu önizlemede araç arama ve rezervasyon altyapısı bağlı değil.";
