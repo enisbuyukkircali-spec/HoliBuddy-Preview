@@ -109,18 +109,18 @@ main{max-width:1420px;margin:auto;padding:32px clamp(20px,4vw,54px) 52px}
       <div class="mock-site">
         <div class="mock-toolbar">
           <div class="mock-logo"><i>HB</i> HOLIBUDDY</div>
-          <div class="mock-nav"><span>Araç kirala</span><span>Kampanyalar</span><span>Yardım</span></div>
+          <div class="mock-nav"><span data-i18n="navRentals">Araç kirala</span><span data-i18n="navDeals">Kampanyalar</span><span data-i18n="navHelp">Yardım</span></div>
           <button class="pill" type="button" aria-expanded="true"><span data-current-flag></span><span data-current-lang>Türkçe</span><span data-current-currency>TRY ₺</span><span class="caret">⌄</span></button>
         </div>
         <div class="panel">
-          <div class="panel-title"><span>Dilini seç</span><span class="panel-hint">8 seçenek</span></div>
+          <div class="panel-title"><span data-i18n="chooseLanguage">Dilini seç</span><span class="panel-hint" data-i18n="languageCount">8 seçenek</span></div>
           <div class="lang-grid" data-languages></div>
-          <div class="currency-zone"><div class="currency-title"><span>Para birimi</span><span class="panel-hint" data-default-label>Varsayılan: TRY</span></div><div class="currency-row" data-currencies></div></div>
+          <div class="currency-zone"><div class="currency-title"><span data-i18n="currency">Para birimi</span><span class="panel-hint" data-default-label>Varsayılan: TRY</span></div><div class="currency-row" data-currencies></div></div>
           <div class="default-note" data-note></div>
         </div>
-        <div class="mock-search"><div class="mock-search-line"><div class="fake-field">Alış noktası</div><div class="fake-field">Alış tarihi</div><div class="fake-field">İade tarihi</div><div class="fake-search">Araçları bul</div></div><div class="mock-search-sub">HoliBuddy · Araç kiralama</div></div>
+        <div class="mock-search"><div class="mock-search-line"><div class="fake-field" data-i18n="pickupLocation">Alış noktası</div><div class="fake-field" data-i18n="pickupDate">Alış tarihi</div><div class="fake-field" data-i18n="returnDate">İade tarihi</div><div class="fake-search" data-i18n="findCars">Araçları bul</div></div><div class="mock-search-sub" data-i18n="tagline">HoliBuddy · Araç kiralama</div></div>
       </div>
-      <p class="card-caption">Öneri: Üst menüde ülke bayrağı, dil ve para birimi birlikte görünür; açılan panelde kullanıcı ikisini de değiştirebilir.</p>
+      <p class="card-caption" data-i18n="caption1">Öneri: Üst menüde ülke bayrağı, dil ve para birimi birlikte görünür; açılan panelde kullanıcı ikisini de değiştirebilir.</p>
     </article>
 
     <article class="option-card option2" data-variant="two">
@@ -128,17 +128,16 @@ main{max-width:1420px;margin:auto;padding:32px clamp(20px,4vw,54px) 52px}
       <div class="mock-site">
         <div class="mock-toolbar">
           <div class="mock-logo"><i>HB</i> HOLIBUDDY</div>
-          <div class="mock-nav"><span>Araç kirala</span><span>Kampanyalar</span><span>Yardım</span></div>
-          <button class="split-trigger" type="button" aria-expanded="true"><span data-current-flag></span><span data-current-lang>Türkçe</span><span class="caret">⌄</span></button>
-          <button class="split-trigger" type="button" aria-expanded="true"><span data-current-currency>TRY ₺</span><span class="caret">⌄</span></button>
+          <div class="mock-nav"><span data-i18n="navRentals">Araç kirala</span><span data-i18n="navDeals">Kampanyalar</span><span data-i18n="navHelp">Yardım</span></div>
+          <button class="pill" type="button" aria-expanded="true" aria-label="Dil ve para birimi seçimi"><span data-current-flag></span><span data-current-lang>Türkçe</span><span data-current-currency>TRY ₺</span><span class="caret">⌄</span></button>
         </div>
         <div class="dual-area">
-          <div class="dual-panel"><div class="panel-title"><span>Dil</span><span class="panel-hint">Seç</span></div><div class="lang-list" data-languages></div></div>
-          <div class="dual-panel currency-list"><div class="panel-title"><span>Kur</span><span class="panel-hint">Seç</span></div><div data-currencies></div><div class="default-note" data-note></div></div>
+          <div class="dual-panel"><div class="panel-title"><span data-i18n="language">Dil</span><span class="panel-hint" data-i18n="select">Seç</span></div><div class="lang-list" data-languages></div></div>
+          <div class="dual-panel currency-list"><div class="panel-title"><span data-i18n="currencyShort">Kur</span><span class="panel-hint" data-i18n="select">Seç</span></div><div data-currencies></div><div class="default-note" data-note></div></div>
         </div>
-        <div class="mock-search"><div class="mock-search-line"><div class="fake-field">Alış noktası</div><div class="fake-field">Alış tarihi</div><div class="fake-field">İade tarihi</div><div class="fake-search">Araçları bul</div></div><div class="mock-search-sub">HoliBuddy · Araç kiralama</div></div>
+        <div class="mock-search"><div class="mock-search-line"><div class="fake-field" data-i18n="pickupLocation">Alış noktası</div><div class="fake-field" data-i18n="pickupDate">Alış tarihi</div><div class="fake-field" data-i18n="returnDate">İade tarihi</div><div class="fake-search" data-i18n="findCars">Araçları bul</div></div><div class="mock-search-sub" data-i18n="tagline">HoliBuddy · Araç kiralama</div></div>
       </div>
-      <p class="card-caption">Öneri: Kullanıcı dil menüsünü ve para birimi menüsünü bağımsız açar; başlıkta ikisi de ayrı görünür.</p>
+      <p class="card-caption" data-i18n="caption2">Öneri: Üstte tek kapsül, açılınca iki bağımsız seçim paneli.</p>
     </article>
 
     <article class="option-card option3" data-variant="three">
@@ -146,20 +145,20 @@ main{max-width:1420px;margin:auto;padding:32px clamp(20px,4vw,54px) 52px}
       <div class="mock-site">
         <div class="mock-toolbar">
           <div class="mock-logo"><i>HB</i> HOLIBUDDY</div>
-          <div class="mock-nav"><span>Araç kirala</span><span>Kampanyalar</span><span>Yardım</span></div>
+          <div class="mock-nav"><span data-i18n="navRentals">Araç kirala</span><span data-i18n="navDeals">Kampanyalar</span><span data-i18n="navHelp">Yardım</span></div>
           <button class="globe-trigger" type="button" aria-label="Dil ve bölge" aria-expanded="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></button>
         </div>
         <div class="settings-pop">
-          <div class="settings-head"><strong>Dil ve bölge ayarları</strong><span>Tercihini seç</span></div>
+          <div class="settings-head"><strong data-i18n="regionTitle">Dil ve bölge ayarları</strong><span data-i18n="regionHint">Tercihini seç</span></div>
           <div class="settings-columns">
-            <div class="settings-col"><div class="panel-title"><span>Dil</span></div><div class="lang-list" data-languages></div></div>
-            <div class="settings-col currency-list"><div class="panel-title"><span>Para birimi</span></div><div data-currencies></div></div>
+            <div class="settings-col"><div class="panel-title"><span data-i18n="language">Dil</span></div><div class="lang-list" data-languages></div></div>
+            <div class="settings-col currency-list"><div class="panel-title"><span data-i18n="currency">Para birimi</span></div><div data-currencies></div></div>
           </div>
           <div class="default-note" data-note></div>
         </div>
-        <div class="mock-search"><div class="mock-search-line"><div class="fake-field">Alış noktası</div><div class="fake-field">Alış tarihi</div><div class="fake-field">İade tarihi</div><div class="fake-search">Araçları bul</div></div><div class="mock-search-sub">HoliBuddy · Araç kiralama</div></div>
+        <div class="mock-search"><div class="mock-search-line"><div class="fake-field" data-i18n="pickupLocation">Alış noktası</div><div class="fake-field" data-i18n="pickupDate">Alış tarihi</div><div class="fake-field" data-i18n="returnDate">İade tarihi</div><div class="fake-search" data-i18n="findCars">Araçları bul</div></div><div class="mock-search-sub" data-i18n="tagline">HoliBuddy · Araç kiralama</div></div>
       </div>
-      <p class="card-caption">Öneri: En sade üst menü. Erişilebilir “Dil ve bölge” etiketiyle ayarlar aynı geniş panelde sunulur.</p>
+      <p class="card-caption" data-i18n="caption3">Öneri: En sade üst menü. “Dil ve bölge” etiketiyle ayarlar aynı geniş panelde sunulur.</p>
     </article>
   </section>
   <p class="footer-note">Bu sayfa yalnızca tasarım alternatifi önizlemesidir; seçilen ayarlar mevcut ana sayfaya aktarılmaz.</p>
@@ -175,12 +174,9 @@ const locales=[
  {id:"pt",name:"Português",flag:"pt",currency:"EUR"},
  {id:"nl",name:"Nederlands",flag:"nl",currency:"EUR"}
 ];
-const currencies=[
- {id:"TRY",symbol:"₺",name:"TRY · Türk Lirası"},
- {id:"EUR",symbol:"€",name:"EUR · Euro"},
- {id:"GBP",symbol:"£",name:"GBP · Pound"},
- {id:"USD",symbol:"$",name:"USD · US Dollar"}
-];
+const currencies=[{id:"TRY",symbol:"₺"},{id:"EUR",symbol:"€"},{id:"GBP",symbol:"£"},{id:"USD",symbol:"$"}];
+const ui={"tr":{"chooseLanguage":"Dilini seç","language":"Dil","currency":"Para birimi","currencyShort":"Kur","select":"Seç","languageCount":"8 seçenek","default":"Varsayılan","regionTitle":"Dil ve bölge ayarları","regionHint":"Tercihini seç","recommended":"Bu dil için önerilen","now":"Şu an","change":"İstediğin zaman değiştirebilirsin","navRentals":"Araç kirala","navDeals":"Kampanyalar","navHelp":"Yardım","pickupLocation":"Alış noktası","pickupDate":"Alış tarihi","returnDate":"İade tarihi","findCars":"Araçları bul","tagline":"HoliBuddy · Araç kiralama","caption1":"Öneri: Üst menüde bayrak, dil ve para birimi birlikte görünür; ikisi aynı panelden değiştirilebilir.","caption2":"Öneri: Üstte tek kapsül, açılınca iki bağımsız seçim paneli.","caption3":"Öneri: “Dil ve bölge” etiketiyle iki ayar aynı panelde sunulur."},"en-GB":{"chooseLanguage":"Choose a language","language":"Language","currency":"Currency","currencyShort":"Currency","select":"Select","languageCount":"8 languages","default":"Default","regionTitle":"Language and region","regionHint":"Choose your preference","recommended":"Recommended for this language","now":"Currently","change":"You can change it at any time","navRentals":"Car hire","navDeals":"Deals","navHelp":"Help","pickupLocation":"Pick-up location","pickupDate":"Pick-up date","returnDate":"Return date","findCars":"Find cars","tagline":"HoliBuddy · Car hire","caption1":"Suggestion: Show the flag, language and currency together in the header; let visitors change both in one panel.","caption2":"Suggestion: One compact header pill opens separate language and currency panels.","caption3":"Suggestion: A clearly labelled panel keeps both settings together."},"en-US":{"chooseLanguage":"Choose a language","language":"Language","currency":"Currency","currencyShort":"Currency","select":"Select","languageCount":"8 languages","default":"Default","regionTitle":"Language and region","regionHint":"Choose your preference","recommended":"Recommended for this language","now":"Currently","change":"You can change it at any time","navRentals":"Car rental","navDeals":"Deals","navHelp":"Help","pickupLocation":"Pick-up location","pickupDate":"Pick-up date","returnDate":"Return date","findCars":"Find cars","tagline":"HoliBuddy · Car rental","caption1":"Suggestion: Show the flag, language and currency together in the header; let visitors change both in one panel.","caption2":"Suggestion: One compact header pill opens separate language and currency panels.","caption3":"Suggestion: A clearly labelled panel keeps both settings together."},"de":{"chooseLanguage":"Sprache auswählen","language":"Sprache","currency":"Währung","currencyShort":"Währung","select":"Auswählen","languageCount":"8 Sprachen","default":"Standard","regionTitle":"Sprache und Region","regionHint":"Einstellungen auswählen","recommended":"Für diese Sprache empfohlen","now":"Aktuell","change":"Du kannst es jederzeit ändern","navRentals":"Auto mieten","navDeals":"Angebote","navHelp":"Hilfe","pickupLocation":"Abholort","pickupDate":"Abholdatum","returnDate":"Rückgabedatum","findCars":"Autos finden","tagline":"HoliBuddy · Autovermietung","caption1":"Vorschlag: Flagge, Sprache und Währung gemeinsam im Kopfbereich zeigen; beides im selben Menü ändern.","caption2":"Vorschlag: Eine kompakte Schaltfläche öffnet getrennte Sprach- und Währungsbereiche.","caption3":"Vorschlag: Ein klar beschriftetes Menü für beide Einstellungen."},"fr":{"chooseLanguage":"Choisissez une langue","language":"Langue","currency":"Devise","currencyShort":"Devise","select":"Choisir","languageCount":"8 langues","default":"Par défaut","regionTitle":"Langue et région","regionHint":"Choisissez vos préférences","recommended":"Recommandé pour cette langue","now":"Actuellement","change":"Vous pouvez le modifier à tout moment","navRentals":"Location de voiture","navDeals":"Offres","navHelp":"Aide","pickupLocation":"Lieu de prise en charge","pickupDate":"Date de prise en charge","returnDate":"Date de retour","findCars":"Trouver une voiture","tagline":"HoliBuddy · Location de voiture","caption1":"Suggestion : afficher le drapeau, la langue et la devise dans l’en-tête ; tout modifier depuis le même menu.","caption2":"Suggestion : un bouton compact ouvre deux panneaux séparés pour la langue et la devise.","caption3":"Suggestion : un menu clairement intitulé regroupe les deux réglages."},"es":{"chooseLanguage":"Elige un idioma","language":"Idioma","currency":"Moneda","currencyShort":"Moneda","select":"Elegir","languageCount":"8 idiomas","default":"Predeterminado","regionTitle":"Idioma y región","regionHint":"Elige tus preferencias","recommended":"Recomendada para este idioma","now":"Ahora","change":"Puedes cambiarla cuando quieras","navRentals":"Alquiler de coches","navDeals":"Ofertas","navHelp":"Ayuda","pickupLocation":"Lugar de recogida","pickupDate":"Fecha de recogida","returnDate":"Fecha de devolución","findCars":"Buscar coches","tagline":"HoliBuddy · Alquiler de coches","caption1":"Sugerencia: mostrar la bandera, el idioma y la moneda en el encabezado, con un menú para cambiar ambos.","caption2":"Sugerencia: un botón compacto abre dos paneles separados para idioma y moneda.","caption3":"Sugerencia: un menú claramente identificado reúne ambos ajustes."},"pt":{"chooseLanguage":"Escolha um idioma","language":"Idioma","currency":"Moeda","currencyShort":"Moeda","select":"Selecionar","languageCount":"8 idiomas","default":"Predefinido","regionTitle":"Idioma e região","regionHint":"Escolha as suas preferências","recommended":"Recomendada para este idioma","now":"Atual","change":"Pode alterar a qualquer momento","navRentals":"Alugar carro","navDeals":"Ofertas","navHelp":"Ajuda","pickupLocation":"Local de levantamento","pickupDate":"Data de levantamento","returnDate":"Data de devolução","findCars":"Encontrar carros","tagline":"HoliBuddy · Aluguer de carros","caption1":"Sugestão: mostrar bandeira, idioma e moeda no cabeçalho e permitir alterar ambos no menu.","caption2":"Sugestão: um botão compacto abre dois painéis separados para idioma e moeda.","caption3":"Sugestão: um menu claramente identificado reúne as duas definições."},"nl":{"chooseLanguage":"Kies een taal","language":"Taal","currency":"Valuta","currencyShort":"Valuta","select":"Kiezen","languageCount":"8 talen","default":"Standaard","regionTitle":"Taal en regio","regionHint":"Kies je voorkeur","recommended":"Aanbevolen voor deze taal","now":"Nu","change":"Je kunt dit altijd wijzigen","navRentals":"Auto huren","navDeals":"Aanbiedingen","navHelp":"Help","pickupLocation":"Ophaallocatie","pickupDate":"Ophaaldatum","returnDate":"Inleverdatum","findCars":"Auto's zoeken","tagline":"HoliBuddy · Autoverhuur","caption1":"Voorstel: toon vlag, taal en valuta samen; laat bezoekers beide instellingen aanpassen.","caption2":"Voorstel: één compacte knop opent aparte panelen voor taal en valuta.","caption3":"Voorstel: één duidelijk benoemd menu voor beide instellingen."}};
+const currencyNames={"tr":{"TRY":"Türk Lirası","EUR":"Euro","GBP":"Pound","USD":"ABD Doları"},"en-GB":{"TRY":"Turkish lira","EUR":"Euro","GBP":"Pound sterling","USD":"US dollar"},"en-US":{"TRY":"Turkish lira","EUR":"Euro","GBP":"Pound sterling","USD":"US dollar"},"de":{"TRY":"Türkische Lira","EUR":"Euro","GBP":"Pfund Sterling","USD":"US-Dollar"},"fr":{"TRY":"livre turque","EUR":"euro","GBP":"livre sterling","USD":"dollar américain"},"es":{"TRY":"lira turca","EUR":"euro","GBP":"libra esterlina","USD":"dólar estadounidense"},"pt":{"TRY":"lira turca","EUR":"euro","GBP":"libra esterlina","USD":"dólar americano"},"nl":{"TRY":"Turkse lira","EUR":"euro","GBP":"Brits pond","USD":"Amerikaanse dollar"}};
 const flagSvg=code=>{
  const base=(body)=>'<svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'+body+'</svg>';
  const flags={
@@ -201,6 +197,7 @@ document.querySelectorAll(".option-card").forEach(card=>{
  const allLangSlots=card.querySelectorAll("[data-languages]");
  const allCurrencySlots=card.querySelectorAll("[data-currencies]");
  const render=()=>{
+   const labels=ui[chosen.id];
    allLangSlots.forEach(slot=>{
      const grid=slot.classList.contains("lang-grid");
      slot.replaceChildren();
@@ -220,16 +217,17 @@ document.querySelectorAll(".option-card").forEach(card=>{
        const button=document.createElement("button");
        button.type="button";button.className="currency-choice";
        button.setAttribute("aria-pressed",String(currency.id===currentCurrency));
-       button.innerHTML="<b>"+currency.symbol+"</b><span>"+(row?currency.id:currency.name)+"</span>";
+       button.innerHTML="<b>"+currency.symbol+"</b><span>"+(row?currency.id:currency.id+" · "+currencyNames[chosen.id][currency.id])+"</span>";
        button.addEventListener("click",()=>{currentCurrency=currency.id;render();});
        slot.append(button);
      });
    });
+   card.querySelectorAll("[data-i18n]").forEach(el=>{const key=el.dataset.i18n;if(labels[key])el.textContent=labels[key];});
    card.querySelectorAll("[data-current-flag]").forEach(el=>el.innerHTML=flagSvg(chosen.flag));
    card.querySelectorAll("[data-current-lang]").forEach(el=>el.textContent=chosen.name);
    card.querySelectorAll("[data-current-currency]").forEach(el=>el.textContent=currencyLabel(currentCurrency));
-   card.querySelectorAll("[data-default-label]").forEach(el=>el.textContent="Varsayılan: "+currencyLabel(chosen.currency));
-   card.querySelectorAll("[data-note]").forEach(el=>el.innerHTML="Bu dil için önerilen: <strong>"+currencyLabel(chosen.currency)+"</strong> · Şu an: <strong>"+currencyLabel(currentCurrency)+"</strong>. İstediğin zaman değiştirebilirsin.");
+   card.querySelectorAll("[data-default-label]").forEach(el=>el.textContent=labels.default+": "+currencyLabel(chosen.currency));
+   card.querySelectorAll("[data-note]").forEach(el=>el.innerHTML=labels.recommended+": <strong>"+currencyLabel(chosen.currency)+"</strong> · "+labels.now+": <strong>"+currencyLabel(currentCurrency)+"</strong>. "+labels.change+".");
  };
  render();
 });
