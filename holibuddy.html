@@ -399,7 +399,7 @@
 
     <div class="hb-search">
       <div class="hb-fields">
-        <div class="hb-field hb-location-field"><label for="hb-pickup">Alış noktası</label><div class="hb-location-input-wrap"><input id="hb-pickup" aria-label="Alış noktası" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="hb-location-options" placeholder="Şehir veya havalimanı ara"><div id="hb-location-options" class="hb-location-options" role="listbox" aria-label="Havalimanları" hidden></div></div></div>
+        <div class="hb-field hb-location-field"><label for="hb-pickup">Alış noktası</label><div class="hb-location-input-wrap"><input id="hb-pickup" aria-label="Alış noktası" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="hb-location-options" placeholder="Havalimanı, şehir veya istasyon ara"><div id="hb-location-options" class="hb-location-options" role="listbox" aria-label="Havalimanları" hidden></div></div></div>
         <div class="hb-field" id="hb-return-wrap" hidden style="display:none"><label for="hb-return">İade noktası</label><input id="hb-return" value="Sabiha Gökçen Havalimanı (SAW)" aria-label="İade noktası"></div>
         <div class="hb-field"><span class="hb-control-label">Alış tarihi ve saati</span><div class="hb-datetime-controls"><button id="hb-start-date" class="hb-date-trigger" type="button" data-date-trigger="pickup" aria-label="Alış tarihini seç" aria-haspopup="dialog" aria-controls="hb-date-overlay"><span class="hb-date-value" data-pickup-label>8 Eki 2026</span></button><span class="hb-time-control"><button id="hb-start-time" class="hb-time-trigger" type="button" aria-label="Alış saati" aria-haspopup="listbox" aria-expanded="false" aria-controls="hb-start-time-menu"><span class="hb-time-value">10:00</span><span class="hb-time-chevron" aria-hidden="true">⌄</span></button><span id="hb-start-time-menu" class="hb-time-menu" role="listbox" aria-label="Alış saatini seç" hidden></span></span></div></div>
         <div class="hb-field"><span class="hb-control-label">İade tarihi ve saati</span><div class="hb-datetime-controls"><button id="hb-end-date" class="hb-date-trigger" type="button" data-date-trigger="return" aria-label="İade tarihini seç" aria-haspopup="dialog" aria-controls="hb-date-overlay"><span class="hb-date-value" data-return-label>10 Eki 2026</span></button><span class="hb-time-control"><button id="hb-end-time" class="hb-time-trigger" type="button" aria-label="İade saati" aria-haspopup="listbox" aria-expanded="false" aria-controls="hb-end-time-menu"><span class="hb-time-value">10:00</span><span class="hb-time-chevron" aria-hidden="true">⌄</span></button><span id="hb-end-time-menu" class="hb-time-menu" role="listbox" aria-label="İade saatini seç" hidden></span></span></div></div>
@@ -595,14 +595,14 @@
       ];
       const airportTerms={"tr":"Havalimanı","en-GB":"Airport","en-US":"Airport","de":"Flughafen","fr":"Aéroport","es":"Aeropuerto","pt":"Aeroporto","nl":"Luchthaven"};
       const airportUi={
-        "tr":{placeholder:"Şehir veya havalimanı ara",list:"Türkiye havalimanları",empty:"Eşleşen havalimanı bulunamadı"},
-        "en-GB":{placeholder:"Search a city or airport",list:"Airports in Türkiye",empty:"No matching airports found"},
-        "en-US":{placeholder:"Search a city or airport",list:"Airports in Türkiye",empty:"No matching airports found"},
-        "de":{placeholder:"Stadt oder Flughafen suchen",list:"Flughäfen in der Türkei",empty:"Keine passenden Flughäfen gefunden"},
-        "fr":{placeholder:"Rechercher une ville ou un aéroport",list:"Aéroports en Turquie",empty:"Aucun aéroport correspondant"},
-        "es":{placeholder:"Buscar ciudad o aeropuerto",list:"Aeropuertos de Turquía",empty:"No se encontraron aeropuertos"},
-        "pt":{placeholder:"Pesquisar cidade ou aeroporto",list:"Aeroportos da Turquia",empty:"Nenhum aeroporto encontrado"},
-        "nl":{placeholder:"Zoek een stad of luchthaven",list:"Luchthavens in Turkije",empty:"Geen overeenkomende luchthavens"}
+        "tr":{placeholder:"Havalimanı, şehir veya istasyon ara",list:"Türkiye havalimanları",empty:"Eşleşen havalimanı bulunamadı"},
+        "en-GB":{placeholder:"Search airport, city or station",list:"Airports in Türkiye",empty:"No matching airports found"},
+        "en-US":{placeholder:"Search airport, city or station",list:"Airports in Türkiye",empty:"No matching airports found"},
+        "de":{placeholder:"Flughafen, Stadt oder Bahnhof suchen",list:"Flughäfen in der Türkei",empty:"Keine passenden Flughäfen gefunden"},
+        "fr":{placeholder:"Rechercher un aéroport, une ville ou une gare",list:"Aéroports en Turquie",empty:"Aucun aéroport correspondant"},
+        "es":{placeholder:"Buscar aeropuerto, ciudad o estación",list:"Aeropuertos de Turquía",empty:"No se encontraron aeropuertos"},
+        "pt":{placeholder:"Pesquisar aeroporto, cidade ou estação",list:"Aeroportos da Turquia",empty:"Nenhum aeroporto encontrado"},
+        "nl":{placeholder:"Zoek luchthaven, stad of station",list:"Luchthavens in Turkije",empty:"Geen overeenkomende luchthavens"}
       };
       const normalizeAirportSearch=value=>String(value||"").toLocaleLowerCase("tr").replace(/ı/g,"i").replace(/ç/g,"c").replace(/ğ/g,"g").replace(/ö/g,"o").replace(/ş/g,"s").replace(/ü/g,"u");
       const airportLabel=(airport,locale)=>airport.name.replace(/Havalimanı/g,airportTerms[locale]||"Airport")+" ("+airport.code+")";
