@@ -1111,7 +1111,8 @@ const pickerLabels={"tr":{"choose":"Dilinizi seçin","count":"8 dil","currency":
         }
       };
       
-      root.querySelector(".hb-search-button").addEventListener("click", () => {
+      root.querySelector(".hb-search-button").addEventListener("click", event => {
+        event.preventDefault();
         const pickup = new Date(pickupDate + "T" + timeValues.pickup);
         const dropoff = new Date(returnDate + "T" + timeValues.return);
         if(dropoff <= pickup){
@@ -1119,7 +1120,18 @@ const pickerLabels={"tr":{"choose":"Dilinizi seçin","count":"8 dil","currency":
           openDatePicker("return");
           return;
         }
-        note.textContent=uiCopy[activeLocale.id].searchUnavailable;
+        if(pickupField.dataset.airportCode !== "IST" || !sameLocation.checked){
+          note.textContent=uiCopy[activeLocale.id].searchUnavailable;
+          return;
+        }
+        const searchUrl = new URL("test-akis-ist-20261007.html", window.location.href);
+        searchUrl.searchParams.set("location", "IST");
+        searchUrl.searchParams.set("pickup", pickupDate);
+        searchUrl.searchParams.set("return", returnDate);
+        searchUrl.searchParams.set("pickupTime", timeValues.pickup);
+        searchUrl.searchParams.set("returnTime", timeValues.return);
+        searchUrl.hash = "results";
+        window.location.assign(searchUrl.href);
       });
     })();
   </script>
