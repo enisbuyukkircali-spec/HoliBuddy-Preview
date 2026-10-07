@@ -73,7 +73,7 @@ function nearestAirport(query){
  const ranked=airportCatalog.map(airport=>{
   const terms=[airport.name,airport.city,airport.code,...(airport.aliases||[])].map(normalizeAirportSearch).flatMap(value=>[value,...value.split(/[^a-z0-9]+/).filter(Boolean)]);
   return {airport,distance:Math.min(...terms.map(term=>airportEditDistance(needle,term)))};
- }).sort((a,b)=>a.distance-b.distance||a.airport.name.localeCompare(b.airport.name,"tr"));
+ }).sort((a,b)=>a.distance-b.distance||a.airport.name.length-b.airport.name.length||a.airport.name.localeCompare(b.airport.name,"tr"));
  const tolerance=Math.max(1,Math.min(3,Math.floor(needle.length*.25)));
  return ranked[0]?.distance<=tolerance?ranked[0].airport:null;
 }
