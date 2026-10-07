@@ -856,15 +856,15 @@ const pickerLabels={"tr":{"choose":"Dilinizi seçin","count":"8 dil","currency":
         activeAirportIndex=-1;renderAirportOptions(pickupField.value);airportOptions.hidden=false;pickupField.setAttribute("aria-expanded","true");
       });
       pickupField.addEventListener("keydown",event=>{
-        const options=[...airportOptions.querySelectorAll(".hb-location-option")];
         if(event.key==="ArrowDown"||event.key==="ArrowUp"){
           event.preventDefault();
           if(airportOptions.hidden){renderAirportOptions(pickupField.value);airportOptions.hidden=false;pickupField.setAttribute("aria-expanded","true");}
+          const options=[...airportOptions.querySelectorAll(".hb-location-option")];
+          if(!options.length)return;
           const direction=event.key==="ArrowDown"?1:-1;
-          activeAirportIndex=(activeAirportIndex+direction+options.length)%options.length;
-          renderAirportOptions(pickupField.value);
-          const current=airportOptions.querySelectorAll(".hb-location-option")[activeAirportIndex];
-          if(current){current.setAttribute("aria-selected","true");current.scrollIntoView({block:"nearest"});}
+          activeAirportIndex=activeAirportIndex<0?(direction===1?0:options.length-1):(activeAirportIndex+direction+options.length)%options.length;
+          options.forEach((option,index)=>option.setAttribute("aria-selected",String(index===activeAirportIndex)));
+          options[activeAirportIndex].scrollIntoView({block:"nearest"});
         } else if(event.key==="Enter"&&!airportOptions.hidden){
           event.preventDefault();
           const visible=[...airportOptions.querySelectorAll(".hb-location-option")];
