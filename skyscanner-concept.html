@@ -7,14 +7,14 @@
   <title>HoliBuddy | Araç Kiralama ve Rent a Car</title>
   <meta name="description" content="HoliBuddy ile araç kiralama seçeneklerini karşılaştırın. İstanbul, İstanbul Havalimanı, Sabiha Gökçen, Antalya, İzmir ve Ankara için rent a car seçeneklerini keşfedin.">
   <meta name="robots" content="index,follow,max-image-preview:large">
-  <link rel="canonical" href="https://enisbuyukkircali-spec.github.io/HoliBuddy-Preview/skyscanner-concept.html">
+  <link rel="canonical" href="https://enisbuyukkircali-spec.github.io/HoliBuddy-Preview/holibuddy.html">
   <link rel="preload" as="image" href="images/dublin.jpg">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="tr_TR">
   <meta property="og:site_name" content="HoliBuddy">
   <meta property="og:title" content="HoliBuddy | Araç Kiralama ve Rent a Car">
   <meta property="og:description" content="Şehir ve havalimanı noktalarındaki araç kiralama seçeneklerini HoliBuddy ile karşılaştırın.">
-  <meta property="og:url" content="https://enisbuyukkircali-spec.github.io/HoliBuddy-Preview/skyscanner-concept.html">
+  <meta property="og:url" content="https://enisbuyukkircali-spec.github.io/HoliBuddy-Preview/holibuddy.html">
   <meta property="og:image" content="https://enisbuyukkircali-spec.github.io/HoliBuddy-Preview/images/dublin.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="HoliBuddy | Araç Kiralama ve Rent a Car">
@@ -26,18 +26,18 @@
     "@graph": [
       {
         "@type": "Organization",
-        "@id": "https://enisbuyukkircali-spec.github.io/HoliBuddy-Preview/skyscanner-concept.html#organization",
+        "@id": "https://enisbuyukkircali-spec.github.io/HoliBuddy-Preview/holibuddy.html#organization",
         "name": "HoliBuddy",
-        "url": "https://enisbuyukkircali-spec.github.io/HoliBuddy-Preview/skyscanner-concept.html",
+        "url": "https://enisbuyukkircali-spec.github.io/HoliBuddy-Preview/holibuddy.html",
         "logo": "https://enisbuyukkircali-spec.github.io/HoliBuddy-Preview/images/newRentACarLogo.png"
       },
       {
         "@type": "WebSite",
-        "@id": "https://enisbuyukkircali-spec.github.io/HoliBuddy-Preview/skyscanner-concept.html#website",
+        "@id": "https://enisbuyukkircali-spec.github.io/HoliBuddy-Preview/holibuddy.html#website",
         "name": "HoliBuddy",
-        "url": "https://enisbuyukkircali-spec.github.io/HoliBuddy-Preview/skyscanner-concept.html",
+        "url": "https://enisbuyukkircali-spec.github.io/HoliBuddy-Preview/holibuddy.html",
         "inLanguage": "tr-TR",
-        "publisher": {"@id": "https://enisbuyukkircali-spec.github.io/HoliBuddy-Preview/skyscanner-concept.html#organization"}
+        "publisher": {"@id": "https://enisbuyukkircali-spec.github.io/HoliBuddy-Preview/holibuddy.html#organization"}
       }
     ]
   }
@@ -114,8 +114,11 @@
     #hbMock .hb-search { max-width:1120px; margin:0 auto; padding:18px; color:#fff; background:#062847; border:1px solid rgba(255,255,255,.16); border-radius:18px; box-shadow:0 18px 52px rgba(0,20,39,.27); }
     #hbMock .hb-location-field { position:relative; overflow:visible; }
     #hbMock .hb-location-input-wrap { position:relative; width:100%; }
-    #hbMock .hb-location-options { position:absolute; top:calc(100% + 12px); left:-15px; right:-15px; z-index:50; max-height:min(390px,55vh); overflow:auto; padding:7px; border:1px solid #d8e5ec; border-radius:12px; color:#163a53; background:#fff; box-shadow:0 18px 40px rgba(0,20,39,.25); }
+    #hbMock .hb-location-options { position:absolute; top:calc(100% + 12px); left:-15px; right:-15px; z-index:50; max-height:min(390px,55vh); overflow:auto; overscroll-behavior:contain; padding:7px; border:1px solid #d8e5ec; border-radius:12px; color:#163a53; background:#fff; box-shadow:0 18px 40px rgba(0,20,39,.25); scrollbar-width:thin; scrollbar-color:#fff #eaf2f7; }
     #hbMock .hb-location-options[hidden] { display:none !important; }
+    #hbMock .hb-location-options::-webkit-scrollbar { width:8px; }
+    #hbMock .hb-location-options::-webkit-scrollbar-track { border-radius:8px; background:#eaf2f7; }
+    #hbMock .hb-location-options::-webkit-scrollbar-thumb { border:2px solid #eaf2f7; border-radius:8px; background:#fff; }
     #hbMock .hb-location-option { width:100%; min-height:50px; display:flex; align-items:center; gap:11px; padding:8px 10px; border:0; border-radius:8px; color:#163a53; background:#fff; text-align:left; cursor:pointer; }
     #hbMock .hb-location-option:hover, #hbMock .hb-location-option[aria-selected="true"] { background:#eaf7fc; }
     #hbMock .hb-location-option-icon { width:32px; height:32px; flex:0 0 32px; display:grid; place-items:center; border-radius:50%; color:#087eb4; background:#eaf7fc; font-size:15px; }
@@ -844,21 +847,29 @@ const pickerLabels={"tr":{"choose":"Dilinizi seçin","count":"8 dil","currency":
           airportOptions.append(option);
         });
       };
+      const hasAirportSearchText=()=>normalizeAirportSearch(pickupField.value).length>=2;
       pickupField.addEventListener("focus",()=>{
-        activeAirportIndex=-1;renderAirportOptions(pickupField.dataset.airportCode?"":pickupField.value);airportOptions.hidden=false;pickupField.setAttribute("aria-expanded","true");
+        activeAirportIndex=-1;
+        closeAirportOptions();
       });
       pickupField.addEventListener("click",()=>{
-        if(airportOptions.hidden){activeAirportIndex=-1;renderAirportOptions(pickupField.dataset.airportCode?"":pickupField.value);airportOptions.hidden=false;pickupField.setAttribute("aria-expanded","true");}
+        activeAirportIndex=-1;
+        closeAirportOptions();
         pickupField.select();
       });
       pickupField.addEventListener("input",()=>{
         delete pickupField.dataset.airportCode;delete pickupField.dataset.localeLocationKey;
-        activeAirportIndex=-1;renderAirportOptions(pickupField.value);airportOptions.hidden=false;pickupField.setAttribute("aria-expanded","true");
+        activeAirportIndex=-1;
+        if(!hasAirportSearchText()){closeAirportOptions();return;}
+        renderAirportOptions(pickupField.value);airportOptions.hidden=false;pickupField.setAttribute("aria-expanded","true");
       });
       pickupField.addEventListener("keydown",event=>{
         if(event.key==="ArrowDown"||event.key==="ArrowUp"){
           event.preventDefault();
-          if(airportOptions.hidden){renderAirportOptions(pickupField.value);airportOptions.hidden=false;pickupField.setAttribute("aria-expanded","true");}
+          if(airportOptions.hidden){
+            if(!hasAirportSearchText())return;
+            renderAirportOptions(pickupField.value);airportOptions.hidden=false;pickupField.setAttribute("aria-expanded","true");
+          }
           const options=[...airportOptions.querySelectorAll(".hb-location-option")];
           if(!options.length)return;
           const direction=event.key==="ArrowDown"?1:-1;
