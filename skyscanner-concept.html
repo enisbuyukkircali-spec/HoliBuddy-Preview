@@ -105,6 +105,10 @@
     #hbMock .hb-promo-panel input { min-width: 0; flex: 1; border: 1px solid #d8e5ec; border-radius: 8px; padding: 10px 12px; color: #163a53; background: white; font: inherit; }
     #hbMock .hb-promo-apply { border: 0; border-radius: 8px; padding: 10px 14px; color: white; background: #078dc5; font: inherit; font-weight: 600; cursor: pointer; }
     #hbMock .hb-field input[type="datetime-local"] { min-height: 24px; }
+    #hbMock .hb-datetime-controls { min-width:0; display:flex; align-items:center; gap:7px; }
+    #hbMock .hb-datetime-controls input[type="date"] { flex:1 1 58%; width:58%; min-width:0; min-height:28px; font-size:13px; cursor:pointer; }
+    #hbMock .hb-datetime-controls select { flex:0 0 86px; width:86px; min-height:30px; border:0; outline:0; border-radius:6px; color:#163a53; background:#f3f8fb; font:600 13px/1.2 inherit; cursor:pointer; }
+    #hbMock .hb-datetime-controls input:focus-visible, #hbMock .hb-datetime-controls select:focus-visible { outline:2px solid #078dc5; outline-offset:2px; border-radius:5px; }
     #hbMock .hb-note { min-height: 20px; margin: 8px 2px 0; color: #b9eaff; font-size: 12px; }
     #hbMock .hb-main { padding: 36px clamp(20px, 7vw, 90px) 54px; }
     #hbMock .hb-points { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; padding: 0 4px 32px; border-bottom: 1px solid var(--hb-line); }
@@ -301,8 +305,8 @@
       <div class="hb-fields">
         <div class="hb-field"><label for="hb-pickup">Alış noktası</label><input id="hb-pickup" value="İstanbul Havalimanı (IST)" aria-label="Alış noktası"></div>
         <div class="hb-field" id="hb-return-wrap" hidden style="display:none"><label for="hb-return">İade noktası</label><input id="hb-return" value="Sabiha Gökçen Havalimanı (SAW)" aria-label="İade noktası"></div>
-        <div class="hb-field"><label for="hb-start">Alış tarihi ve saati</label><input id="hb-start" type="datetime-local" lang="tr-TR" step="1800" value="2026-10-08T10:00" aria-label="Alış tarihi ve saati"></div>
-        <div class="hb-field"><label for="hb-end">İade tarihi ve saati</label><input id="hb-end" type="datetime-local" lang="tr-TR" step="1800" value="2026-10-10T10:00" aria-label="İade tarihi ve saati"></div>
+        <div class="hb-field"><label for="hb-start-date">Alış tarihi ve saati</label><div class="hb-datetime-controls"><input id="hb-start-date" type="date" lang="tr-TR" value="2026-10-08" required aria-label="Alış tarihi"><select id="hb-start-time" required aria-label="Alış saati"></select></div></div>
+        <div class="hb-field"><label for="hb-end-date">İade tarihi ve saati</label><div class="hb-datetime-controls"><input id="hb-end-date" type="date" lang="tr-TR" value="2026-10-10" required aria-label="İade tarihi"><select id="hb-end-time" required aria-label="İade saati"></select></div></div>
         <button class="hb-search-button" type="button">Araçları bul</button>
       </div>
       <div class="hb-search-bottom">
@@ -489,8 +493,64 @@
           root.querySelector("#hb-pickup").focus({ preventScroll: true });
         });
       });
+      const startDate = root.querySelector("#hb-start-date");
+      const startTime = root.querySelector("#hb-start-time");
+      const endDate = root.querySelector("#hb-end-date");
+      const endTime = root.querySelector("#hb-end-time");
+      const localDate = date => [date.getFullYear(), String(date.getMonth() + 1).padStart(2, "0"), String(date.getDate()).padStart(2, "0")].join("-");
+      const times = Array.from({ length: 48 }, (_, index) => {
+        const hour = String(Math.floor(index / 2)).padStart(2, "0");
+        const minute = index % 2 ? "30" : "00";
+        return hour + ":" + minute;
+      });
+      [startTime, endTime].forEach(select => {
+        times.forEach(time => {
+          const option = document.createElement("option");
+          option.value = time;
+          option.textContent = time;
+          select.append(option);
+        });
+      });
+      startTime.value = "10:00";
+      endTime.value = "10:00";
+      const today = localDate(new Date());
+      startDate.min = today;
+      endDate.min = startDate.value || today;
+      const nextSlot = (date, time) => {
+        const [year, month, day] = date.split("-").map(Number);
+        const [hour, minute] = time.split(":").map(Number);
+        const next = new Date(year, month - 1, day, hour, minute + 30);
+        return { date: localDate(next), time: String(next.getHours()).padStart(2, "0") + ":" + String(next.getMinutes()).padStart(2, "0") };
+      };
+      const syncReturn = () => {
+        endDate.min = startDate.value || today;
+        if (!endDate.value || endDate.value < startDate.value) endDate.value = startDate.value;
+        if (endDate.value === startDate.value && endTime.value <= startTime.value) {
+          const next = nextSlot(startDate.value, startTime.value);
+          endDate.value = next.date;
+          endTime.value = next.time;
+        }
+      };
+      startDate.addEventListener("change", syncReturn);
+      startTime.addEventListener("change", syncReturn);
+      endDate.addEventListener("change", () => {
+        if (endDate.value < startDate.value) endDate.value = startDate.value;
+        syncReturn();
+      });
+      endTime.addEventListener("change", syncReturn);
       root.querySelector(".hb-search-button").addEventListener("click", () => {
-        note.textContent = "Tasarım önizlemesi · Arama ve rezervasyon sistemi henüz bağlanmadı.";
+        const pickup = startDate.value && new Date(startDate.value + "T" + startTime.value);
+        const dropoff = endDate.value && new Date(endDate.value + "T" + endTime.value);
+        if (!startDate.value || !endDate.value || !startTime.value || !endTime.value) {
+          note.textContent = "Lütfen alış ve iade tarihlerini ve saatlerini seçin.";
+          return;
+        }
+        if (dropoff <= pickup) {
+          note.textContent = "İade tarihi ve saati, alış tarihinden sonra olmalı.";
+          syncReturn();
+          return;
+        }
+        note.textContent = "Seçimin kaydedildi · Bu önizlemede araç arama ve rezervasyon altyapısı bağlı değil.";
       });
     })();
   </script>
