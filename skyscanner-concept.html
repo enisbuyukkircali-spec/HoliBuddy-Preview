@@ -592,6 +592,7 @@ const pickerLabels={"tr":{"choose":"Dilinizi seçin","count":"8 dil","currency":
           const translated=(attributeTranslations[locale]||{})[source];
           if(translated) el.setAttribute(attr,translated);
         }));
+        root.setAttribute("aria-label",(attributeTranslations[locale]||{})["HoliBuddy ana sayfa tasarım taslağı"]||"HoliBuddy ana sayfa tasarım taslağı");
         const pickupField=root.querySelector("#hb-pickup"),returnLocationField=root.querySelector("#hb-return");
         const originalPickup="İstanbul Havalimanı (IST)",originalReturn="Sabiha Gökçen Havalimanı (SAW)";
         const lastPickupDisplay=pickupField.dataset.lastLocaleValue||originalPickup;
