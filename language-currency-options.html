@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#062847">
+<title>HoliBuddy | Dil ve Para Birimi Seçenekleri</title>
+<meta name="description" content="HoliBuddy için dil ve para birimi seçici tasarım alternatifleri.">
+<style>
+:root{--navy:#062847;--ink:#153c56;--muted:#657d8e;--blue:#087fb5;--line:#d8e5ec;--pale:#eef7fb;--white:#fff;--shadow:0 12px 34px rgba(7,47,74,.11)}
+*{box-sizing:border-box}
+body{margin:0;background:#f3f8fb;color:var(--ink);font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+button{font:inherit}
+.page-head{padding:22px clamp(20px,4vw,54px);background:var(--navy);color:#fff}
+.head-inner{max-width:1420px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:10px;color:white;font-weight:750;font-size:21px;letter-spacing:.01em}
+.brand-mark{width:35px;height:35px;display:grid;place-items:center;border:1.5px solid rgba(255,255,255,.8);border-radius:11px;font-size:13px;letter-spacing:-.06em}
+.head-note{color:#c8dce8;font-size:13px}
+main{max-width:1420px;margin:auto;padding:32px clamp(20px,4vw,54px) 52px}
+.intro{margin-bottom:25px}
+.intro h1{margin:0 0 8px;color:var(--ink);font-size:clamp(26px,3vw,36px);letter-spacing:-.04em;line-height:1.12}
+.intro p{max-width:850px;margin:0;color:var(--muted);font-size:15px}
+.rule-note{margin-top:15px;padding:12px 15px;border:1px solid #cbe3ef;border-radius:10px;background:#f5fbfe;color:#375f77;font-size:13px}
+.rule-note strong{color:#144764}
+.variants{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;gap:18px}
+.option-card{min-width:0;overflow:hidden;border:1px solid var(--line);border-radius:16px;background:white;box-shadow:var(--shadow)}
+.card-top{min-height:77px;padding:17px 18px 15px;border-bottom:1px solid var(--line)}
+.card-topline{display:flex;align-items:center;gap:10px}
+.number{width:26px;height:26px;display:grid;place-items:center;border-radius:50%;color:#0878a8;background:#e8f5fb;font-weight:750;font-size:12px}
+.card-top h2{margin:0;color:var(--ink);font-size:17px;letter-spacing:-.02em}
+.card-top p{margin:7px 0 0 36px;color:var(--muted);font-size:12px}
+.mock-site{padding:14px 17px 0;background:linear-gradient(#f6fbfd,#fff)}
+.mock-toolbar{min-height:47px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding-bottom:10px;border-bottom:1px solid #e7eef2}
+.mock-nav{display:flex;align-items:center;gap:7px;color:#7290a3;font-size:10px;white-space:nowrap}
+.mock-logo{display:flex;align-items:center;gap:5px;color:var(--navy);font-weight:800;font-size:11px;letter-spacing:-.02em}
+.mock-logo i{width:20px;height:20px;display:grid;place-items:center;border-radius:6px;color:#fff;background:var(--navy);font-style:normal;font-size:8px}
+.pill,.split-trigger,.globe-trigger{min-height:34px;display:flex;align-items:center;gap:7px;padding:6px 9px;border:1px solid #c9dce6;border-radius:9px;color:var(--ink);background:white;font-size:11px;font-weight:650;white-space:nowrap;box-shadow:0 2px 6px rgba(9,56,82,.04)}
+.pill{border-radius:999px}
+.caret{color:#7892a2;font-size:11px}
+.flag{width:20px;height:14px;flex:none;display:block;border-radius:2px;overflow:hidden;box-shadow:0 0 0 1px rgba(20,50,68,.14)}
+.flag svg{width:100%;height:100%;display:block}
+.panel{margin:11px 0 0;padding:12px;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:0 8px 22px rgba(9,48,73,.1)}
+.panel-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px;color:#284d64;font-size:11px;font-weight:700}
+.panel-hint{color:#8194a2;font-size:10px;font-weight:500}
+.lang-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+.lang-list{display:grid;gap:3px}
+.lang-choice,.currency-choice{min-width:0;min-height:34px;display:flex;align-items:center;gap:7px;padding:6px 7px;border:1px solid transparent;border-radius:8px;color:#294c62;background:white;text-align:left;font-size:11px;cursor:pointer}
+.lang-choice:hover,.currency-choice:hover{background:#f1f8fb}
+.lang-choice[aria-pressed=true],.currency-choice[aria-pressed=true]{border-color:#8bc7df;background:#eaf7fc;color:#07577b}
+.lang-choice .flag{width:19px;height:13px}
+.lang-choice span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.currency-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+.currency-choice{justify-content:center;min-height:34px;padding:6px 4px;border-color:#e1ebf0;font-size:10px;font-weight:650}
+.currency-choice b{font-size:13px}
+.currency-zone{margin-top:11px;padding-top:10px;border-top:1px solid #edf2f5}
+.currency-title{display:flex;justify-content:space-between;gap:7px;margin-bottom:7px;color:#284d64;font-size:11px;font-weight:700}
+.default-note{min-height:30px;margin-top:9px;padding:7px 8px;border-radius:7px;color:#517084;background:#f5f9fb;font-size:10px}
+.default-note strong{color:#0878a8}
+.card-caption{min-height:55px;margin:0;padding:12px 18px 15px;color:var(--muted);font-size:11px}
+.dual-area{display:grid;grid-template-columns:minmax(0,1fr) minmax(105px,.72fr);gap:8px;align-items:start;margin-top:11px}
+.dual-panel{min-width:0;padding:9px;border:1px solid var(--line);border-radius:10px;background:#fff;box-shadow:0 8px 22px rgba(9,48,73,.08)}
+.dual-panel .panel-title{font-size:10px;margin-bottom:6px}
+.dual-panel .lang-choice{min-height:31px;padding:4px 5px;font-size:10px}
+.dual-panel .lang-choice .flag{width:17px;height:12px}
+.currency-list .currency-choice{justify-content:flex-start;gap:6px;min-height:33px;padding:5px 7px;font-size:10px}
+.currency-list .currency-choice b{width:17px;text-align:center}
+.option2 .mock-toolbar{justify-content:flex-end}
+.option2 .mock-nav{margin-right:auto}
+.option2 .dual-area{grid-template-columns:minmax(0,1fr) minmax(105px,.7fr)}
+.option2 .dual-panel:first-child{max-height:340px;overflow:auto}
+.option2 .default-note{margin-top:8px}
+.option3 .mock-toolbar{justify-content:flex-end}
+.globe-trigger{width:35px;justify-content:center;padding:0;border-radius:50%;font-size:15px}
+.globe-trigger svg{width:16px;height:16px}
+.settings-pop{margin:11px 0 0;padding:12px;border:1px solid var(--line);border-radius:12px;background:white;box-shadow:0 8px 22px rgba(9,48,73,.1)}
+.settings-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px}
+.settings-head strong{font-size:12px;color:#284d64}
+.settings-head span{font-size:10px;color:#8194a2}
+.settings-columns{display:grid;grid-template-columns:1.2fr .8fr;gap:10px}
+.settings-col{min-width:0}
+.settings-col+.settings-col{padding-left:10px;border-left:1px solid #e8eef2}
+.settings-col .panel-title{font-size:10px;margin-bottom:5px}
+.settings-col .lang-choice{min-height:30px;padding:4px 5px;font-size:10px}
+.settings-col .lang-choice .flag{width:17px;height:12px}
+.settings-col .currency-choice{justify-content:flex-start;min-height:31px;padding:4px 6px;font-size:10px}
+.settings-col .currency-choice b{width:18px;text-align:center}
+.settings-pop .default-note{margin-top:10px}
+.mock-search{margin:15px 0 0;padding:13px;border-radius:11px;background:#082e4d}
+.mock-search-line{display:grid;grid-template-columns:1.1fr .8fr .8fr .6fr;gap:6px}
+.fake-field{height:32px;padding:6px 7px;border:1px solid #e2ebef;border-radius:6px;color:#6d8392;background:#fff;font-size:9px}
+.fake-search{height:32px;display:grid;place-items:center;border-radius:6px;color:#fff;background:#0063e5;font-size:9px;font-weight:700}
+.mock-search-sub{margin-top:7px;color:#b9e4f3;font-size:9px}
+.footer-note{margin-top:20px;color:#758b99;font-size:11px;text-align:center}
+@media(max-width:1120px){.variants{grid-template-columns:1fr}.option-card{max-width:760px;margin-inline:auto;width:100%}.lang-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:560px){.page-head{padding:16px}.head-note{display:none}main{padding:24px 14px 35px}.intro h1{font-size:27px}.variants{gap:14px}.card-top{padding-inline:14px}.mock-site{padding-inline:12px}.card-caption{padding-inline:14px}.lang-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.option2 .dual-area{grid-template-columns:minmax(0,1fr) 112px}.settings-columns{grid-template-columns:1.05fr .95fr;gap:7px}.settings-col+.settings-col{padding-left:7px}.mock-nav span:nth-child(n+2){display:none}.mock-search-line{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header class="page-head"><div class="head-inner"><div class="brand"><span class="brand-mark">HB</span> HoliBuddy <span style="font-weight:400;color:#bdd4e1">/ Dil ve para birimi</span></div><span class="head-note">Üç masaüstü seçici fikri · seçimler bu taslakta denenebilir</span></div></header>
+<main>
+  <section class="intro">
+    <h1>Dil ve para birimi seçimi</h1>
+    <p>Masaüstünde bayrak görünmemesi, bayrağın emoji karakteri olarak çizilmesinden kaynaklanabiliyor; cihazın fontu veya işletim sistemi bayrak emojisini farklı gösterebilir. Bu taslakta ülke bayraklarını SVG olarak çizdim; masaüstü ve mobilde tutarlı görünür.</p>
+    <div class="rule-note"><strong>Varsayılanlar:</strong> Türkçe → TL · English (UK) → GBP · English (US) → USD · Deutsch, Français, Español, Português ve Nederlands → EUR. Dili seçince varsayılan para birimi gelir; kullanıcı daha sonra istediği para birimine geçebilir.</div>
+  </section>
+  <section class="variants" aria-label="Dil ve para birimi tasarım alternatifleri">
+    <article class="option-card option1" data-variant="one">
+      <div class="card-top"><div class="card-topline"><span class="number">1</span><h2>Tek birleşik menü</h2></div><p>Az yer kaplar; dil ve kur aynı panelde.</p></div>
+      <div class="mock-site">
+        <div class="mock-toolbar">
+          <div class="mock-logo"><i>HB</i> HOLIBUDDY</div>
+          <div class="mock-nav"><span>Araç kirala</span><span>Kampanyalar</span><span>Yardım</span></div>
+          <button class="pill" type="button" aria-expanded="true"><span data-current-flag></span><span data-current-lang>Türkçe</span><span data-current-currency>TRY ₺</span><span class="caret">⌄</span></button>
+        </div>
+        <div class="panel">
+          <div class="panel-title"><span>Dilini seç</span><span class="panel-hint">8 seçenek</span></div>
+          <div class="lang-grid" data-languages></div>
+          <div class="currency-zone"><div class="currency-title"><span>Para birimi</span><span class="panel-hint" data-default-label>Varsayılan: TRY</span></div><div class="currency-row" data-currencies></div></div>
+          <div class="default-note" data-note></div>
+        </div>
+        <div class="mock-search"><div class="mock-search-line"><div class="fake-field">Alış noktası</div><div class="fake-field">Alış tarihi</div><div class="fake-field">İade tarihi</div><div class="fake-search">Araçları bul</div></div><div class="mock-search-sub">HoliBuddy · Araç kiralama</div></div>
+      </div>
+      <p class="card-caption">Öneri: Üst menüde ülke bayrağı, dil ve para birimi birlikte görünür; açılan panelde kullanıcı ikisini de değiştirebilir.</p>
+    </article>
+
+    <article class="option-card option2" data-variant="two">
+      <div class="card-top"><div class="card-topline"><span class="number">2</span><h2>İki ayrı kısa seçim</h2></div><p>Dil ve para birimi kontrolü net biçimde ayrılır.</p></div>
+      <div class="mock-site">
+        <div class="mock-toolbar">
+          <div class="mock-logo"><i>HB</i> HOLIBUDDY</div>
+          <div class="mock-nav"><span>Araç kirala</span><span>Kampanyalar</span><span>Yardım</span></div>
+          <button class="split-trigger" type="button" aria-expanded="true"><span data-current-flag></span><span data-current-lang>Türkçe</span><span class="caret">⌄</span></button>
+          <button class="split-trigger" type="button" aria-expanded="true"><span data-current-currency>TRY ₺</span><span class="caret">⌄</span></button>
+        </div>
+        <div class="dual-area">
+          <div class="dual-panel"><div class="panel-title"><span>Dil</span><span class="panel-hint">Seç</span></div><div class="lang-list" data-languages></div></div>
+          <div class="dual-panel currency-list"><div class="panel-title"><span>Kur</span><span class="panel-hint">Seç</span></div><div data-currencies></div><div class="default-note" data-note></div></div>
+        </div>
+        <div class="mock-search"><div class="mock-search-line"><div class="fake-field">Alış noktası</div><div class="fake-field">Alış tarihi</div><div class="fake-field">İade tarihi</div><div class="fake-search">Araçları bul</div></div><div class="mock-search-sub">HoliBuddy · Araç kiralama</div></div>
+      </div>
+      <p class="card-caption">Öneri: Kullanıcı dil menüsünü ve para birimi menüsünü bağımsız açar; başlıkta ikisi de ayrı görünür.</p>
+    </article>
+
+    <article class="option-card option3" data-variant="three">
+      <div class="card-top"><div class="card-topline"><span class="number">3</span><h2>“Dil ve bölge” paneli</h2></div><p>Sade bir simge açar; geniş panelde iki ayar bir arada.</p></div>
+      <div class="mock-site">
+        <div class="mock-toolbar">
+          <div class="mock-logo"><i>HB</i> HOLIBUDDY</div>
+          <div class="mock-nav"><span>Araç kirala</span><span>Kampanyalar</span><span>Yardım</span></div>
+          <button class="globe-trigger" type="button" aria-label="Dil ve bölge" aria-expanded="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></button>
+        </div>
+        <div class="settings-pop">
+          <div class="settings-head"><strong>Dil ve bölge ayarları</strong><span>Tercihini seç</span></div>
+          <div class="settings-columns">
+            <div class="settings-col"><div class="panel-title"><span>Dil</span></div><div class="lang-list" data-languages></div></div>
+            <div class="settings-col currency-list"><div class="panel-title"><span>Para birimi</span></div><div data-currencies></div></div>
+          </div>
+          <div class="default-note" data-note></div>
+        </div>
+        <div class="mock-search"><div class="mock-search-line"><div class="fake-field">Alış noktası</div><div class="fake-field">Alış tarihi</div><div class="fake-field">İade tarihi</div><div class="fake-search">Araçları bul</div></div><div class="mock-search-sub">HoliBuddy · Araç kiralama</div></div>
+      </div>
+      <p class="card-caption">Öneri: En sade üst menü. Erişilebilir “Dil ve bölge” etiketiyle ayarlar aynı geniş panelde sunulur.</p>
+    </article>
+  </section>
+  <p class="footer-note">Bu sayfa yalnızca tasarım alternatifi önizlemesidir; seçilen ayarlar mevcut ana sayfaya aktarılmaz.</p>
+</main>
+<script>
+const locales=[
+ {id:"tr",name:"Türkçe",flag:"tr",currency:"TRY"},
+ {id:"en-GB",name:"English (UK)",flag:"gb",currency:"GBP"},
+ {id:"en-US",name:"English (US)",flag:"us",currency:"USD"},
+ {id:"de",name:"Deutsch",flag:"de",currency:"EUR"},
+ {id:"fr",name:"Français",flag:"fr",currency:"EUR"},
+ {id:"es",name:"Español",flag:"es",currency:"EUR"},
+ {id:"pt",name:"Português",flag:"pt",currency:"EUR"},
+ {id:"nl",name:"Nederlands",flag:"nl",currency:"EUR"}
+];
+const currencies=[
+ {id:"TRY",symbol:"₺",name:"TRY · Türk Lirası"},
+ {id:"EUR",symbol:"€",name:"EUR · Euro"},
+ {id:"GBP",symbol:"£",name:"GBP · Pound"},
+ {id:"USD",symbol:"$",name:"USD · US Dollar"}
+];
+const flagSvg=code=>{
+ const base=(body)=>'<svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'+body+'</svg>';
+ const flags={
+  tr:base('<rect width="60" height="40" fill="#e30a17"/><circle cx="24" cy="20" r="10" fill="#fff"/><circle cx="28" cy="20" r="8" fill="#e30a17"/><path d="m38 12 2.2 5.2 5.6.4-4.3 3.4 1.5 5.4-5-3-4.8 3 1.5-5.4-4.3-3.4 5.5-.4z" fill="#fff"/>'),
+  gb:base('<rect width="60" height="40" fill="#012169"/><path d="M0 0 60 40M60 0 0 40" stroke="#fff" stroke-width="9"/><path d="M0 0 60 40M60 0 0 40" stroke="#c8102e" stroke-width="4"/><path d="M30 0v40M0 20h60" stroke="#fff" stroke-width="14"/><path d="M30 0v40M0 20h60" stroke="#c8102e" stroke-width="8"/>'),
+  us:base('<rect width="60" height="40" fill="#fff"/><path d="M0 0h60v4H0zm0 8h60v4H0zm0 8h60v4H0zm0 8h60v4H0zm0 8h60v4H0z" fill="#b22234"/><rect width="26" height="22" fill="#3c3b6e"/><g fill="#fff"><circle cx="5" cy="5" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="19" cy="5" r="1"/><circle cx="8.5" cy="10" r="1"/><circle cx="15.5" cy="10" r="1"/><circle cx="5" cy="15" r="1"/><circle cx="12" cy="15" r="1"/><circle cx="19" cy="15" r="1"/></g>'),
+  de:base('<rect width="60" height="13.34" y="0" fill="#111"/><rect width="60" height="13.33" y="13.34" fill="#d00"/><rect width="60" height="13.33" y="26.67" fill="#ffce00"/>'),
+  fr:base('<rect width="20" height="40" fill="#002395"/><rect x="20" width="20" height="40" fill="#fff"/><rect x="40" width="20" height="40" fill="#ed2939"/>'),
+  es:base('<rect width="60" height="10" fill="#aa151b"/><rect y="10" width="60" height="20" fill="#f1bf00"/><rect y="30" width="60" height="10" fill="#aa151b"/><path d="M18 14h5v11h-5z" fill="#aa151b"/><circle cx="20.5" cy="13" r="2" fill="#aa151b"/>'),
+  pt:base('<rect width="24" height="40" fill="#046a38"/><rect x="24" width="36" height="40" fill="#da291c"/><circle cx="24" cy="20" r="7" fill="#ffcc29"/><circle cx="24" cy="20" r="4.4" fill="#fff"/>'),
+  nl:base('<rect width="60" height="13.34" fill="#ae1c28"/><rect y="13.33" width="60" height="13.34" fill="#fff"/><rect y="26.66" width="60" height="13.34" fill="#21468b"/>')
+ };
+ return '<span class="flag">'+flags[code]+'</span>';
+};
+const currencyLabel=id=>{const c=currencies.find(x=>x.id===id);return c.id+" "+c.symbol};
+document.querySelectorAll(".option-card").forEach(card=>{
+ let chosen=locales[0], currentCurrency=chosen.currency;
+ const allLangSlots=card.querySelectorAll("[data-languages]");
+ const allCurrencySlots=card.querySelectorAll("[data-currencies]");
+ const render=()=>{
+   allLangSlots.forEach(slot=>{
+     const grid=slot.classList.contains("lang-grid");
+     slot.replaceChildren();
+     locales.forEach(locale=>{
+       const button=document.createElement("button");
+       button.type="button";button.className="lang-choice";
+       button.setAttribute("aria-pressed",String(locale.id===chosen.id));
+       button.innerHTML=flagSvg(locale.flag)+"<span>"+locale.name+"</span>";
+       button.addEventListener("click",()=>{chosen=locale;currentCurrency=locale.currency;render();});
+       slot.append(button);
+     });
+   });
+   allCurrencySlots.forEach(slot=>{
+     const row=slot.classList.contains("currency-row");
+     slot.replaceChildren();
+     currencies.forEach(currency=>{
+       const button=document.createElement("button");
+       button.type="button";button.className="currency-choice";
+       button.setAttribute("aria-pressed",String(currency.id===currentCurrency));
+       button.innerHTML="<b>"+currency.symbol+"</b><span>"+(row?currency.id:currency.name)+"</span>";
+       button.addEventListener("click",()=>{currentCurrency=currency.id;render();});
+       slot.append(button);
+     });
+   });
+   card.querySelectorAll("[data-current-flag]").forEach(el=>el.innerHTML=flagSvg(chosen.flag));
+   card.querySelectorAll("[data-current-lang]").forEach(el=>el.textContent=chosen.name);
+   card.querySelectorAll("[data-current-currency]").forEach(el=>el.textContent=currencyLabel(currentCurrency));
+   card.querySelectorAll("[data-default-label]").forEach(el=>el.textContent="Varsayılan: "+currencyLabel(chosen.currency));
+   card.querySelectorAll("[data-note]").forEach(el=>el.innerHTML="Bu dil için önerilen: <strong>"+currencyLabel(chosen.currency)+"</strong> · Şu an: <strong>"+currencyLabel(currentCurrency)+"</strong>. İstediğin zaman değiştirebilirsin.");
+ };
+ render();
+});
+</script>
+</body>
+</html>
