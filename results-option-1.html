@@ -101,7 +101,7 @@ a{color:inherit;text-decoration:none}button,select{font:inherit}.top{background:
   const drop=document.querySelector('.searchrow .searchfield:nth-child(4) b')?.textContent.trim()||pickup;
   const chips=[...card.querySelectorAll('.chips .chip')].map(x=>x.textContent.trim());
   const fuel=labels.fuelType[card.dataset.fuelType]||'Belirtilmemiş';
-  const ageMark=(age.match(/[0-9]{2}[+]/)||[])[0]||'18+';
+  const ageMark=((age.match(/[0-9]{2}/)||[])[0]||'18')+'+';
   infoSections.replaceChildren(
    makeSection('Yaş gereksinimleri',age,ageMark,[field('Minimum sürücü yaşı',age),field('Ehliyet süresi','Tedarikçi koşulunda belirtilir')],true),
    makeSection('Yakıt politikası',labels.fuelPolicy[card.dataset.fuelPolicy]||'Tedarikçi koşulunda belirtilir','⛽',[field('Yakıt türü',fuel),field('Alış / iade seviyesi',labels.fuelPolicy[card.dataset.fuelPolicy]),field('Yakıt ücreti','Tedarikçi koşulunda belirtilir')]),
