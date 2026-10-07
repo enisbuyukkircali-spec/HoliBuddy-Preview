@@ -378,8 +378,8 @@
   </div>
 
   <section class="hb-hero">
-    <p class="hb-kicker">HOLIBUDDY İLE YOLA ÇIK</p>
-    <h1>Araç kiralamayı kolayca karşılaştırın</h1>
+    <p class="hb-kicker" id="hb-brand-kicker">HOLIBUDDY</p>
+    <h1 id="hb-hero-slogan">Her Yolculuk Doğru Yol Arkadaşıyla Başlar</h1>
     <p class="hb-subtitle">Konumunu ve tarihlerini seç, sana uygun kiralama seçeneklerini bul</p>
 
     <div class="hb-search">
@@ -532,6 +532,7 @@
 
       const pickerLocales=[{"id":"tr","name":"Türkçe","short":"TR","flag":"tr","currency":"TRY"},{"id":"en-GB","name":"English (UK)","short":"EN-UK","flag":"gb","currency":"GBP"},{"id":"en-US","name":"English (US)","short":"EN-US","flag":"us","currency":"USD"},{"id":"de","name":"Deutsch","short":"DE","flag":"de","currency":"EUR"},{"id":"fr","name":"Français","short":"FR","flag":"fr","currency":"EUR"},{"id":"es","name":"Español","short":"ES","flag":"es","currency":"EUR"},{"id":"pt","name":"Português","short":"PT","flag":"pt","currency":"EUR"},{"id":"nl","name":"Nederlands","short":"NL","flag":"nl","currency":"EUR"}];
 const pickerCurrencies=[{"id":"TRY","symbol":"₺"},{"id":"EUR","symbol":"€"},{"id":"GBP","symbol":"£"},{"id":"USD","symbol":"$"}];
+const pickerSlogans={"tr":"Her Yolculuk Doğru Yol Arkadaşıyla Başlar","en-GB":"Every Holiday Needs a Buddy","en-US":"Every Vacation Needs a Buddy","de":"Jede Reise braucht einen Begleiter","fr":"Chaque voyage mérite un bon compagnon","es":"Todo viaje necesita un buen compañero","pt":"Toda viagem merece uma boa companhia","nl":"Elke reis verdient een goede reisgenoot"};
 const pickerLabels={"tr":{"choose":"Dilinizi seçin","count":"8 dil","currency":"Para birimi","default":"Varsayılan","recommended":"Bu dil için önerilen","now":"Şu an","change":"İstediğiniz zaman değiştirebilirsiniz","currencyNames":{"TRY":"Türk Lirası","EUR":"Euro","GBP":"Pound","USD":"ABD Doları"}},"en-GB":{"choose":"Choose a language","count":"8 languages","currency":"Currency","default":"Default","recommended":"Recommended for this language","now":"Currently","change":"You can change it at any time","currencyNames":{"TRY":"Turkish lira","EUR":"Euro","GBP":"Pound sterling","USD":"US dollar"}},"en-US":{"choose":"Choose a language","count":"8 languages","currency":"Currency","default":"Default","recommended":"Recommended for this language","now":"Currently","change":"You can change it at any time","currencyNames":{"TRY":"Turkish lira","EUR":"Euro","GBP":"Pound sterling","USD":"US dollar"}},"de":{"choose":"Sprache auswählen","count":"8 Sprachen","currency":"Währung","default":"Standard","recommended":"Für diese Sprache empfohlen","now":"Aktuell","change":"Sie können dies jederzeit ändern","currencyNames":{"TRY":"Türkische Lira","EUR":"Euro","GBP":"Pfund Sterling","USD":"US-Dollar"}},"fr":{"choose":"Choisir une langue","count":"8 langues","currency":"Devise","default":"Par défaut","recommended":"Recommandée pour cette langue","now":"Actuellement","change":"Vous pouvez la modifier à tout moment","currencyNames":{"TRY":"livre turque","EUR":"euro","GBP":"livre sterling","USD":"dollar américain"}},"es":{"choose":"Elige un idioma","count":"8 idiomas","currency":"Moneda","default":"Predeterminada","recommended":"Recomendada para este idioma","now":"Ahora","change":"Puedes cambiarla cuando quieras","currencyNames":{"TRY":"lira turca","EUR":"euro","GBP":"libra esterlina","USD":"dólar estadounidense"}},"pt":{"choose":"Escolha um idioma","count":"8 idiomas","currency":"Moeda","default":"Predefinida","recommended":"Recomendada para este idioma","now":"Atual","change":"Pode alterá-la a qualquer momento","currencyNames":{"TRY":"lira turca","EUR":"euro","GBP":"libra esterlina","USD":"dólar americano"}},"nl":{"choose":"Kies een taal","count":"8 talen","currency":"Valuta","default":"Standaard","recommended":"Aanbevolen voor deze taal","now":"Nu","change":"Je kunt dit altijd wijzigen","currencyNames":{"TRY":"Turkse lira","EUR":"euro","GBP":"Brits pond","USD":"Amerikaanse dollar"}}};
 
       const localeTrigger=root.querySelector("#hb-locale-trigger");
@@ -562,6 +563,7 @@ const pickerLabels={"tr":{"choose":"Dilinizi seçin","count":"8 dil","currency":
       };
       const renderLocalePicker=()=>{
         const words=pickerLabels[activeLocale.id];
+        root.querySelector("#hb-hero-slogan").textContent=pickerSlogans[activeLocale.id];
         root.querySelector("#hb-current-flag").innerHTML=flagMarkup(activeLocale.flag);
         root.querySelector("#hb-current-locale").textContent=activeLocale.name;
         root.querySelector("#hb-current-short").textContent=activeLocale.short;
