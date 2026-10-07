@@ -73,7 +73,7 @@
     #hbMock .hb-nav a:first-child { color:#fff; font-weight:600; }
     #hbMock .hb-actions { display:flex; align-items:center; gap:12px; white-space:nowrap; }
     #hbMock .hb-lang-wrap { position:relative; flex:0 0 auto; }
-    #hbMock .hb-lang-trigger { min-height:38px; display:inline-flex; align-items:center; gap:7px; padding:8px 12px; border:1px solid rgba(255,255,255,.2); border-radius:999px; color:#fff; background:rgba(255,255,255,.1); font-family:inherit; font-size:13px; font-weight:600; line-height:1.2; cursor:pointer; }
+    #hbMock .hb-lang-trigger { min-height:36px; display:inline-flex; align-items:center; gap:7px; padding:7px 11px; border:1px solid rgba(255,255,255,.2); border-radius:999px; color:#fff; background:rgba(255,255,255,.1); font-family:inherit; font-size:12px; font-weight:600; line-height:1.2; cursor:pointer; }
     #hbMock .hb-lang-trigger:hover, #hbMock .hb-lang-trigger[aria-expanded="true"] { background:rgba(255,255,255,.18); }
     #hbMock .hb-flag { width:20px; height:14px; flex:0 0 20px; display:block; overflow:hidden; border-radius:2px; box-shadow:0 0 0 1px rgba(255,255,255,.32); }
     #hbMock .hb-flag svg { display:block; width:100%; height:100%; }
@@ -298,8 +298,8 @@
       #hbMock { border-radius: 12px; }
       #hbMock .hb-header { min-height: 62px; padding-inline: 16px; gap: 8px; }
       #hbMock .hb-brand img { width: 132px; }
-      #hbMock .hb-lang-trigger { min-height:34px; gap:5px; padding:7px 9px; font-size:11px; }
-      #hbMock .hb-lang-trigger .hb-currency { display:none; }
+      #hbMock .hb-lang-trigger { min-height:33px; gap:5px; padding:6px 8px; font-size:10px; }
+      #hbMock .hb-lang-trigger .hb-currency { display:inline; font-size:10px; }
       #hbMock .hb-locale-short { display:inline; }
       #hbMock .hb-locale-name { display:none; }
       #hbMock .hb-lang-popover { position:fixed; top:72px; right:12px; left:12px; width:auto; max-width:382px; max-height:calc(100dvh - 88px); overflow-y:auto; overscroll-behavior:contain; margin-inline:auto; padding:12px; }
@@ -673,8 +673,12 @@ const pickerLabels={"tr":{"choose":"Dilinizi seçin","count":"8 dil","currency":
       const currencyOptions=root.querySelector("#hb-currency-options");
       const localeWrap=root.querySelector(".hb-lang-wrap");
       localeWrap.addEventListener("click",event=>event.stopPropagation());
-      let activeLocale=pickerLocales[0];
-      let activeCurrency=activeLocale.currency;
+      const localeParams=new URLSearchParams(window.location.search);
+      let storedLocaleId="",storedCurrency="";try{storedLocaleId=localStorage.getItem("hb-locale")||"";storedCurrency=localStorage.getItem("hb-currency")||""}catch{}
+      const requestedLocaleId=localeParams.get("lang")||storedLocaleId;
+      let activeLocale=pickerLocales.find(locale=>locale.id===requestedLocaleId)||pickerLocales[0];
+      const requestedCurrency=localeParams.get("currency")||storedCurrency;
+      let activeCurrency=pickerCurrencies.some(currency=>currency.id===requestedCurrency)?requestedCurrency:activeLocale.currency;
       const flagMarkup=country=>{
         const svg=(body)=>'<svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'+body+'</svg>';
         const flags={
@@ -767,6 +771,7 @@ const pickerLabels={"tr":{"choose":"Dilinizi seçin","count":"8 dil","currency":
         }
       };
       const renderLocalePicker=()=>{
+        try{localStorage.setItem("hb-locale",activeLocale.id);localStorage.setItem("hb-currency",activeCurrency)}catch{}
         const words=pickerLabels[activeLocale.id];
         applyPageTranslations();
         root.querySelector("#hb-hero-slogan").textContent=pickerSlogans[activeLocale.id];
@@ -1130,6 +1135,8 @@ const pickerLabels={"tr":{"choose":"Dilinizi seçin","count":"8 dil","currency":
         searchUrl.searchParams.set("return", returnDate);
         searchUrl.searchParams.set("pickupTime", timeValues.pickup);
         searchUrl.searchParams.set("returnTime", timeValues.return);
+        searchUrl.searchParams.set("lang", activeLocale.id);
+        searchUrl.searchParams.set("currency", activeCurrency);
         searchUrl.hash = "results";
         window.location.assign(searchUrl.href);
       });
