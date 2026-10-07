@@ -62,22 +62,39 @@ const airportCatalog = [
       ];
 const normalizeAirportSearch=value=>String(value||"").toLocaleLowerCase("tr").replace(/ı/g,"i").replace(/ç/g,"c").replace(/ğ/g,"g").replace(/ö/g,"o").replace(/ş/g,"s").replace(/ü/g,"u");
 const airportLabel=airport=>airport.name+" ("+airport.code+")";
+function airportEditDistance(left,right){
+ const a=Array.from(left),b=Array.from(right),row=Array.from({length:b.length+1},(_,i)=>i);
+ for(let i=1;i<=a.length;i++){let diagonal=row[0];row[0]=i;for(let j=1;j<=b.length;j++){const above=row[j];row[j]=Math.min(row[j]+1,row[j-1]+1,diagonal+(a[i-1]===b[j-1]?0:1));diagonal=above}}
+ return row[b.length];
+}
+function nearestAirport(query){
+ const needle=normalizeAirportSearch(query).trim().replace(/\\s+/g," ");
+ if(needle.length<2)return null;
+ const ranked=airportCatalog.map(airport=>{
+  const terms=[airport.name,airport.city,airport.code,...(airport.aliases||[])].map(normalizeAirportSearch).flatMap(value=>[value,...value.split(/[^a-z0-9]+/).filter(Boolean)]);
+  return {airport,distance:Math.min(...terms.map(term=>airportEditDistance(needle,term)))};
+ }).sort((a,b)=>a.distance-b.distance||a.airport.name.localeCompare(b.airport.name,"tr"));
+ const tolerance=Math.max(1,Math.min(3,Math.floor(needle.length*.25)));
+ return ranked[0]?.distance<=tolerance?ranked[0].airport:null;
+}
 function bindAirportPicker(inputId,listId){
  const input=document.querySelector("#"+inputId),list=document.querySelector("#"+listId);let activeIndex=-1;
  const close=()=>{list.hidden=true;input.setAttribute("aria-expanded","false");activeIndex=-1};
  const choose=airport=>{input.value=airportLabel(airport);input.dataset.airportCode=airport.code;close()};
  const render=query=>{
-  const needle=normalizeAirportSearch(query);
-  const matches=needle?airportCatalog.filter(a=>normalizeAirportSearch([a.name,a.city,a.code,...(a.aliases||[])].join(" ")).includes(needle)):airportCatalog;
+  const needle=normalizeAirportSearch(query).trim();
+  let matches=needle?airportCatalog.filter(a=>normalizeAirportSearch([a.name,a.city,a.code,...(a.aliases||[])].join(" ")).includes(needle)):airportCatalog;
+  let isNearest=false;
+  if(!matches.length){const nearest=nearestAirport(needle);if(nearest){matches=[nearest];isNearest=true}}
   list.replaceChildren();
-  if(!matches.length){const empty=document.createElement("div");empty.className="location-empty";empty.textContent="Eşleşen havalimanı bulunamadı";list.append(empty);return}
-  matches.forEach((airport,index)=>{const option=document.createElement("button");option.type="button";option.className="location-option";option.setAttribute("role","option");option.setAttribute("aria-selected",String(index===activeIndex||airport.code===input.dataset.airportCode));option.dataset.airportCode=airport.code;option.innerHTML='<span class="location-option-icon" aria-hidden="true">⌖</span><span class="location-option-copy"><span class="location-option-name"></span><span class="location-option-city"></span></span><span class="location-option-code"></span>';option.querySelector(".location-option-name").textContent=airportLabel(airport);option.querySelector(".location-option-city").textContent=airport.city;option.querySelector(".location-option-code").textContent=airport.code;option.addEventListener("pointerdown",event=>event.preventDefault());option.addEventListener("click",()=>choose(airport));list.append(option)});
+  if(!matches.length){const empty=document.createElement("div");empty.className="location-empty";empty.textContent="Eşleşen ofis bulunamadı";list.append(empty);return}
+  matches.forEach((airport,index)=>{const option=document.createElement("button");option.type="button";option.className="location-option";option.setAttribute("role","option");option.setAttribute("aria-selected",String(index===activeIndex||airport.code===input.dataset.airportCode));option.dataset.airportCode=airport.code;option.innerHTML='<span class="location-option-icon" aria-hidden="true">⌖</span><span class="location-option-copy"><span class="location-option-name"></span><span class="location-option-city"></span></span><span class="location-option-code"></span>';option.querySelector(".location-option-name").textContent=airportLabel(airport);option.querySelector(".location-option-city").textContent=isNearest?"En yakın eşleşme · "+airport.city:airport.city;option.querySelector(".location-option-code").textContent=airport.code;option.addEventListener("pointerdown",event=>event.preventDefault());option.addEventListener("click",()=>choose(airport));list.append(option)});
  };
  const open=query=>{activeIndex=-1;render(query);list.hidden=false;input.setAttribute("aria-expanded","true")};
- input.addEventListener("focus",()=>{input.select();open("")});
+ input.addEventListener("focus",()=>{input.select()});
  input.addEventListener("input",()=>{delete input.dataset.airportCode;activeIndex=-1;if(input.value.trim().length<2){close();return}open(input.value)});
  input.addEventListener("keydown",event=>{
-  if(event.key==="ArrowDown"||event.key==="ArrowUp"){event.preventDefault();if(list.hidden)open(input.value.trim().length>=2?input.value:"");const opts=[...list.querySelectorAll(".location-option")];if(!opts.length)return;const dir=event.key==="ArrowDown"?1:-1;activeIndex=activeIndex<0?(dir===1?0:opts.length-1):(activeIndex+dir+opts.length)%opts.length;opts.forEach((opt,index)=>opt.setAttribute("aria-selected",String(index===activeIndex)));opts[activeIndex].scrollIntoView({block:"nearest"})}
+  if(event.key==="ArrowDown"||event.key==="ArrowUp"){event.preventDefault();if(list.hidden){if(input.value.trim().length<2)return;open(input.value)}const opts=[...list.querySelectorAll(".location-option")];if(!opts.length)return;const dir=event.key==="ArrowDown"?1:-1;activeIndex=activeIndex<0?(dir===1?0:opts.length-1):(activeIndex+dir+opts.length)%opts.length;opts.forEach((opt,index)=>opt.setAttribute("aria-selected",String(index===activeIndex)));opts[activeIndex].scrollIntoView({block:"nearest"})}
   else if(event.key==="Enter"&&!list.hidden){const opts=[...list.querySelectorAll(".location-option")];const chosen=opts[activeIndex]||opts[0];if(chosen){event.preventDefault();choose(airportCatalog.find(a=>a.code===chosen.dataset.airportCode))}}
   else if(event.key==="Escape"&&!list.hidden)close();
  });
