@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/holibuddy.html",
+      "permanent": false
+    }
+  ]
+}
