@@ -601,7 +601,7 @@
         "pt":{placeholder:"Pesquisar cidade ou aeroporto",list:"Aeroportos da Turquia",empty:"Nenhum aeroporto encontrado"},
         "nl":{placeholder:"Zoek een stad of luchthaven",list:"Luchthavens in Turkije",empty:"Geen overeenkomende luchthavens"}
       };
-      const normalizeAirportSearch=value=>String(value||"").normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").replace(/ı/g,"i").toLocaleLowerCase();
+      const normalizeAirportSearch=value=>String(value||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/ı/g,"i").toLocaleLowerCase();
       const airportLabel=(airport,locale)=>airport.name.replace(/Havalimanı/g,airportTerms[locale]||"Airport")+" ("+airport.code+")";
 
       const staticTextNodes=[];
