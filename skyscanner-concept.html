@@ -72,8 +72,33 @@
     #hbMock .hb-nav a { color:inherit; text-decoration:none; white-space:nowrap; }
     #hbMock .hb-nav a:first-child { color:#fff; font-weight:600; }
     #hbMock .hb-actions { display:flex; align-items:center; gap:12px; white-space:nowrap; }
-    #hbMock .hb-lang { display:inline-flex; align-items:center; gap:7px; padding:8px 12px; color:#fff; background:rgba(255,255,255,.1); border-radius:999px; font-size:13px; }
-    #hbMock .hb-flag { font-size:15px; line-height:1; }
+    #hbMock .hb-lang-wrap { position:relative; flex:0 0 auto; }
+    #hbMock .hb-lang-trigger { min-height:38px; display:inline-flex; align-items:center; gap:7px; padding:8px 12px; border:1px solid rgba(255,255,255,.2); border-radius:999px; color:#fff; background:rgba(255,255,255,.1); font:600 13px/1.2 inherit; cursor:pointer; }
+    #hbMock .hb-lang-trigger:hover, #hbMock .hb-lang-trigger[aria-expanded="true"] { background:rgba(255,255,255,.18); }
+    #hbMock .hb-flag { width:20px; height:14px; flex:0 0 20px; display:block; overflow:hidden; border-radius:2px; box-shadow:0 0 0 1px rgba(255,255,255,.32); }
+    #hbMock .hb-flag svg { display:block; width:100%; height:100%; }
+    #hbMock .hb-locale-short { display:none; }
+    #hbMock .hb-currency { color:rgba(255,255,255,.82); font-weight:500; }
+    #hbMock .hb-lang-chevron { color:rgba(255,255,255,.72); font-size:12px; line-height:1; }
+    #hbMock .hb-lang-popover { position:absolute; top:calc(100% + 10px); right:0; z-index:10020; width:min(382px,calc(100vw - 24px)); padding:15px; border:1px solid #d5e3ec; border-radius:14px; color:#173d57; background:#fff; box-shadow:0 18px 45px rgba(0,20,39,.28); white-space:normal; text-align:left; }
+    #hbMock .hb-lang-popover[hidden] { display:none !important; }
+    #hbMock .hb-picker-heading { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:9px; color:#173d57; font-size:13px; font-weight:700; }
+    #hbMock .hb-picker-count { color:#8194a2; font-size:11px; font-weight:500; }
+    #hbMock .hb-locale-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:5px; }
+    #hbMock .hb-locale-option { min-width:0; min-height:36px; display:flex; align-items:center; gap:8px; padding:6px 8px; border:1px solid transparent; border-radius:8px; color:#284c63; background:#fff; font:500 12px/1.25 inherit; text-align:left; cursor:pointer; }
+    #hbMock .hb-locale-option:hover { background:#f2f8fb; }
+    #hbMock .hb-locale-option[aria-pressed="true"] { border-color:#8bc7df; color:#07577b; background:#eaf7fc; font-weight:650; }
+    #hbMock .hb-locale-option:focus-visible, #hbMock .hb-currency-option:focus-visible, #hbMock .hb-lang-trigger:focus-visible { outline:2px solid #22a7d5; outline-offset:2px; }
+    #hbMock .hb-picker-currencies { margin-top:11px; padding-top:10px; border-top:1px solid #edf2f5; }
+    #hbMock .hb-picker-section-title { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:7px; color:#284c63; font-size:12px; font-weight:700; }
+    #hbMock .hb-picker-default { color:#8194a2; font-size:10px; font-weight:500; }
+    #hbMock .hb-currency-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; }
+    #hbMock .hb-currency-option { min-width:0; min-height:35px; display:flex; align-items:center; justify-content:center; gap:5px; padding:6px 4px; border:1px solid #dce7ed; border-radius:8px; color:#284c63; background:#fff; font:600 11px/1.2 inherit; cursor:pointer; }
+    #hbMock .hb-currency-option b { font-size:14px; }
+    #hbMock .hb-currency-option:hover { background:#f2f8fb; }
+    #hbMock .hb-currency-option[aria-pressed="true"] { border-color:#8bc7df; color:#07577b; background:#eaf7fc; }
+    #hbMock .hb-picker-note { margin-top:9px; padding:8px 9px; border-radius:8px; color:#587386; background:#f4f8fa; font-size:11px; line-height:1.4; }
+    #hbMock .hb-picker-note strong { color:#07577b; }
     #hbMock .hb-login { border:1px solid #fff; color:#062847; background:#fff; border-radius:999px; padding:10px 17px; font-weight:650; cursor:pointer; }
     #hbMock .hb-login:hover { background:#eef7ff; }
     #hbMock .hb-hero {
@@ -144,6 +169,14 @@
     #hbMock .hb-calendar-day[aria-pressed="true"] { color:#fff; background:#087eb4; font-weight:600; }
     #hbMock .hb-calendar-day:disabled { color:#b9c4cb; background:transparent; cursor:default; }
     #hbMock .hb-date-help { margin:15px 2px 0; padding:12px; border-radius:9px; color:#4d697c; background:#f3f8fb; font-size:12px; line-height:1.5; }
+    @media (max-width: 360px) {
+      #hbMock .hb-header { padding-inline:12px; }
+      #hbMock .hb-brand img { width:96px; }
+      #hbMock .hb-lang-trigger { gap:4px; padding:6px 7px; }
+      #hbMock .hb-flag { width:18px; height:13px; flex-basis:18px; }
+      #hbMock .hb-actions { gap:5px; }
+      #hbMock .hb-login { padding:7px 9px; }
+    }
     @media (prefers-reduced-motion: reduce) { #hbMock .hb-date-drawer { animation:none; } }
     #hbMock .hb-note { min-height: 20px; margin: 8px 2px 0; color: #b9eaff; font-size: 12px; }
     #hbMock .hb-main { padding: 36px clamp(20px, 7vw, 90px) 54px; }
@@ -250,8 +283,14 @@
       #hbMock { border-radius: 12px; }
       #hbMock .hb-header { min-height: 62px; padding-inline: 16px; gap: 8px; }
       #hbMock .hb-brand img { width: 132px; }
-      #hbMock .hb-lang { display:inline-flex; gap:5px; padding:7px 9px; font-size:11px; }
-      #hbMock .hb-lang .hb-currency { display:none; }
+      #hbMock .hb-lang-trigger { min-height:34px; gap:5px; padding:7px 9px; font-size:11px; }
+      #hbMock .hb-lang-trigger .hb-currency { display:none; }
+      #hbMock .hb-locale-short { display:inline; }
+      #hbMock .hb-locale-name { display:none; }
+      #hbMock .hb-lang-popover { padding:12px; }
+      #hbMock .hb-locale-option { min-height:34px; padding:5px 6px; font-size:11px; }
+      #hbMock .hb-currency-grid { gap:4px; }
+      #hbMock .hb-currency-option { font-size:10px; }
       #hbMock .hb-actions { gap:7px; }
       #hbMock .hb-auth-overlay { padding:10px; align-items:start; }
       #hbMock .hb-auth-modal { width:100%; height:min(700px,calc(100dvh - 20px)); min-height:560px; grid-template-columns:1fr; grid-template-rows:170px minmax(0,1fr); border-radius:14px; }
@@ -311,7 +350,7 @@
 
   <header class="hb-header">
     <a class="hb-brand" href="#" aria-label="HoliBuddy ana sayfa"><img src="images/newRentACarLogo.png" alt="HoliBuddy"></a>
-    <div class="hb-actions"><span class="hb-lang" lang="tr"><span class="hb-flag" aria-hidden="true">🇹🇷</span><span>Türkçe</span><span class="hb-currency">· ₺</span></span><button class="hb-login" type="button" aria-haspopup="dialog" aria-controls="hb-auth-modal">Oturum aç</button></div>
+    <div class="hb-actions"><div class="hb-lang-wrap"><button class="hb-lang-trigger" id="hb-locale-trigger" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="hb-language-panel"><span class="hb-flag" id="hb-current-flag" aria-hidden="true"></span><span class="hb-locale-name" id="hb-current-locale">Türkçe</span><span class="hb-locale-short" id="hb-current-short">TR</span><span class="hb-currency" id="hb-current-currency">TRY ₺</span><span class="hb-lang-chevron" aria-hidden="true">⌄</span></button><div class="hb-lang-popover" id="hb-language-panel" role="dialog" aria-labelledby="hb-picker-language-title" hidden><div class="hb-picker-heading"><span id="hb-picker-language-title">Dilinizi seçin</span><span class="hb-picker-count" id="hb-picker-count">8 dil</span></div><div class="hb-locale-grid" id="hb-locale-options" role="group" aria-label="Dil seçenekleri"></div><div class="hb-picker-currencies"><div class="hb-picker-section-title"><span id="hb-picker-currency-title">Para birimi</span><span class="hb-picker-default" id="hb-picker-default">Varsayılan: TRY ₺</span></div><div class="hb-currency-grid" id="hb-currency-options" role="group" aria-label="Para birimi seçenekleri"></div></div><div class="hb-picker-note" id="hb-picker-note"></div></div></div><button class="hb-login" type="button" aria-haspopup="dialog" aria-controls="hb-auth-modal">Oturum aç</button></div>
   </header>
 
   <div class="hb-auth-overlay" id="hb-auth-modal" role="presentation" hidden>
@@ -490,6 +529,80 @@
   <script>
     (() => {
       const root = document.getElementById("hbMock");
+
+      const pickerLocales=[{"id":"tr","name":"Türkçe","short":"TR","flag":"tr","currency":"TRY"},{"id":"en-GB","name":"English (UK)","short":"EN-UK","flag":"gb","currency":"GBP"},{"id":"en-US","name":"English (US)","short":"EN-US","flag":"us","currency":"USD"},{"id":"de","name":"Deutsch","short":"DE","flag":"de","currency":"EUR"},{"id":"fr","name":"Français","short":"FR","flag":"fr","currency":"EUR"},{"id":"es","name":"Español","short":"ES","flag":"es","currency":"EUR"},{"id":"pt","name":"Português","short":"PT","flag":"pt","currency":"EUR"},{"id":"nl","name":"Nederlands","short":"NL","flag":"nl","currency":"EUR"}];
+const pickerCurrencies=[{"id":"TRY","symbol":"₺"},{"id":"EUR","symbol":"€"},{"id":"GBP","symbol":"£"},{"id":"USD","symbol":"$"}];
+const pickerLabels={"tr":{"choose":"Dilinizi seçin","count":"8 dil","currency":"Para birimi","default":"Varsayılan","recommended":"Bu dil için önerilen","now":"Şu an","change":"İstediğiniz zaman değiştirebilirsiniz","currencyNames":{"TRY":"Türk Lirası","EUR":"Euro","GBP":"Pound","USD":"ABD Doları"}},"en-GB":{"choose":"Choose a language","count":"8 languages","currency":"Currency","default":"Default","recommended":"Recommended for this language","now":"Currently","change":"You can change it at any time","currencyNames":{"TRY":"Turkish lira","EUR":"Euro","GBP":"Pound sterling","USD":"US dollar"}},"en-US":{"choose":"Choose a language","count":"8 languages","currency":"Currency","default":"Default","recommended":"Recommended for this language","now":"Currently","change":"You can change it at any time","currencyNames":{"TRY":"Turkish lira","EUR":"Euro","GBP":"Pound sterling","USD":"US dollar"}},"de":{"choose":"Sprache auswählen","count":"8 Sprachen","currency":"Währung","default":"Standard","recommended":"Für diese Sprache empfohlen","now":"Aktuell","change":"Sie können dies jederzeit ändern","currencyNames":{"TRY":"Türkische Lira","EUR":"Euro","GBP":"Pfund Sterling","USD":"US-Dollar"}},"fr":{"choose":"Choisir une langue","count":"8 langues","currency":"Devise","default":"Par défaut","recommended":"Recommandée pour cette langue","now":"Actuellement","change":"Vous pouvez la modifier à tout moment","currencyNames":{"TRY":"livre turque","EUR":"euro","GBP":"livre sterling","USD":"dollar américain"}},"es":{"choose":"Elige un idioma","count":"8 idiomas","currency":"Moneda","default":"Predeterminada","recommended":"Recomendada para este idioma","now":"Ahora","change":"Puedes cambiarla cuando quieras","currencyNames":{"TRY":"lira turca","EUR":"euro","GBP":"libra esterlina","USD":"dólar estadounidense"}},"pt":{"choose":"Escolha um idioma","count":"8 idiomas","currency":"Moeda","default":"Predefinida","recommended":"Recomendada para este idioma","now":"Atual","change":"Pode alterá-la a qualquer momento","currencyNames":{"TRY":"lira turca","EUR":"euro","GBP":"libra esterlina","USD":"dólar americano"}},"nl":{"choose":"Kies een taal","count":"8 talen","currency":"Valuta","default":"Standaard","recommended":"Aanbevolen voor deze taal","now":"Nu","change":"Je kunt dit altijd wijzigen","currencyNames":{"TRY":"Turkse lira","EUR":"euro","GBP":"Brits pond","USD":"Amerikaanse dollar"}}};
+
+      const localeTrigger=root.querySelector("#hb-locale-trigger");
+      const localePanel=root.querySelector("#hb-language-panel");
+      const localeOptions=root.querySelector("#hb-locale-options");
+      const currencyOptions=root.querySelector("#hb-currency-options");
+      let activeLocale=pickerLocales[0];
+      let activeCurrency=activeLocale.currency;
+      const flagMarkup=country=>{
+        const svg=(body)=>'<svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'+body+'</svg>';
+        const flags={
+          tr:svg('<rect width="60" height="40" fill="#e30a17"/><circle cx="24" cy="20" r="10" fill="#fff"/><circle cx="28" cy="20" r="8" fill="#e30a17"/><path d="m38 12 2.2 5.2 5.6.4-4.3 3.4 1.5 5.4-5-3-4.8 3 1.5-5.4-4.3-3.4 5.5-.4z" fill="#fff"/>'),
+          gb:svg('<rect width="60" height="40" fill="#012169"/><path d="M0 0 60 40M60 0 0 40" stroke="#fff" stroke-width="9"/><path d="M0 0 60 40M60 0 0 40" stroke="#c8102e" stroke-width="4"/><path d="M30 0v40M0 20h60" stroke="#fff" stroke-width="14"/><path d="M30 0v40M0 20h60" stroke="#c8102e" stroke-width="8"/>'),
+          us:svg('<rect width="60" height="40" fill="#fff"/><path d="M0 0h60v4H0zm0 8h60v4H0zm0 8h60v4H0zm0 8h60v4H0zm0 8h60v4H0z" fill="#b22234"/><rect width="26" height="22" fill="#3c3b6e"/><g fill="#fff"><circle cx="5" cy="5" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="19" cy="5" r="1"/><circle cx="8.5" cy="10" r="1"/><circle cx="15.5" cy="10" r="1"/><circle cx="5" cy="15" r="1"/><circle cx="12" cy="15" r="1"/><circle cx="19" cy="15" r="1"/></g>'),
+          de:svg('<rect width="60" height="13.34" y="0" fill="#111"/><rect width="60" height="13.33" y="13.34" fill="#d00"/><rect width="60" height="13.33" y="26.67" fill="#ffce00"/>'),
+          fr:svg('<rect width="20" height="40" fill="#002395"/><rect x="20" width="20" height="40" fill="#fff"/><rect x="40" width="20" height="40" fill="#ed2939"/>'),
+          es:svg('<rect width="60" height="10" fill="#aa151b"/><rect y="10" width="60" height="20" fill="#f1bf00"/><rect y="30" width="60" height="10" fill="#aa151b"/><path d="M18 14h5v11h-5z" fill="#aa151b"/><circle cx="20.5" cy="13" r="2" fill="#aa151b"/>'),
+          pt:svg('<rect width="24" height="40" fill="#046a38"/><rect x="24" width="36" height="40" fill="#da291c"/><circle cx="24" cy="20" r="7" fill="#ffcc29"/><circle cx="24" cy="20" r="4.4" fill="#fff"/>'),
+          nl:svg('<rect width="60" height="13.34" fill="#ae1c28"/><rect y="13.33" width="60" height="13.34" fill="#fff"/><rect y="26.66" width="60" height="13.34" fill="#21468b"/>')
+        };
+        return flags[country];
+      };
+      const currencyText=(code, localeId)=>{
+        const currency=pickerCurrencies.find(item=>item.id===code);
+        return code+" "+currency.symbol;
+      };
+      const renderLocalePicker=()=>{
+        const words=pickerLabels[activeLocale.id];
+        root.querySelector("#hb-current-flag").innerHTML=flagMarkup(activeLocale.flag);
+        root.querySelector("#hb-current-locale").textContent=activeLocale.name;
+        root.querySelector("#hb-current-short").textContent=activeLocale.short;
+        root.querySelector("#hb-current-currency").textContent=currencyText(activeCurrency,activeLocale.id);
+        localeTrigger.lang=activeLocale.id;
+        root.querySelector("#hb-picker-language-title").textContent=words.choose;
+        root.querySelector("#hb-picker-count").textContent=words.count;
+        root.querySelector("#hb-picker-currency-title").textContent=words.currency;
+        root.querySelector("#hb-picker-default").textContent=words.default+": "+currencyText(activeLocale.currency,activeLocale.id);
+        localeOptions.replaceChildren();
+        pickerLocales.forEach(locale=>{
+          const button=document.createElement("button");
+          button.type="button";button.className="hb-locale-option";
+          button.setAttribute("aria-pressed",String(locale.id===activeLocale.id));
+          button.innerHTML='<span class="hb-flag" aria-hidden="true">'+flagMarkup(locale.flag)+'</span><span>'+locale.name+'</span>';
+          button.addEventListener("click",()=>{activeLocale=locale;activeCurrency=locale.currency;renderLocalePicker();});
+          localeOptions.append(button);
+        });
+        currencyOptions.replaceChildren();
+        pickerCurrencies.forEach(currency=>{
+          const button=document.createElement("button");
+          button.type="button";button.className="hb-currency-option";
+          button.setAttribute("aria-pressed",String(currency.id===activeCurrency));
+          button.innerHTML="<b>"+currency.symbol+"</b><span>"+currency.id+"</span>";
+          button.addEventListener("click",()=>{activeCurrency=currency.id;renderLocalePicker();});
+          currencyOptions.append(button);
+        });
+        root.querySelector("#hb-picker-note").innerHTML=words.recommended+": <strong>"+currencyText(activeLocale.currency,activeLocale.id)+"</strong> · "+words.now+": <strong>"+currencyText(activeCurrency,activeLocale.id)+"</strong>. "+words.change+".";
+      };
+      renderLocalePicker();
+      localeTrigger.addEventListener("click",()=>{
+        localePanel.hidden=!localePanel.hidden;
+        localeTrigger.setAttribute("aria-expanded",String(!localePanel.hidden));
+      });
+      document.addEventListener("click",event=>{
+        if(!root.querySelector(".hb-lang-wrap").contains(event.target)){
+          localePanel.hidden=true;localeTrigger.setAttribute("aria-expanded","false");
+        }
+      });
+      document.addEventListener("keydown",event=>{
+        if(event.key==="Escape"&&!localePanel.hidden){localePanel.hidden=true;localeTrigger.setAttribute("aria-expanded","false");localeTrigger.focus();}
+      });
+
       const authOverlay = root.querySelector("#hb-auth-modal");
       const authOpen = root.querySelector(".hb-login");
       const authClose = root.querySelector(".hb-auth-close");
