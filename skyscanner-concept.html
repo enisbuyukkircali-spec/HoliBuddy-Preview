@@ -112,6 +112,18 @@
     #hbMock h1 { max-width: 1080px; margin: 0 auto; font-size: clamp(32px, 4vw, 48px); line-height: 1.08; letter-spacing: -1.5px; font-weight: 650; }
     #hbMock .hb-subtitle { max-width: 720px; margin: 12px auto 25px; color: rgba(255, 255, 255, .9); font-size: 16px; }
     #hbMock .hb-search { max-width:1120px; margin:0 auto; padding:18px; color:#fff; background:#062847; border:1px solid rgba(255,255,255,.16); border-radius:18px; box-shadow:0 18px 52px rgba(0,20,39,.27); }
+    #hbMock .hb-location-field { position:relative; overflow:visible; }
+    #hbMock .hb-location-input-wrap { position:relative; width:100%; }
+    #hbMock .hb-location-options { position:absolute; top:calc(100% + 12px); left:-15px; right:-15px; z-index:50; max-height:min(390px,55vh); overflow:auto; padding:7px; border:1px solid #d8e5ec; border-radius:12px; color:#163a53; background:#fff; box-shadow:0 18px 40px rgba(0,20,39,.25); }
+    #hbMock .hb-location-options[hidden] { display:none !important; }
+    #hbMock .hb-location-option { width:100%; min-height:50px; display:flex; align-items:center; gap:11px; padding:8px 10px; border:0; border-radius:8px; color:#163a53; background:#fff; text-align:left; cursor:pointer; }
+    #hbMock .hb-location-option:hover, #hbMock .hb-location-option[aria-selected="true"] { background:#eaf7fc; }
+    #hbMock .hb-location-option-icon { width:32px; height:32px; flex:0 0 32px; display:grid; place-items:center; border-radius:50%; color:#087eb4; background:#eaf7fc; font-size:15px; }
+    #hbMock .hb-location-option-copy { min-width:0; flex:1; display:flex; flex-direction:column; gap:2px; }
+    #hbMock .hb-location-option-name { overflow:hidden; font-size:13px; font-weight:650; text-overflow:ellipsis; white-space:nowrap; }
+    #hbMock .hb-location-option-city { color:#708695; font-size:11px; }
+    #hbMock .hb-location-option-code { flex:0 0 auto; color:#60798a; font-size:11px; font-weight:700; letter-spacing:.04em; }
+    #hbMock .hb-location-empty { padding:16px 12px; color:#60798a; font-size:13px; text-align:center; }
     #hbMock .hb-fields { display: grid; grid-template-columns: 1.45fr 1fr 1fr auto; align-items: stretch; gap: 9px; }
     #hbMock [hidden] { display: none !important; }
     #hbMock .hb-fields.is-different { grid-template-columns: 1.45fr 1.25fr 1fr 1fr auto; }
@@ -384,7 +396,7 @@
 
     <div class="hb-search">
       <div class="hb-fields">
-        <div class="hb-field"><label for="hb-pickup">Alış noktası</label><input id="hb-pickup" value="İstanbul Havalimanı (IST)" aria-label="Alış noktası"></div>
+        <div class="hb-field hb-location-field"><label for="hb-pickup">Alış noktası</label><div class="hb-location-input-wrap"><input id="hb-pickup" value="İstanbul Havalimanı (IST)" aria-label="Alış noktası" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="hb-location-options" placeholder="Şehir veya havalimanı ara"><div id="hb-location-options" class="hb-location-options" role="listbox" aria-label="Havalimanları" hidden></div></div></div>
         <div class="hb-field" id="hb-return-wrap" hidden style="display:none"><label for="hb-return">İade noktası</label><input id="hb-return" value="Sabiha Gökçen Havalimanı (SAW)" aria-label="İade noktası"></div>
         <div class="hb-field"><span class="hb-control-label">Alış tarihi ve saati</span><div class="hb-datetime-controls"><button id="hb-start-date" class="hb-date-trigger" type="button" data-date-trigger="pickup" aria-label="Alış tarihini seç" aria-haspopup="dialog" aria-controls="hb-date-overlay"><span class="hb-date-value" data-pickup-label>8 Eki 2026</span></button><span class="hb-time-control"><button id="hb-start-time" class="hb-time-trigger" type="button" aria-label="Alış saati" aria-haspopup="listbox" aria-expanded="false" aria-controls="hb-start-time-menu"><span class="hb-time-value">10:00</span><span class="hb-time-chevron" aria-hidden="true">⌄</span></button><span id="hb-start-time-menu" class="hb-time-menu" role="listbox" aria-label="Alış saatini seç" hidden></span></span></div></div>
         <div class="hb-field"><span class="hb-control-label">İade tarihi ve saati</span><div class="hb-datetime-controls"><button id="hb-end-date" class="hb-date-trigger" type="button" data-date-trigger="return" aria-label="İade tarihini seç" aria-haspopup="dialog" aria-controls="hb-date-overlay"><span class="hb-date-value" data-return-label>10 Eki 2026</span></button><span class="hb-time-control"><button id="hb-end-time" class="hb-time-trigger" type="button" aria-label="İade saati" aria-haspopup="listbox" aria-expanded="false" aria-controls="hb-end-time-menu"><span class="hb-time-value">10:00</span><span class="hb-time-chevron" aria-hidden="true">⌄</span></button><span id="hb-end-time-menu" class="hb-time-menu" role="listbox" aria-label="İade saatini seç" hidden></span></span></div></div>
@@ -525,6 +537,73 @@
   <script>
     (() => {
       const root = document.getElementById("hbMock");
+      const airportCatalog = [
+        {code:"IST",name:"İstanbul Havalimanı",city:"İstanbul",aliases:["Istanbul Airport","Yeni Havalimanı"]},
+        {code:"SAW",name:"İstanbul Sabiha Gökçen Havalimanı",city:"İstanbul",aliases:["Sabiha Gökçen","Sabiha Gokcen","Istanbul Sabiha Gokcen"]},
+        {code:"AYT",name:"Antalya Havalimanı",city:"Antalya",aliases:["Antalya Airport"]},
+        {code:"ESB",name:"Ankara Esenboğa Havalimanı",city:"Ankara",aliases:["Esenboga","Ankara Airport"]},
+        {code:"ADB",name:"İzmir Adnan Menderes Havalimanı",city:"İzmir",aliases:["Izmir Airport","Adnan Menderes"]},
+        {code:"DLM",name:"Muğla Dalaman Havalimanı",city:"Muğla",aliases:["Dalaman Airport"]},
+        {code:"BJV",name:"Muğla Milas-Bodrum Havalimanı",city:"Muğla",aliases:["Bodrum Airport","Milas Bodrum"]},
+        {code:"GZP",name:"Antalya Gazipaşa-Alanya Havalimanı",city:"Antalya",aliases:["Gazipasa","Alanya Airport"]},
+        {code:"COV",name:"Çukurova Uluslararası Havalimanı",city:"Mersin / Adana",aliases:["Adana Airport","Mersin Airport","Cukurova"]},
+        {code:"TZX",name:"Trabzon Havalimanı",city:"Trabzon"},
+        {code:"GZT",name:"Gaziantep Havalimanı",city:"Gaziantep"},
+        {code:"ASR",name:"Kayseri Havalimanı",city:"Kayseri"},
+        {code:"KYA",name:"Konya Havalimanı",city:"Konya"},
+        {code:"DIY",name:"Diyarbakır Havalimanı",city:"Diyarbakır"},
+        {code:"EZS",name:"Elazığ Havalimanı",city:"Elazığ"},
+        {code:"ERZ",name:"Erzurum Havalimanı",city:"Erzurum"},
+        {code:"VAN",name:"Van Ferit Melen Havalimanı",city:"Van"},
+        {code:"SZF",name:"Samsun Çarşamba Havalimanı",city:"Samsun"},
+        {code:"AOE",name:"Eskişehir Hasan Polatkan Havalimanı",city:"Eskişehir"},
+        {code:"NAV",name:"Nevşehir Kapadokya Havalimanı",city:"Nevşehir"},
+        {code:"BGG",name:"Bingöl Havalimanı",city:"Bingöl"},
+        {code:"ADF",name:"Adıyaman Havalimanı",city:"Adıyaman"},
+        {code:"AJI",name:"Ağrı Ahmed-i Hani Havalimanı",city:"Ağrı"},
+        {code:"MZH",name:"Amasya Merzifon Havalimanı",city:"Amasya"},
+        {code:"EDO",name:"Balıkesir Koca Seyit Havalimanı",city:"Balıkesir / Edremit"},
+        {code:"BAL",name:"Batman Havalimanı",city:"Batman"},
+        {code:"YEI",name:"Bursa Yenişehir Havalimanı",city:"Bursa"},
+        {code:"CKZ",name:"Çanakkale Havalimanı",city:"Çanakkale"},
+        {code:"DNZ",name:"Denizli Çardak Havalimanı",city:"Denizli"},
+        {code:"ERC",name:"Erzincan Yıldırım Akbulut Havalimanı",city:"Erzincan"},
+        {code:"YKO",name:"Hakkari Yüksekova Selahaddin Eyyubi Havalimanı",city:"Hakkari / Yüksekova"},
+        {code:"HTY",name:"Hatay Havalimanı",city:"Hatay"},
+        {code:"IGD",name:"Iğdır Şehit Bülent Aydın Havalimanı",city:"Iğdır"},
+        {code:"ISE",name:"Isparta Süleyman Demirel Havalimanı",city:"Isparta"},
+        {code:"KCM",name:"Kahramanmaraş Havalimanı",city:"Kahramanmaraş"},
+        {code:"KSY",name:"Kars Harakani Havalimanı",city:"Kars"},
+        {code:"KFS",name:"Kastamonu Havalimanı",city:"Kastamonu"},
+        {code:"MLX",name:"Malatya Havalimanı",city:"Malatya"},
+        {code:"MQM",name:"Mardin Prof. Dr. Aziz Sancar Havalimanı",city:"Mardin"},
+        {code:"MSR",name:"Muş Sultan Alparslan Havalimanı",city:"Muş"},
+        {code:"OGU",name:"Ordu-Giresun Havalimanı",city:"Ordu / Giresun"},
+        {code:"RZV",name:"Rize-Artvin Havalimanı",city:"Rize / Artvin"},
+        {code:"SXZ",name:"Siirt Havalimanı",city:"Siirt"},
+        {code:"NOP",name:"Sinop Havalimanı",city:"Sinop"},
+        {code:"VAS",name:"Sivas Nuri Demirağ Havalimanı",city:"Sivas"},
+        {code:"GNY",name:"Şanlıurfa GAP Havalimanı",city:"Şanlıurfa"},
+        {code:"NKT",name:"Şırnak Şerafettin Elçi Havalimanı",city:"Şırnak"},
+        {code:"TEQ",name:"Tekirdağ Çorlu Atatürk Havalimanı",city:"Tekirdağ / Çorlu"},
+        {code:"TJK",name:"Tokat Havalimanı",city:"Tokat"},
+        {code:"KZR",name:"Zafer Havalimanı",city:"Kütahya / Afyonkarahisar / Uşak"},
+        {code:"ONQ",name:"Zonguldak Çaycuma Havalimanı",city:"Zonguldak"}
+      ];
+      const airportTerms={"tr":"Havalimanı","en-GB":"Airport","en-US":"Airport","de":"Flughafen","fr":"Aéroport","es":"Aeropuerto","pt":"Aeroporto","nl":"Luchthaven"};
+      const airportUi={
+        "tr":{placeholder:"Şehir veya havalimanı ara",list:"Türkiye havalimanları",empty:"Eşleşen havalimanı bulunamadı"},
+        "en-GB":{placeholder:"Search a city or airport",list:"Airports in Türkiye",empty:"No matching airports found"},
+        "en-US":{placeholder:"Search a city or airport",list:"Airports in Türkiye",empty:"No matching airports found"},
+        "de":{placeholder:"Stadt oder Flughafen suchen",list:"Flughäfen in der Türkei",empty:"Keine passenden Flughäfen gefunden"},
+        "fr":{placeholder:"Rechercher une ville ou un aéroport",list:"Aéroports en Turquie",empty:"Aucun aéroport correspondant"},
+        "es":{placeholder:"Buscar ciudad o aeropuerto",list:"Aeropuertos de Turquía",empty:"No se encontraron aeropuertos"},
+        "pt":{placeholder:"Pesquisar cidade ou aeroporto",list:"Aeroportos da Turquia",empty:"Nenhum aeroporto encontrado"},
+        "nl":{placeholder:"Zoek een stad of luchthaven",list:"Luchthavens in Turkije",empty:"Geen overeenkomende luchthavens"}
+      };
+      const normalizeAirportSearch=value=>String(value||"").normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").replace(/ı/g,"i").toLocaleLowerCase();
+      const airportLabel=(airport,locale)=>airport.name.replace(/Havalimanı/g,airportTerms[locale]||"Airport")+" ("+airport.code+")";
+
       const staticTextNodes=[];
       const textWalker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
       while(textWalker.nextNode()){
@@ -598,11 +677,15 @@ const pickerLabels={"tr":{"choose":"Dilinizi seçin","count":"8 dil","currency":
         const lastPickupDisplay=pickupField.dataset.lastLocaleValue||originalPickup;
         const lastReturnDisplay=returnLocationField.dataset.lastLocaleValue||originalReturn;
         const selectedLocation=pickupField.dataset.localeLocationKey;
-        if(selectedLocation) pickupField.value=locale==="tr"?selectedLocation:(words[selectedLocation]||selectedLocation);
+        const selectedAirport=airportCatalog.find(airport=>airport.code===pickupField.dataset.airportCode);
+        if(selectedAirport) pickupField.value=airportLabel(selectedAirport,locale);
+        else if(selectedLocation) pickupField.value=locale==="tr"?selectedLocation:(words[selectedLocation]||selectedLocation);
         else if(pickupField.value===lastPickupDisplay) pickupField.value=locale==="tr"?originalPickup:(words[originalPickup]||originalPickup);
         if(returnLocationField.value===lastReturnDisplay) returnLocationField.value=locale==="tr"?originalReturn:(words[originalReturn]||originalReturn);
+        pickupField.placeholder=(airportUi[locale]||airportUi.tr).placeholder;
+        root.querySelector("#hb-location-options").setAttribute("aria-label",(airportUi[locale]||airportUi.tr).list);
         pickupField.dataset.lastLocaleValue=pickupField.value;returnLocationField.dataset.lastLocaleValue=returnLocationField.value;
-        if(!pickupField.dataset.localeInputListener){pickupField.addEventListener("input",()=>{delete pickupField.dataset.localeLocationKey;});pickupField.dataset.localeInputListener="true";}
+        if(!pickupField.dataset.localeInputListener){pickupField.addEventListener("input",()=>{delete pickupField.dataset.localeLocationKey;delete pickupField.dataset.airportCode;});pickupField.dataset.localeInputListener="true";}
         
         root.querySelector("#hb-promo-code").setAttribute("placeholder",words["Kampanya kodunu girin"]||"Kampanya kodunu girin");
         const metaKey=locale==="tr"?"tr_TR":locale==="en-GB"?"en_GB":locale==="en-US"?"en_US":locale+"_"+locale.toUpperCase();
@@ -726,6 +809,71 @@ const pickerLabels={"tr":{"choose":"Dilinizi seçin","count":"8 dil","currency":
         authFeedback.textContent=uiCopy[activeLocale.id].socialError;
       }));
       const note = root.querySelector(".hb-note");
+      const pickupField=root.querySelector("#hb-pickup");
+      const airportOptions=root.querySelector("#hb-location-options");
+      let activeAirportIndex=-1;
+      const airportCopy=()=>airportUi[activeLocale.id]||airportUi.tr;
+      const airportHasSelection=()=>airportCatalog.some(airport=>airport.code===pickupField.dataset.airportCode);
+      const closeAirportOptions=()=>{airportOptions.hidden=true;pickupField.setAttribute("aria-expanded","false");activeAirportIndex=-1;};
+      const chooseAirport=airport=>{
+        pickupField.dataset.airportCode=airport.code;
+        delete pickupField.dataset.localeLocationKey;
+        pickupField.value=airportLabel(airport,activeLocale.id);
+        pickupField.dataset.lastLocaleValue=pickupField.value;
+        closeAirportOptions();
+        pickupField.dispatchEvent(new Event("change",{bubbles:true}));
+      };
+      const renderAirportOptions=query=>{
+        const needle=normalizeAirportSearch(query);
+        const results=airportCatalog.filter(airport=>normalizeAirportSearch([airport.name,airport.city,airport.code,...(airport.aliases||[])].join(" ")).includes(needle));
+        airportOptions.replaceChildren();
+        if(!results.length){
+          const empty=document.createElement("div");empty.className="hb-location-empty";empty.textContent=airportCopy().empty;airportOptions.append(empty);return;
+        }
+        results.forEach((airport,index)=>{
+          const option=document.createElement("button");
+          option.type="button";option.className="hb-location-option";option.setAttribute("role","option");
+          option.setAttribute("aria-selected",String(index===activeAirportIndex||airport.code===pickupField.dataset.airportCode));
+          option.dataset.airportCode=airport.code;
+          option.innerHTML='<span class="hb-location-option-icon" aria-hidden="true">⌖</span><span class="hb-location-option-copy"><span class="hb-location-option-name"></span><span class="hb-location-option-city"></span></span><span class="hb-location-option-code"></span>';
+          option.querySelector(".hb-location-option-name").textContent=airportLabel(airport,activeLocale.id);
+          option.querySelector(".hb-location-option-city").textContent=airport.city;
+          option.querySelector(".hb-location-option-code").textContent=airport.code;
+          option.addEventListener("pointerdown",event=>event.preventDefault());
+          option.addEventListener("click",()=>chooseAirport(airport));
+          airportOptions.append(option);
+        });
+      };
+      pickupField.addEventListener("focus",()=>{
+        activeAirportIndex=-1;renderAirportOptions(pickupField.dataset.airportCode?"":pickupField.value);airportOptions.hidden=false;pickupField.setAttribute("aria-expanded","true");
+      });
+      pickupField.addEventListener("click",()=>{
+        if(airportOptions.hidden){activeAirportIndex=-1;renderAirportOptions(pickupField.dataset.airportCode?"":pickupField.value);airportOptions.hidden=false;pickupField.setAttribute("aria-expanded","true");}
+        pickupField.select();
+      });
+      pickupField.addEventListener("input",()=>{
+        delete pickupField.dataset.airportCode;delete pickupField.dataset.localeLocationKey;
+        activeAirportIndex=-1;renderAirportOptions(pickupField.value);airportOptions.hidden=false;pickupField.setAttribute("aria-expanded","true");
+      });
+      pickupField.addEventListener("keydown",event=>{
+        const options=[...airportOptions.querySelectorAll(".hb-location-option")];
+        if(event.key==="ArrowDown"||event.key==="ArrowUp"){
+          event.preventDefault();
+          if(airportOptions.hidden){renderAirportOptions(pickupField.value);airportOptions.hidden=false;pickupField.setAttribute("aria-expanded","true");}
+          const direction=event.key==="ArrowDown"?1:-1;
+          activeAirportIndex=(activeAirportIndex+direction+options.length)%options.length;
+          renderAirportOptions(pickupField.value);
+          const current=airportOptions.querySelectorAll(".hb-location-option")[activeAirportIndex];
+          if(current){current.setAttribute("aria-selected","true");current.scrollIntoView({block:"nearest"});}
+        } else if(event.key==="Enter"&&!airportOptions.hidden){
+          event.preventDefault();
+          const visible=[...airportOptions.querySelectorAll(".hb-location-option")];
+          const option=visible[activeAirportIndex]||visible[0];
+          if(option) chooseAirport(airportCatalog.find(airport=>airport.code===option.dataset.airportCode));
+        } else if(event.key==="Escape"&&!airportOptions.hidden){closeAirportOptions();}
+      });
+      document.addEventListener("click",event=>{if(!event.target.closest("#hbMock .hb-location-field"))closeAirportOptions();});
+
       const sameLocation = root.querySelector("#hb-same");
       const returnField = root.querySelector("#hb-return-wrap");
       const promoToggle = root.querySelector(".hb-promo");
@@ -747,7 +895,7 @@ const pickerLabels={"tr":{"choose":"Dilinizi seçin","count":"8 dil","currency":
       root.querySelectorAll(".hb-location-links a[data-location]").forEach(link => {
         link.addEventListener("click", event => {
           event.preventDefault();
-          const field=root.querySelector("#hb-pickup"),label=link.dataset.localeLabelTr||link.textContent.trim(); field.dataset.localeLocationKey=label; field.value=activeLocale.id==="tr"?label:((pageCopy[activeLocale.id]||{})[label]||link.textContent.trim());
+          const field=root.querySelector("#hb-pickup"),label=link.dataset.localeLabelTr||link.textContent.trim(); const airport=airportCatalog.find(item=>item.name===label||item.name+" ("+item.code+")"===label); if(airport) chooseAirport(airport); else {delete field.dataset.airportCode;field.dataset.localeLocationKey=label;field.value=activeLocale.id==="tr"?label:((pageCopy[activeLocale.id]||{})[label]||link.textContent.trim());}
           root.querySelector("#hb-pickup").scrollIntoView({ behavior: "smooth", block: "center" });
           root.querySelector("#hb-pickup").focus({ preventScroll: true });
         });
