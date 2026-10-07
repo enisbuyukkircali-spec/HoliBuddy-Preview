@@ -538,6 +538,8 @@ const pickerLabels={"tr":{"choose":"Dilinizi seçin","count":"8 dil","currency":
       const localePanel=root.querySelector("#hb-language-panel");
       const localeOptions=root.querySelector("#hb-locale-options");
       const currencyOptions=root.querySelector("#hb-currency-options");
+      const localeWrap=root.querySelector(".hb-lang-wrap");
+      localeWrap.addEventListener("click",event=>event.stopPropagation());
       let activeLocale=pickerLocales[0];
       let activeCurrency=activeLocale.currency;
       const flagMarkup=country=>{
@@ -595,7 +597,7 @@ const pickerLabels={"tr":{"choose":"Dilinizi seçin","count":"8 dil","currency":
         localeTrigger.setAttribute("aria-expanded",String(!localePanel.hidden));
       });
       document.addEventListener("click",event=>{
-        if(!root.querySelector(".hb-lang-wrap").contains(event.target)){
+        if(!localeWrap.contains(event.target)){
           localePanel.hidden=true;localeTrigger.setAttribute("aria-expanded","false");
         }
       });
