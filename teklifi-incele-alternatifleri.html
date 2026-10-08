@@ -121,12 +121,15 @@
 
 .merged-extra{padding:14px}.merged-scope{margin-top:10px}.merged-scope .scope-item{padding:7px}.merged-scope .scope-item strong{font-size:8px}.merged-scope .scope-item small{font-size:7px}
 @media(max-width:700px){.merged-extra{padding:12px}.merged-scope{grid-template-columns:1fr 1fr}}
+
+.currency-wrap{position:relative}.currency-trigger{white-space:nowrap}.currency-menu{position:absolute;z-index:20;right:0;top:calc(100% + 8px);width:205px;padding:9px;border:1px solid #dbe7ed;border-radius:10px;background:#fff;box-shadow:0 12px 28px #09263d22;color:#193b53}.currency-menu[hidden]{display:none}.currency-menu strong{display:block;padding:5px 7px 7px;color:#567286;font-size:9px}.nav .currency-menu button{display:block;width:100%;margin:2px 0;padding:8px;border:0;border-radius:6px;background:#fff;color:#254b63;text-align:left;font-size:10px}.nav .currency-menu button:hover{background:#eef8fc}.cover-price-box{min-width:0}.cover-price-box>strong{display:block;margin:3px 0 8px;color:#173d56;font-size:18px}.fx-examples{display:flex;flex-wrap:wrap;gap:4px;margin:5px 0}.fx-examples span{padding:4px 6px;border:1px solid #deedf3;border-radius:6px;background:#f7fcfe;color:#35647b;font-size:7px;font-weight:750}.fx-note{display:block;max-width:300px;margin-top:5px;color:#738998;font-size:7px;line-height:1.35}.extra-bottom{align-items:flex-start}.extra-bottom .add{align-self:center;flex:0 0 155px}
+@media(max-width:700px){.currency-menu{right:-4px}.extra-bottom{align-items:stretch}.extra-bottom .add{align-self:stretch;flex:1}.fx-examples{gap:3px}.fx-examples span{font-size:7px;padding:4px}}
 </style>
 </head>
 <body data-variant="1">
 <header class="topbar">
 <a class="brand" href="holibuddy.html" aria-label="HoliBuddy ana sayfa"><img src="images/newRentACarLogo.png" alt="HoliBuddy"></a>
-<nav class="nav" aria-label="Ana menü"><a href="holibuddy.html">Araç kirala</a><a href="holibuddy.html#campaigns">Kampanyalar</a><a href="holibuddy.html#help">Yardım</a><button type="button">🇹🇷 Türkçe · TRY ₺</button><button class="login" type="button">Oturum aç</button></nav>
+<nav class="nav" aria-label="Ana menü"><a href="holibuddy.html">Araç kirala</a><a href="holibuddy.html#campaigns">Kampanyalar</a><a href="holibuddy.html#help">Yardım</a><div class="currency-wrap"><button type="button" class="currency-trigger" data-currency-trigger aria-expanded="false">🇹🇷 Türkçe · <span data-currency-label>TRY ₺</span></button><div class="currency-menu" data-currency-menu hidden role="group" aria-label="Para birimi seç"><strong>Para birimi</strong><button type="button" data-currency="TRY">TRY · Türk lirası</button><button type="button" data-currency="EUR">EUR · Euro</button><button type="button" data-currency="GBP">GBP · Pound sterling</button><button type="button" data-currency="USD">USD · ABD doları</button></div></div><button class="login" type="button">Oturum aç</button></nav>
 </header>
 <main class="shell">
 <a class="back" href="test-akis-ist-20261007.html?location=IST&returnLocation=IST&pickup=2026-10-08&return=2026-10-10&pickupTime=10%3A00&returnTime=11%3A00&lang=tr&currency=TRY#results">← Tekliflere dön</a>
@@ -148,7 +151,7 @@
 <article class="protection-base"><span class="protection-kicker base-kicker">KİRALAMA TEKLİFİNE DAHİL</span><h3>Temel kiralama teminatı</h3><p>Kiralama şirketinin sözleşmesinde sunulan teminat ve muafiyet koşulları geçerlidir.</p><div class="base-lines"><span>Depozito ve kart koşulları</span><span>Muafiyet tutarı</span><span>Tedarikçi sözleşmesi</span></div><a class="back" href="#rental-terms">Kiralama koşullarını incele →</a></article>
 <article class="protection-extra merged-extra"><div class="extra-top"><span class="protection-kicker extra-kicker">HOLIBUDDY · İSTEĞE BAĞLI</span><span class="mini-shield" aria-hidden="true">✓</span></div><h3>Tam Kapsam ek koruma</h3><p>Kiralama sonrası, uygun hasar giderleri için belgeyle geri ödeme talebi.</p>
 <div class="scope-grid merged-scope"><div class="scope-item"><span class="scope-check">✓</span><div><strong>Hasar ve hırsızlık</strong><small>Uygun sorumluluk payları</small></div></div><div class="scope-item"><span class="scope-check">✓</span><div><strong>Dış parçalar</strong><small>Cam, ayna, far, lastik ve jant</small></div></div><div class="scope-item"><span class="scope-check">✓</span><div><strong>Araç gövdesi</strong><small>Ürün şartlarında belirtilen bölümler</small></div></div><div class="scope-item"><span class="scope-check">✓</span><div><strong>Belgeyle başvuru</strong><small>Kiralama sonrasında talep</small></div></div></div>
-<div class="extra-bottom"><div><small>Bu kiralamaya özel ücret</small><strong>Teklifte hesaplanır</strong></div><button type="button" class="add" data-add>Bu korumayı ekle</button></div></article></div>
+<div class="extra-bottom"><div class="cover-price-box"><small>Bu kiralama için · 9 € baz fiyat</small><strong data-cover-display>₺495</strong><small>Yaklaşık para birimi karşılıkları</small><div class="fx-examples" aria-label="Yaklaşık fiyat örnekleri"><span data-example="TRY">TRY ₺495</span><span data-example="EUR">EUR 9,00 €</span><span data-example="GBP">GBP £7,62</span><span data-example="USD">USD $10,06</span></div><small class="fx-note">ECB 7 Eki 2026 referans kuru · ödeme kuru farklılık gösterebilir</small></div><button type="button" class="add" data-add>Bu korumayı ekle</button></div></article></div>
 <div class="protection-note"><strong>Depozito şartı devam eder.</strong> Temel teminat, muafiyet ve kart koşulları tedarikçi sözleşmesine bağlıdır; ek koruma yalnızca ürün koşullarındaki uygun masrafları kapsar.</div>
 </div>
 <div class="design" data-design="2">
@@ -163,7 +166,7 @@
 <aside class="panel summary">
 <div class="summary-head">Seyahat ve fiyat özeti</div><div class="summary-body">
 <div class="summary-trip"><div><span class="place">Alış · İstanbul Havalimanı (IST)</span><span class="date">8 Eki 2026 · 10:00</span></div><div><span class="place">İade · İstanbul Havalimanı (IST)</span><span class="date">10 Eki 2026 · 11:00</span></div></div>
-<div class="sumline"><span>Renault Clio veya benzeri</span><strong>₺2.480</strong></div><div class="sumline"><span>Tam Kapsam Koruması</span><strong id="cover-price">Eklenmedi</strong></div><div class="sumline total"><span>2 gün için toplam</span><strong>₺2.480</strong></div>
+<div class="sumline"><span>Renault Clio veya benzeri</span><strong id="rental-price">₺2.480</strong></div><div class="sumline"><span>Tam Kapsam · isteğe bağlı</span><strong id="cover-price">+₺495</strong></div><div class="sumline total"><span>2 gün için toplam</span><strong id="total-price">₺2.480</strong></div>
 <div class="deposit-note">Depozito tutarı ve ödeme kartı şartları, seçilen kiralama şirketinin koşullarında belirtilir.</div><button type="button" class="continue" data-continue>Sürücü bilgilerine geç</button>
 </div><div class="summary-foot">Koruma ücreti varsa, seçilen ürün ve seyahat bilgilerine göre rezervasyon özetinde ayrıca gösterilir.</div>
 </aside>
@@ -172,12 +175,23 @@
 <div class="toast" role="status" aria-live="polite" id="toast"></div>
 <script>
 const tabs=[...document.querySelectorAll('.tab[data-variant]')],designs=[...document.querySelectorAll('[data-design]')],addButtons=[...document.querySelectorAll('[data-add]')],price=document.querySelector('#cover-price'),toast=document.querySelector('#toast');
-let selected=false;
+const EUR_RATES={EUR:1,TRY:54.9822,GBP:0.84645,USD:1.1177},CURRENCY_LOCALE={TRY:'tr-TR',EUR:'de-DE',GBP:'en-GB',USD:'en-US'},baseRentalEur=2480/EUR_RATES.TRY;
+let selected=false,currentCurrency='TRY';
 function notify(message){toast.textContent=message;toast.classList.add('show');clearTimeout(notify.timer);notify.timer=setTimeout(()=>toast.classList.remove('show'),2600)}
-function updateCoverage(){addButtons.forEach(button=>{button.textContent=selected?'Tam Kapsam eklendi ✓':(button.dataset.unselected||'Bu korumayı ekle');button.classList.toggle('selected',selected)});document.querySelectorAll('[data-switch]').forEach(button=>button.setAttribute('aria-checked',String(selected)));price.textContent=selected?'Ürün ücreti ayrıca hesaplanır':'Eklenmedi'}
+function money(eur,currency){const decimals=currency==='TRY'?0:2;return new Intl.NumberFormat(CURRENCY_LOCALE[currency],{style:'currency',currency,minimumFractionDigits:decimals,maximumFractionDigits:decimals}).format(eur*EUR_RATES[currency])}
+function renderPrices(){const cover=money(9,currentCurrency),rental=money(baseRentalEur,currentCurrency),total=money(baseRentalEur+(selected?9:0),currentCurrency);document.querySelector('[data-cover-display]').textContent=cover;document.querySelector('#rental-price').textContent=rental;price.textContent=selected?cover:'+ '+cover;document.querySelector('#total-price').textContent=total;document.querySelector('[data-currency-label]').textContent=currentCurrency+' '+({TRY:'₺',EUR:'€',GBP:'£',USD:'
+</script>
+</body>
+</html>}[currentCurrency]);document.querySelectorAll('[data-example]').forEach(el=>{const code=el.dataset.example;el.textContent=code+' '+money(9,code)})}
+function updateCoverage(){addButtons.forEach(button=>{button.textContent=selected?'Tam Kapsam eklendi ✓':(button.dataset.unselected||'Bu korumayı ekle');button.classList.toggle('selected',selected)});document.querySelectorAll('[data-switch]').forEach(button=>button.setAttribute('aria-checked',String(selected)));renderPrices()}
 tabs.forEach(tab=>tab.addEventListener('click',()=>{document.body.dataset.variant=tab.dataset.variant;tabs.forEach(t=>t.setAttribute('aria-selected',String(t===tab)));designs.forEach(d=>d.classList.toggle('active',d.dataset.design===tab.dataset.variant))}));
 addButtons.forEach(button=>button.addEventListener('click',()=>{selected=!selected;updateCoverage()}));
+const currencyTrigger=document.querySelector('[data-currency-trigger]'),currencyMenu=document.querySelector('[data-currency-menu]');
+currencyTrigger.addEventListener('click',()=>{const open=currencyMenu.hidden;currencyMenu.hidden=!open;currencyTrigger.setAttribute('aria-expanded',String(open))});
+currencyMenu.querySelectorAll('[data-currency]').forEach(button=>button.addEventListener('click',()=>{currentCurrency=button.dataset.currency;currencyMenu.hidden=true;currencyTrigger.setAttribute('aria-expanded','false');renderPrices()}));
+document.addEventListener('click',event=>{if(!event.target.closest('.currency-wrap')){currencyMenu.hidden=true;currencyTrigger.setAttribute('aria-expanded','false')}});
 document.querySelector('[data-continue]').addEventListener('click',()=>notify('Sürücü bilgileri adımı tasarım akışına eklenecek.'));
+renderPrices();
 </script>
 </body>
 </html>
