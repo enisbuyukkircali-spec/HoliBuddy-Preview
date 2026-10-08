@@ -233,6 +233,17 @@
 <div class="protection-note"><strong>Önemli:</strong> Depozito ve ana sürücünün kredi kartı şartı devam eder.</div>
 </div>
 </section>
+<section class="panel mobile-extras" aria-labelledby="mobile-extras-heading">
+<div class="mobile-extras-head"><div><span class="mobile-extras-kicker">EK HİZMETLER</span><h2 id="mobile-extras-heading">Ek hizmetler</h2></div><span class="mobile-extras-badge">İsteğe bağlı</span></div>
+<p class="mobile-extras-intro">Yolculuğuna uygun hizmetleri seç.</p>
+<div class="mobile-extra-list">
+<label class="mobile-extra-row"><span class="mobile-extra-icon" aria-hidden="true">＋</span><span class="mobile-extra-copy"><strong>Ek sürücü</strong><small>Seyahati başka biriyle paylaş</small></span><input type="checkbox" name="extras" value="additional-driver" aria-label="Ek sürücü ekle"></label>
+<label class="mobile-extra-row"><span class="mobile-extra-icon" aria-hidden="true">♧</span><span class="mobile-extra-copy"><strong>Bebek koltuğu</strong><small>Bebekler için uygun koltuk talebi</small></span><input type="checkbox" name="extras" value="baby-seat" aria-label="Bebek koltuğu talep et"></label>
+<label class="mobile-extra-row"><span class="mobile-extra-icon" aria-hidden="true">♧</span><span class="mobile-extra-copy"><strong>Çocuk koltuğu</strong><small>Çocuklar için uygun koltuk talebi</small></span><input type="checkbox" name="extras" value="child-seat" aria-label="Çocuk koltuğu talep et"></label>
+<label class="mobile-extra-row"><span class="mobile-extra-icon" aria-hidden="true">＋</span><span class="mobile-extra-copy"><strong>Yol yardım paketi</strong><small>Yolda destek hizmeti talebi</small></span><input type="checkbox" name="extras" value="roadside-assistance" aria-label="Yol yardım paketi talep et"></label>
+</div>
+<div class="mobile-extra-note">Ücret ve uygunluk kiralama şirketine göre değişir. Seçim talep olarak iletilir; <strong>ödeme araç tesliminde yapılır.</strong></div>
+</section>
 <section class="bottom-info" id="rental-terms"><strong>Ürün ve kapsam bilgisi</strong><br>Tam Kapsam isteğe bağlı ve kiralama şirketinin temel teminatlarından ayrıdır. Üçüncü şahıslara verilen zararlar, araç içi hasar/temizlik ve sözleşme dışı kullanımdan doğan zararlar kapsam dışında olabilir. Nihai teminat, limit ve istisnalar rezervasyon sırasında sunulan ürün koşullarında gösterilmelidir.</section>
 </div>
 <aside class="panel summary">
@@ -251,3 +262,24 @@
 </body>
 
 </html>
+<style id="mobile-extras-only">
+.mobile-extras{display:none}
+@media(max-width:700px){
+.mobile-extras{display:block;padding:14px 12px;border-color:#dbe6ed}
+.mobile-extras-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.mobile-extras-head h2{margin:3px 0 0;color:#0c3150;font-size:16px;line-height:1.3}
+.mobile-extras-kicker{color:#0879a7;font-size:9px;font-weight:800;letter-spacing:.06em}
+.mobile-extras-badge{flex:0 0 auto;padding:6px 9px;border-radius:999px;background:#eaf7fc;color:#0879a7;font-size:10px;font-weight:750}
+.mobile-extras-intro{margin:7px 0 10px;color:#526f83;font-size:12px;line-height:1.45}
+.mobile-extra-list{border-top:1px solid #e6edf1}
+.mobile-extra-row{display:flex;align-items:center;gap:10px;min-height:59px;padding:9px 2px;border-bottom:1px solid #e6edf1;cursor:pointer}
+.mobile-extra-icon{display:grid;place-items:center;width:32px;height:32px;flex:0 0 32px;border-radius:10px;background:#eef7fa;color:#0879a7;font-size:18px;font-weight:600}
+.mobile-extra-copy{display:block;flex:1;min-width:0}
+.mobile-extra-copy strong,.mobile-extra-copy small{display:block}
+.mobile-extra-copy strong{color:#193b53;font-size:13px;line-height:1.3}
+.mobile-extra-copy small{margin-top:2px;color:#637c8e;font-size:10px;line-height:1.35}
+.mobile-extra-row input{width:21px;height:21px;flex:0 0 21px;margin:0;accent-color:#078dc5}
+.mobile-extra-note{margin-top:10px;padding:10px;border-radius:9px;background:#f2f7fa;color:#526f83;font-size:10px;line-height:1.45}
+.mobile-extra-note strong{color:#264b63}
+}
+</style>
