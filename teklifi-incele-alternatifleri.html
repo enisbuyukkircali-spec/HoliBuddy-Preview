@@ -141,7 +141,10 @@
 }
 </style>
 <style id="mobile-net-decision">
+.cover-section .mobile-concept-title, .cover-section .mobile-tab-label { display: none; }
 @media (max-width:700px) {
+  .cover-section .mobile-concept-title, .cover-section .mobile-tab-label { display: inline; }
+  .cover-section .desktop-concept-title, .cover-section .desktop-tab-label { display: none; }
   .cover-section { padding: 14px 12px; }
   .cover-section .cover-header { align-items: flex-start; margin-bottom: 7px; }
   .cover-section .cover-header h2 { color: #0c3150; font-size: 17px; line-height: 1.3; }
@@ -212,9 +215,9 @@
 </section>
 <section class="panel included"><h2 class="section-title">Teklifinize dahil olanlar <a class="back" href="#rental-terms">Kiralama koşulları</a></h2><div class="included-grid"><div class="included-item"><span class="tick">✓</span>Terminalden teslim alma</div><div class="included-item"><span class="tick">✓</span>Sınırsız kilometre</div><div class="included-item"><span class="tick">✓</span>Depo dolu al, dolu iade</div></div></section>
 <section class="panel cover-section">
-<div class="cover-header"><h2>Ek koruma seçenekleri</h2><span class="tag">İsteğe bağlı</span></div>
+<div class="cover-header"><h2><span class="mobile-concept-title">Yolculuğuna ek güvence</span><span class="desktop-concept-title">Ek koruma seçenekleri</span></h2><span class="tag">İsteğe bağlı</span></div>
 <div class="cover-intro">Kiralama şirketinin temel teminatını incele; dilersen uygun hasar masrafları için ek geri ödeme koruması ekle.</div>
-<div class="tabs" role="tablist" aria-label="Ek koruma tasarım alternatifleri"><button class="tab" role="tab" aria-selected="true" data-variant="1">Kapsam karşılaştırması</button><button class="tab" role="tab" aria-selected="false" data-variant="2">Nasıl işler?</button></div>
+<div class="tabs" role="tablist" aria-label="Ek koruma tasarım alternatifleri"><button class="tab" role="tab" aria-selected="true" data-variant="1"><span class="desktop-tab-label">Kapsam karşılaştırması</span><span class="mobile-tab-label">Kapsam</span></button><button class="tab" role="tab" aria-selected="false" data-variant="2">Nasıl işler?</button></div>
 <div class="design active" data-design="1">
 <div class="protection-compare">
 <article class="protection-base"><span class="protection-kicker base-kicker">KİRALAMA TEKLİFİNE DAHİL</span><h3>Temel kiralama teminatı</h3><p>Kiralama şirketinin sözleşmesinde sunulan teminat ve muafiyet koşulları geçerlidir.</p><div class="base-lines"><span>Depozito ve kart koşulları</span><span>Muafiyet tutarı</span><span>Tedarikçi sözleşmesi</span></div><a class="back" href="#rental-terms">Kiralama koşullarını incele →</a></article>
