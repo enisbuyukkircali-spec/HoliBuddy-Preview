@@ -176,7 +176,7 @@
 <script>
 const tabs=[...document.querySelectorAll('.tab[data-variant]')],designs=[...document.querySelectorAll('[data-design]')],addButtons=[...document.querySelectorAll('[data-add]')],price=document.querySelector('#cover-price'),toast=document.querySelector('#toast');
 const EUR_RATES={EUR:1,TRY:54.9822,GBP:0.84645,USD:1.1177},CURRENCY_LOCALE={TRY:'tr-TR',EUR:'de-DE',GBP:'en-GB',USD:'en-US'},baseRentalEur=2480/EUR_RATES.TRY;
-const dayCountMatch=document.querySelector('.tripline').textContent.match(/(\\d+)\\s*günlük/),rentalDays=dayCountMatch?Number(dayCountMatch[1]):1;
+const dayCountMatch=document.querySelector('.tripline').textContent.match(/(\d+)\s*günlük/),rentalDays=dayCountMatch?Number(dayCountMatch[1]):1;
 let selected=false,currentCurrency='TRY';
 function notify(message){toast.textContent=message;toast.classList.add('show');clearTimeout(notify.timer);notify.timer=setTimeout(()=>toast.classList.remove('show'),2600)}
 function money(eur,currency){const decimals=currency==='TRY'?0:2;return new Intl.NumberFormat(CURRENCY_LOCALE[currency],{style:'currency',currency,minimumFractionDigits:decimals,maximumFractionDigits:decimals}).format(eur*EUR_RATES[currency])}
