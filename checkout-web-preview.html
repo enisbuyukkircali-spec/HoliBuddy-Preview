@@ -159,7 +159,8 @@ function renderLocalePicker(){
  document.getElementById("hb-picker-currency-title").textContent=copy.currency;
  const recommended=selected.currency+" "+currencies[selected.currency],current=activeCurrency+" "+currencies[activeCurrency];
  document.getElementById("hb-picker-default").textContent=copy.recommended+": "+recommended;
- document.getElementById("hb-picker-note").innerHTML=copy.recommended+": <strong>"+recommended+"</strong> · "+copy.current+": <strong>"+current+"</strong>. "+copy.change;\n try{translateTextNodes();rebuildCountries();formatDates();renderPrices()}catch(error){document.body.setAttribute("data-hb-render-error","picker refresh: "+error.message)}
+ document.getElementById("hb-picker-note").innerHTML=copy.recommended+": <strong>"+recommended+"</strong> · "+copy.current+": <strong>"+current+"</strong>. "+copy.change;
+ try{translateTextNodes();rebuildCountries();formatDates();renderPrices()}catch(error){document.body.setAttribute("data-hb-render-error","picker refresh: "+error.message)}
  const localeOptions=document.getElementById("hb-locale-options");
  localeOptions.replaceChildren(...locales.map(locale=>{const button=document.createElement("button");button.type="button";button.className="hb-locale-option";button.setAttribute("aria-pressed",String(locale.id===activeLocale.id));button.innerHTML='<span class="hb-flag" aria-hidden="true">'+flagMarkup(locale.flag)+'</span><span>'+locale.name+'</span>';button.addEventListener("click",()=>{activeLocale=locale;activeCurrency=locale.currency;currencyWasExplicit=false;updateLocale();renderLocalePicker()});return button}));
  const currencyOptions=document.getElementById("hb-currency-options");
