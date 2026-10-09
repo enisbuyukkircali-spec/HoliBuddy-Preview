@@ -103,9 +103,9 @@ function renderPage(){
  const model=confirmationParams.get("model"),image=confirmationParams.get("image");
  if(model){const car=document.querySelector(".car strong");car.textContent=model;document.querySelector(".car img").alt=model}
  if(image){document.querySelector(".car img").src=image}
- const nowBase=confirmationParams.has("price")?Number(confirmationParams.get("price")):447.17;
+ const nowBase=confirmationParams.has("rentalAmount")?Number(confirmationParams.get("rentalAmount"))+Number(confirmationParams.get("protectionAmount")||0):(confirmationParams.has("price")?Number(confirmationParams.get("price")):447.17);
  const pickupBase=reservationData.extraAmount;
- const displayCurrency=confirmationParams.get("currency")||currency;const now={text:money(nowBase,displayCurrency),code:displayCurrency},pickup={text:money(pickupBase,displayCurrency),code:displayCurrency},total={text:money(nowBase+pickupBase,displayCurrency),code:displayCurrency};
+ const displayCurrency=confirmationParams.get("quoteCurrency")||confirmationParams.get("currency")||currency;const now={text:money(nowBase,displayCurrency),code:displayCurrency},pickup={text:money(pickupBase,displayCurrency),code:displayCurrency},total={text:money(nowBase+pickupBase,displayCurrency),code:displayCurrency};
  document.getElementById("now-amount").textContent=now.text;
  const pickupNode=document.getElementById("pickup-amount");pickupNode.replaceChildren(document.createTextNode(pickup.text));
  if(pickup.code!=="EUR"){const original=document.createElement("small");original.style.cssText="display:block;color:#6b7e8d;font-weight:500";original.textContent="€23.52";pickupNode.append(original)}
