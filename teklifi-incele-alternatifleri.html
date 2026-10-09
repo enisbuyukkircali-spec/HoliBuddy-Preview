@@ -245,6 +245,18 @@
   .cover-section .flow-bottom .add { min-width:160px; min-height:46px; font-size:13px; }
 }
 </style>
+<style id="desktop-protection-flow-alignment">
+@media (min-width: 701px) {
+  .cover-section .design.active .reimbursement-flow { display:grid !important; align-items:center !important; }
+  .cover-section .design.active .reimbursement-flow .flow-arrow { display:grid !important; place-items:center; align-self:center; line-height:1; }
+  .cover-section .design.active .flow-bottom { display:flex !important; align-items:center !important; justify-content:space-between !important; width:100%; gap:18px; }
+  .cover-section .design.active .flow-bottom>div { display:block !important; flex:1 1 auto; min-width:0; }
+  .cover-section .design.active .flow-bottom strong,
+  .cover-section .design.active .flow-bottom span,
+  .cover-section .design.active .flow-bottom small { display:block !important; }
+  .cover-section .design.active .flow-bottom .add { display:block; flex:0 0 160px; }
+}
+</style>
 </head>
 <body data-variant="1">
 <header class="topbar">
