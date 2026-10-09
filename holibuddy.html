@@ -756,9 +756,9 @@ const pickerLabels={"tr":{"choose":"Dilinizi seçin","count":"8 dil","currency":
           root.querySelector(".hb-auth-continue").textContent=auth.loginButton;
           root.querySelector(".hb-auth-or span").textContent=auth.orText;
           root.querySelector(".hb-auth-legal").textContent=auth.legal;
-          const captions={"en-GB":"New routes, lasting memories.","en-US":"New trips, lasting memories.",de:"Neue Routen, schöne Erinnerungen.",fr:"De nouveaux itinéraires, de beaux souvenirs.",es:"Nuevas rutas, grandes recuerdos.",pt:"Novos destinos, boas memórias.",nl:"Nieuwe routes, mooie herinneringen."};
-          root.querySelector(".hb-auth-caption strong").textContent=captions[locale]||"Yeni rotalar, güzel anılar.";
-          root.querySelector(".hb-auth-caption span").textContent=words["Yolculuk seçeneklerini HoliBuddy’de takip et."]||"Yolculuk seçeneklerini HoliBuddy’de takip et.";
+          const captions={"en-GB":"Your car hire plans, in HoliBuddy.","en-US":"Your car rental plans, in HoliBuddy.",de:"Deine Mietwagenpläne bei HoliBuddy.",fr:"Vos locations de voiture avec HoliBuddy.",es:"Tus alquileres, en HoliBuddy.",pt:"Os seus alugueres na HoliBuddy.",nl:"Je autohuur bij HoliBuddy."};
+          root.querySelector(".hb-auth-caption strong").textContent=captions[locale]||"Kiralama planın HoliBuddy’de.";
+          root.querySelector(".hb-auth-caption span").textContent=words["Rezervasyon ve voucher bilgilerini kolayca bul."]||"Rezervasyon ve voucher bilgilerini kolayca bul.";
           root.querySelector(".hb-auth-close").setAttribute("aria-label",({ "en-GB":"Close window","en-US":"Close window",de:"Fenster schließen",fr:"Fermer la fenêtre",es:"Cerrar ventana",pt:"Fechar janela",nl:"Venster sluiten"}[locale]||"Pencereyi kapat"));
           root.querySelector("#hb-auth-email").setAttribute("placeholder",({ "en-GB":"name@example.com","en-US":"name@example.com",de:"name@beispiel.de",fr:"nom@exemple.fr",es:"nombre@ejemplo.com",pt:"nome@exemplo.pt",nl:"naam@voorbeeld.nl"}[locale]||"ornek@email.com"));
           root.querySelectorAll(".hb-social").forEach(button=>button.setAttribute("aria-label",button.dataset.provider+({ "en-GB":" sign-in","en-US":" sign-in",de:" Anmeldung",fr:" continuer",es:" continuar",pt:" continuar",nl:" doorgaan"}[locale]||" ile devam et")));
