@@ -266,6 +266,18 @@
   .cover-section .design.active .flow-number { display:grid !important; place-items:center; width:30px; height:30px; flex:0 0 30px; border-radius:50%; background:#eaf7fc; color:#0879a7; font-size:11px; font-weight:800; line-height:1; }
 }
 </style>
+<style id="desktop-protection-symmetry">
+@media (min-width: 701px) {
+  .cover-section .protection-compare { grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important; gap:16px; align-items:stretch; }
+  .cover-section .protection-base,.cover-section .protection-extra { min-width:0; height:100%; }
+  .cover-section .protection-kicker { display:inline-flex !important; flex-direction:column; align-items:flex-start; gap:0; color:#315b73; font-size:10px; font-weight:750; line-height:1.4; letter-spacing:.055em; }
+  .cover-section .protection-kicker::after { content:""; display:block; width:34px; height:2px; margin-top:6px; border-radius:999px; background:#63aeca; }
+  .cover-section .extra-kicker { color:#087ba5; }
+  .cover-section .extra-kicker::after { background:#078dc5; }
+  .cover-section .mini-shield { position:relative; display:grid !important; place-items:center; width:34px; height:34px; flex:0 0 34px; border:1px solid #c4eaf5; border-radius:10px; background:#dff4fb; color:transparent; font-size:0; }
+  .cover-section .mini-shield::after { content:""; position:absolute; left:50%; top:50%; width:7px; height:12px; border-right:2px solid #16845a; border-bottom:2px solid #16845a; transform:translate(-50%,-62%) rotate(45deg); }
+}
+</style>
 </head>
 <body data-variant="1">
 <header class="topbar">
