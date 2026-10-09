@@ -110,7 +110,7 @@ function renderPage(){
  const displayCurrency=confirmationParams.get("quoteCurrency")||confirmationParams.get("currency")||currency;const now={text:money(nowBase,displayCurrency),code:displayCurrency},pickup={text:money(pickupBase,displayCurrency),code:displayCurrency},total={text:money(nowBase+pickupBase,displayCurrency),code:displayCurrency};
  document.getElementById("now-amount").textContent=now.text;
  const pickupNode=document.getElementById("pickup-amount");pickupNode.replaceChildren(document.createTextNode(pickup.text));
- if(pickup.code!=="EUR"){const original=document.createElement("small");original.style.cssText="display:block;color:#6b7e8d;font-weight:500";original.textContent="€23.52";pickupNode.append(original)}
+ if(reservationData.extraAmount>0&&reservationData.extraCurrency!==displayCurrency){const original=document.createElement("small");original.style.cssText="display:block;color:#6b7e8d;font-weight:500";original.textContent=money(reservationData.extraAmount,reservationData.extraCurrency);pickupNode.append(original)}
  document.getElementById("total-amount").textContent=total.text;
  document.getElementById("supplier-name").textContent=reservationData.supplierName||data.supplierPending;
  document.getElementById("supplier-phone").textContent=reservationData.supplierPhone||data.supplierPending;
@@ -121,7 +121,7 @@ function renderPage(){
  const extraLabels={"additional-driver":{tr:"Ek sürücü","en-GB":"Additional driver","en-US":"Additional driver",de:"Zusatzfahrer",fr:"Conducteur supplémentaire",es:"Conductor adicional",pt:"Condutor adicional",nl:"Extra bestuurder"},"baby-seat":{tr:"Bebek koltuğu","en-GB":"Baby seat","en-US":"Baby seat",de:"Babysitz",fr:"Siège bébé",es:"Silla para bebé",pt:"Cadeira para bebé",nl:"Babyzitje"},"child-seat":{tr:"Çocuk koltuğu","en-GB":"Child seat","en-US":"Child seat",de:"Kindersitz",fr:"Siège enfant",es:"Silla infantil",pt:"Cadeira para criança",nl:"Kinderzitje"},"roadside-assistance":{tr:"Yol yardımı","en-GB":"Roadside assistance","en-US":"Roadside assistance",de:"Pannenhilfe",fr:"Assistance routière",es:"Asistencia en carretera",pt:"Assistência em viagem",nl:"Pechhulp"}};
  const selectedExtras=(confirmationParams.get("extras")||"").split(",").filter(Boolean);
  document.getElementById("extra-name").textContent=selectedExtras.length?selectedExtras.map(id=>extraLabels[id]?.[active.id]||id).join(", "):(reservationData.extraName||data.extraItem);
- document.getElementById("extra-line-amount").textContent=money(reservationData.extraAmount,displayCurrency);if(!confirmationParams.get("extras")){document.getElementById("extra-line-amount").closest(".row").hidden=true;document.getElementById("extra-name").closest(".info-card").hidden=true;}
+ document.getElementById("extra-line-amount").textContent=money(reservationData.extraAmount,displayCurrency);if(!confirmationParams.get("extras")){document.getElementById("extra-line-amount").closest(".row").style.display="none";document.getElementById("extra-name").closest(".info-card").style.display="none";}
  document.getElementById("rental-terms").textContent=data.termsText;
  const termsLink=document.querySelector(".terms-link");if(reservationData.termsUrl){termsLink.href=reservationData.termsUrl;termsLink.target="_blank";termsLink.rel="noopener"}else termsLink.setAttribute("aria-disabled","true");
  renderPicker();
