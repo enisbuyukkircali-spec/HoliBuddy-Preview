@@ -74,7 +74,17 @@ const extraWords={
 "pt":{"Yaklaşık karşılık · referans kuru":"Equivalente aproximado · taxa de referência","Kur bilgisi yükleniyor.":"A carregar taxa de câmbio.","Kur bilgisi geçici olarak alınamadı; tedarikçinin tahsil edeceği tutar yan tarafta kendi para birimiyle gösterilir.":"As taxas de câmbio estão temporariamente indisponíveis. O valor pago ao fornecedor no levantamento continua apresentado na moeda original."},
 "nl":{"Yaklaşık karşılık · referans kuru":"Indicatieve tegenwaarde · referentiekoers","Kur bilgisi yükleniyor.":"Wisselkoers laden.","Kur bilgisi geçici olarak alınamadı; tedarikçinin tahsil edeceği tutar yan tarafta kendi para birimiyle gösterilir.":"Wisselkoersen zijn tijdelijk niet beschikbaar. Het bedrag dat bij ophalen aan de leverancier wordt betaald, blijft in de oorspronkelijke valuta staan."}
 };
-function word(text){if(activeLocale.id==="tr")return (extraWords.tr&&extraWords.tr[text])||text;return (extraWords[activeLocale.id]&&extraWords[activeLocale.id][text])||(langText[activeLocale.id]&&langText[activeLocale.id][text])||langText["en-GB"][text]||text}
+const secureWords={
+"tr":"🔒 Güvenli ödeme · Kart bilgileri saklanmaz",
+"en-GB":"🔒 Secure payment · Card details are not stored",
+"en-US":"🔒 Secure payment · Card details are not stored",
+"de":"🔒 Sichere Zahlung · Kartendaten werden nicht gespeichert",
+"fr":"🔒 Paiement sécurisé · Les données de carte ne sont pas conservées",
+"es":"🔒 Pago seguro · No se guardan los datos de la tarjeta",
+"pt":"🔒 Pagamento seguro · Os dados do cartão não são guardados",
+"nl":"🔒 Veilig betalen · Kaartgegevens worden niet opgeslagen"
+};
+function word(text){if(text==="🔒 Güvenli ödeme · Kart bilgileri saklanmaz")return secureWords[activeLocale.id]||secureWords["en-GB"];if(activeLocale.id==="tr")return (extraWords.tr&&extraWords.tr[text])||text;return (extraWords[activeLocale.id]&&extraWords[activeLocale.id][text])||(langText[activeLocale.id]&&langText[activeLocale.id][text])||langText["en-GB"][text]||text}
 const localeTrigger=document.getElementById("localeTrigger"),localePanel=document.getElementById("localePanel");
 const languageSelect=document.getElementById("languageSelect"),currencySelect=document.getElementById("currencySelect");
 const localeNames={tr:"Türkçe","en-GB":"English (UK)","en-US":"English (US)",de:"Deutsch",fr:"Français",es:"Español",pt:"Português",nl:"Nederlands"};
@@ -115,6 +125,20 @@ function validateCountry(event){
  const hit=countryCodes.find(code=>countryName(code).toLocaleLowerCase(activeLocale.id)===value);
  field.setCustomValidity(value&&!hit?word("Ülke ara"):"");
  if(hit)field.dataset.countryCode=hit;else delete field.dataset.countryCode;
+}
+function loadCountryDefault(){
+ const languageCountry={"tr":"TR","en-GB":"GB","en-US":"US","de":"DE","fr":"FR","es":"ES","pt":"PT","nl":"NL"};
+ fetch("/api/country",{cache:"no-store"})
+  .then(response=>response.ok?response.json():null)
+  .catch(()=>null)
+  .then(data=>{
+   if(residenceCountry.value.trim())return;
+   const detected=String(data&&data.country||"").toUpperCase();
+   const code=countryCodes.includes(detected)?detected:(languageCountry[activeLocale.id]||"TR");
+   if(!countryCodes.includes(code))return;
+   residenceCountry.dataset.countryCode=code;
+   residenceCountry.value=countryName(code);
+  });
 }
 function updateLocale(){
  languageSelect.value=activeLocale.id;currencySelect.value=activeCurrency;
@@ -208,7 +232,7 @@ function loadFx(){
  renderPrices();
  fetch("/api/fx",{cache:"no-store"}).then(r=>{if(!r.ok)throw new Error("fx unavailable");return r.json()}).then(data=>{if(data.rates){fx=data;try{localStorage.setItem("hb-fx",JSON.stringify({...data,savedAt:Date.now()}))}catch{}renderPrices()}}).catch(()=>{document.getElementById("fxNote").textContent=activeCurrency===(quote.supplierCurrency||"EUR")?"":word("Kur bilgisi geçici olarak alınamadı; tedarikçinin tahsil edeceği tutar yan tarafta kendi para birimiyle gösterilir.")});
 }
-languageSelect.value=activeLocale.id;currencySelect.value=activeCurrency;updateLocale();loadFx();
+languageSelect.value=activeLocale.id;currencySelect.value=activeCurrency;updateLocale();loadCountryDefault();loadFx();
 document.getElementById("cardNumber").addEventListener("input",e=>{let v=e.target.value.replace(/\D/g,"").slice(0,19);e.target.value=v.replace(/(.{4})/g,"$1 ").trim()});
 document.getElementById("expiry").addEventListener("input",e=>{let v=e.target.value.replace(/\D/g,"").slice(0,4);if(v.length>2)v=v.slice(0,2)+" / "+v.slice(2);e.target.value=v});
 document.getElementById("checkoutForm").addEventListener("submit",e=>{e.preventDefault();document.getElementById("demoNotice").classList.add("show");document.getElementById("demoNotice").scrollIntoView({behavior:"smooth",block:"center"})});
