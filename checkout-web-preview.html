@@ -172,7 +172,7 @@ function translateTextNodes(){
  document.querySelectorAll("input[placeholder]").forEach(input=>{if(!input.dataset.originalPlaceholder)input.dataset.originalPlaceholder=input.placeholder;input.placeholder=word(input.dataset.originalPlaceholder)});
  document.title=word("Rezervasyonunu tamamla")+" · HoliBuddy";document.documentElement.lang=activeLocale.id;
 }
-function updateLocale(){document.getElementById("displayCurrencyLabel").textContent=activeCurrency;translateTextNodes();rebuildCountries();formatDates();renderPrices();renderLocalePicker();try{localStorage.setItem("hb-locale",activeLocale.id);localStorage.setItem("hb-currency",activeCurrency)}catch{}}
+function updateLocale(){document.getElementById("displayCurrencyLabel").textContent=activeCurrency;for(const render of [translateTextNodes,rebuildCountries,formatDates,renderPrices,renderLocalePicker]){try{render()}catch(error){console.error("checkout render error",error)}}try{localStorage.setItem("hb-locale",activeLocale.id);localStorage.setItem("hb-currency",activeCurrency)}catch{}}
 localeTrigger.addEventListener("click",event=>{event.stopPropagation();const open=localePanel.hidden;localePanel.hidden=!open;localeTrigger.setAttribute("aria-expanded",String(open))});
 localePanel.addEventListener("click",event=>event.stopPropagation());
 document.addEventListener("click",closeLocalePicker);document.addEventListener("keydown",event=>{if(event.key==="Escape")closeLocalePicker()});
