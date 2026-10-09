@@ -210,15 +210,28 @@ document.addEventListener("click",closeLocalePicker);document.addEventListener("
 function formatDates(){
  const settings={year:"numeric",month:"short",day:"numeric",hour:"2-digit",minute:"2-digit",hourCycle:"h23"};
  const f=new Intl.DateTimeFormat(activeLocale.id,settings);
- document.getElementById("pickupDateDisplay").textContent=f.format(new Date("2026-11-12T10:00:00"));
- document.getElementById("returnDateDisplay").textContent=f.format(new Date("2026-11-19T10:00:00"));
+ const pickupIso=(params.get("pickup")||"2026-11-12")+"T"+(params.get("pickupTime")||"10:00")+":00";
+ const returnIso=(params.get("return")||"2026-11-19")+"T"+(params.get("returnTime")||"10:00")+":00";
+ document.getElementById("pickupDateDisplay").textContent=f.format(new Date(pickupIso));
+ document.getElementById("returnDateDisplay").textContent=f.format(new Date(returnIso));
  document.getElementById("pickupTitle").textContent=word("Alış");document.getElementById("returnTitle").textContent=word("İade");
- document.getElementById("pickupLocation").textContent=word("İstanbul Sabiha Gökçen");document.getElementById("returnLocation").textContent=word("İstanbul Sabiha Gökçen");
+ const airportNames={IST:{"tr":"İstanbul Havalimanı","en-GB":"Istanbul Airport","en-US":"Istanbul Airport","de":"Flughafen Istanbul","fr":"Aéroport d’Istanbul","es":"Aeropuerto de Estambul","pt":"Aeroporto de Istambul","nl":"Luchthaven Istanbul"},SAW:{"tr":"İstanbul Sabiha Gökçen","en-GB":"Istanbul Sabiha Gökçen Airport","en-US":"Istanbul Sabiha Gökçen Airport","de":"Flughafen Istanbul Sabiha Gökçen","fr":"Aéroport d’Istanbul Sabiha Gökçen","es":"Aeropuerto de Estambul Sabiha Gökçen","pt":"Aeroporto de Istambul Sabiha Gökçen","nl":"Luchthaven Istanbul Sabiha Gökçen"}};
+ const place=code=>params.get(code==="returnLocation"?"returnName":"pickupName")||(airportNames[code]&&airportNames[code][activeLocale.id])||word("İstanbul Sabiha Gökçen");
+ document.getElementById("pickupLocation").textContent=place(params.get("location")||"SAW");
+ document.getElementById("returnLocation").textContent=place(params.get("returnLocation")||params.get("location")||"SAW");
+ const model=params.get("model"),image=params.get("image");if(model){document.querySelector(".carline strong").textContent=model;document.querySelector(".carline img").alt=model}if(image)document.querySelector(".carline img").src=image;
 }
+const routeQuote=Number.isFinite(Number(params.get("rentalAmount")))&&params.has("rentalAmount");
+const routeCurrency=currencies[params.get("quoteCurrency")]?params.get("quoteCurrency"):"EUR";
+const routeRental=routeQuote?Number(params.get("rentalAmount")):447.17;
+const routeProtection=routeQuote?Number(params.get("protectionAmount")||0):0;
 const quote=window.checkoutQuote||{
- supplierSettlement:{model:"prepaid",currency:"EUR"},
- supplierCurrency:"EUR",
- lineItems:[
+ supplierSettlement:{model:"prepaid",currency:routeCurrency},
+ supplierCurrency:routeCurrency,
+ lineItems:routeQuote?[
+  {label:"Araç kiralama",amount:routeRental,currency:routeCurrency,timing:"now",kind:"rental",detail:(params.get("rentalDays")||"")+(activeLocale.id==="tr"?" gün":" days")},
+  ...(routeProtection>0?[{label:"Tam Kapsam Koruması",amount:routeProtection,currency:routeCurrency,timing:"now",kind:"protection"}]:[])
+ ]:[
   {label:"Araç kiralama",amount:447.17,currency:"EUR",timing:"now",kind:"rental",detail:"7 gün"},
   {label:"Ek sürücü",amount:23.52,currency:"EUR",timing:"pickup",kind:"extra",detail:"Araç tesliminde ödenir"},
   {label:"Vergiler ve ücretler",amount:0,currency:"EUR",timing:"now",kind:"tax",included:true}
@@ -285,7 +298,7 @@ function loadFx(){
 updateLocale();loadCountryDefault();loadFx();
 document.getElementById("cardNumber").addEventListener("input",e=>{let v=e.target.value.replace(/\D/g,"").slice(0,19);e.target.value=v.replace(/(.{4})/g,"$1 ").trim()});
 document.getElementById("expiry").addEventListener("input",e=>{let v=e.target.value.replace(/\D/g,"").slice(0,4);if(v.length>2)v=v.slice(0,2)+" / "+v.slice(2);e.target.value=v});
-document.getElementById("checkoutForm").addEventListener("submit",e=>{e.preventDefault();const next=new URL("confirmation-web-preview.html",location.href);const safeKeys=["lang","currency","location","returnLocation","pickup","return","pickupTime","returnTime","pickupName","returnName","model","supplier","image","logo","category","transmission","seats","doors","pickupType","pickupLong","km","kmLabel","age","license","fuel","policy","day","price","coverage","extras","supplierCurrency","supplierPhone","depositAmount","depositCurrency","termsUrl"];for(const key of safeKeys){const value=params.get(key);if(value)next.searchParams.set(key,value)}next.searchParams.set("lang",activeLocale.id);next.searchParams.set("currency",activeCurrency);location.href=next.toString()});
+document.getElementById("checkoutForm").addEventListener("submit",e=>{e.preventDefault();const next=new URL("confirmation-web-preview.html",location.href);const safeKeys=["lang","currency","location","returnLocation","pickup","return","pickupTime","returnTime","pickupName","returnName","model","supplier","image","logo","category","transmission","seats","doors","pickupType","pickupLong","km","kmLabel","age","license","fuel","policy","day","price","coverage","extras","supplierCurrency","supplierPhone","depositAmount","depositCurrency","termsUrl","rentalAmount","protectionAmount","quoteCurrency","rentalDays"];for(const key of safeKeys){const value=params.get(key);if(value)next.searchParams.set(key,value)}next.searchParams.set("lang",activeLocale.id);next.searchParams.set("currency",activeCurrency);location.href=next.toString()});
 </script>
 </body>
 </html>
