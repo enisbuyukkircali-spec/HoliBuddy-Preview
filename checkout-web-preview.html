@@ -285,7 +285,7 @@ function loadFx(){
 updateLocale();loadCountryDefault();loadFx();
 document.getElementById("cardNumber").addEventListener("input",e=>{let v=e.target.value.replace(/\D/g,"").slice(0,19);e.target.value=v.replace(/(.{4})/g,"$1 ").trim()});
 document.getElementById("expiry").addEventListener("input",e=>{let v=e.target.value.replace(/\D/g,"").slice(0,4);if(v.length>2)v=v.slice(0,2)+" / "+v.slice(2);e.target.value=v});
-document.getElementById("checkoutForm").addEventListener("submit",e=>{e.preventDefault();const next=new URL("confirmation-web-preview.html",location.href);next.searchParams.set("lang",activeLocale.id);next.searchParams.set("currency",activeCurrency);location.href=next.toString()});
+document.getElementById("checkoutForm").addEventListener("submit",e=>{e.preventDefault();const next=new URL("confirmation-web-preview.html",location.href);const safeKeys=["lang","currency","location","returnLocation","pickup","return","pickupTime","returnTime","pickupName","returnName","model","supplier","image","logo","category","transmission","seats","doors","pickupType","pickupLong","km","kmLabel","age","license","fuel","policy","day","price","coverage","extras","supplierCurrency","supplierPhone","depositAmount","depositCurrency","termsUrl"];for(const key of safeKeys){const value=params.get(key);if(value)next.searchParams.set(key,value)}next.searchParams.set("lang",activeLocale.id);next.searchParams.set("currency",activeCurrency);location.href=next.toString()});
 </script>
 </body>
 </html>
