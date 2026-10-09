@@ -160,7 +160,7 @@ function renderLocalePicker(){
  const recommended=selected.currency+" "+currencies[selected.currency],current=activeCurrency+" "+currencies[activeCurrency];
  document.getElementById("hb-picker-default").textContent=copy.recommended+": "+recommended;
  document.getElementById("hb-picker-note").innerHTML=copy.recommended+": <strong>"+recommended+"</strong> · "+copy.current+": <strong>"+current+"</strong>. "+copy.change;
- try{translateTextNodes();rebuildCountries();formatDates();renderPrices()}catch(error){document.body.setAttribute("data-hb-render-error","picker refresh: "+error.message)}
+ try{translateTextNodes();rebuildCountries();formatDates();renderPrices()}catch(error){console.error("picker refresh",error)}
  const localeOptions=document.getElementById("hb-locale-options");
  localeOptions.replaceChildren(...locales.map(locale=>{const button=document.createElement("button");button.type="button";button.className="hb-locale-option";button.setAttribute("aria-pressed",String(locale.id===activeLocale.id));button.innerHTML='<span class="hb-flag" aria-hidden="true">'+flagMarkup(locale.flag)+'</span><span>'+locale.name+'</span>';button.addEventListener("click",()=>{activeLocale=locale;activeCurrency=locale.currency;currencyWasExplicit=false;updateLocale();renderLocalePicker()});return button}));
  const currencyOptions=document.getElementById("hb-currency-options");
@@ -173,7 +173,37 @@ function translateTextNodes(){
  document.querySelectorAll("input[placeholder]").forEach(input=>{if(!input.dataset.originalPlaceholder)input.dataset.originalPlaceholder=input.placeholder;input.placeholder=word(input.dataset.originalPlaceholder)});
  document.title=word("Rezervasyonunu tamamla")+" · HoliBuddy";document.documentElement.lang=activeLocale.id;
 }
-window.__hbRenderErrors=[];function updateLocale(){document.getElementById("displayCurrencyLabel").textContent=activeCurrency;for(const render of [translateTextNodes,rebuildCountries,formatDates,renderPrices,renderLocalePicker]){try{render()}catch(error){window.__hbRenderErrors.push(render.name+": "+error.message);document.body.setAttribute("data-hb-render-error",render.name+": "+error.message)}}try{localStorage.setItem("hb-locale",activeLocale.id);localStorage.setItem("hb-currency",activeCurrency)}catch{}}
+window.__hbRenderErrors=[];const countryCodes="AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BM BN BO BQ BR BS BT BV BW BY BZ CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR GA GB GD GE GF GH GI GL GM GN GQ GR GT GU GW GY HK HM HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO JP KE KG KH KI KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RE RO RS RU RW SA SB SC SD SE SG SH SI SJ SK SM SN SO SR SS ST SV SX SY SZ TC TD TF TG TH TJ TK TL TM TN TO TR TT TV TW TZ UA UG UM US UY UZ VA VC VE VG VI VN VU WF WS XK YE YT ZA ZM ZW".split(" ");
+const residenceCountry=document.getElementById("country"),billingCountry=document.getElementById("billCountry"),countryList=document.getElementById("countryOptions");
+function countryName(code){try{return new Intl.DisplayNames([activeLocale.id],{type:"region"}).of(code)||code}catch{return code}}
+function rebuildCountries(){
+ const fields=[residenceCountry,billingCountry];
+ fields.forEach(field=>{const code=field.dataset.countryCode;if(code)field.value=countryName(code)});
+ const rows=countryCodes.map(code=>({code,name:countryName(code)})).filter(x=>x.name&&x.name!==x.code).sort((a,b)=>a.name.localeCompare(b.name,activeLocale.id));
+ countryList.replaceChildren(...rows.map(item=>{const option=document.createElement("option");option.value=item.name;option.dataset.code=item.code;return option}));
+ for(const field of fields){field.oninput=validateCountry;field.onchange=validateCountry;if(field.value)validateCountry({target:field})}
+}
+function validateCountry(event){
+ const field=event.target||event,value=field.value.trim().toLocaleLowerCase(activeLocale.id);
+ const hit=countryCodes.find(code=>countryName(code).toLocaleLowerCase(activeLocale.id)===value);
+ field.setCustomValidity(value&&!hit?word("Ülke ara"):"");
+ if(hit)field.dataset.countryCode=hit;else delete field.dataset.countryCode;
+}
+function loadCountryDefault(){
+ const languageCountry={"tr":"TR","en-GB":"GB","en-US":"US","de":"DE","fr":"FR","es":"ES","pt":"PT","nl":"NL"};
+ fetch("/api/country",{cache:"no-store"})
+  .then(response=>response.ok?response.json():null)
+  .catch(()=>null)
+  .then(data=>{
+   if(residenceCountry.value.trim())return;
+   const detected=String(data&&data.country||"").toUpperCase();
+   const code=countryCodes.includes(detected)?detected:(languageCountry[activeLocale.id]||"TR");
+   if(!countryCodes.includes(code))return;
+   residenceCountry.dataset.countryCode=code;
+   residenceCountry.value=countryName(code);
+  });
+}
+function updateLocale(){document.getElementById("displayCurrencyLabel").textContent=activeCurrency;for(const render of [translateTextNodes,rebuildCountries,formatDates,renderPrices,renderLocalePicker]){try{render()}catch(error){window.__hbRenderErrors.push(render.name+": "+error.message);document.body.setAttribute("data-hb-render-error",render.name+": "+error.message)}}try{localStorage.setItem("hb-locale",activeLocale.id);localStorage.setItem("hb-currency",activeCurrency)}catch{}}
 localeTrigger.addEventListener("click",event=>{event.stopPropagation();const open=localePanel.hidden;localePanel.hidden=!open;localeTrigger.setAttribute("aria-expanded",String(open));if(open&&!document.querySelector("#hb-locale-options .hb-locale-option")){try{renderLocalePicker()}catch(error){console.error("locale picker render",error)}}});
 localePanel.addEventListener("click",event=>event.stopPropagation());
 document.addEventListener("click",closeLocalePicker);document.addEventListener("keydown",event=>{if(event.key==="Escape")closeLocalePicker()});
