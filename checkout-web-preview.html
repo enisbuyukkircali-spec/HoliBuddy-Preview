@@ -74,7 +74,7 @@ const extraWords={
 "pt":{"Yaklaşık karşılık · referans kuru":"Equivalente aproximado · taxa de referência","Kur bilgisi yükleniyor.":"A carregar taxa de câmbio.","Kur bilgisi geçici olarak alınamadı; tedarikçinin tahsil edeceği tutar yan tarafta kendi para birimiyle gösterilir.":"As taxas de câmbio estão temporariamente indisponíveis. O valor pago ao fornecedor no levantamento continua apresentado na moeda original."},
 "nl":{"Yaklaşık karşılık · referans kuru":"Indicatieve tegenwaarde · referentiekoers","Kur bilgisi yükleniyor.":"Wisselkoers laden.","Kur bilgisi geçici olarak alınamadı; tedarikçinin tahsil edeceği tutar yan tarafta kendi para birimiyle gösterilir.":"Wisselkoersen zijn tijdelijk niet beschikbaar. Het bedrag dat bij ophalen aan de leverancier wordt betaald, blijft in de oorspronkelijke valuta staan."}
 };
-function word(text){return (extraWords[activeLocale.id]&&extraWords[activeLocale.id][text])||(langText[activeLocale.id]&&langText[activeLocale.id][text])||langText["en-GB"][text]||text}
+function word(text){if(activeLocale.id==="tr")return (extraWords.tr&&extraWords.tr[text])||text;return (extraWords[activeLocale.id]&&extraWords[activeLocale.id][text])||(langText[activeLocale.id]&&langText[activeLocale.id][text])||langText["en-GB"][text]||text}
 const localeTrigger=document.getElementById("localeTrigger"),localePanel=document.getElementById("localePanel");
 const languageSelect=document.getElementById("languageSelect"),currencySelect=document.getElementById("currencySelect");
 const localeNames={tr:"Türkçe","en-GB":"English (UK)","en-US":"English (US)",de:"Deutsch",fr:"Français",es:"Español",pt:"Português",nl:"Nederlands"};
