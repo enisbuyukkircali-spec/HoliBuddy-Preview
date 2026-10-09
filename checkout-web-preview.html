@@ -173,7 +173,7 @@ function translateTextNodes(){
  document.title=word("Rezervasyonunu tamamla")+" · HoliBuddy";document.documentElement.lang=activeLocale.id;
 }
 function updateLocale(){document.getElementById("displayCurrencyLabel").textContent=activeCurrency;for(const render of [translateTextNodes,rebuildCountries,formatDates,renderPrices,renderLocalePicker]){try{render()}catch(error){console.error("checkout render error",error)}}try{localStorage.setItem("hb-locale",activeLocale.id);localStorage.setItem("hb-currency",activeCurrency)}catch{}}
-localeTrigger.addEventListener("click",event=>{event.stopPropagation();const open=localePanel.hidden;localePanel.hidden=!open;localeTrigger.setAttribute("aria-expanded",String(open))});
+localeTrigger.addEventListener("click",event=>{event.stopPropagation();const open=localePanel.hidden;localePanel.hidden=!open;localeTrigger.setAttribute("aria-expanded",String(open));if(open&&!document.querySelector("#hb-locale-options .hb-locale-option")){try{renderLocalePicker()}catch(error){console.error("locale picker render",error)}}});
 localePanel.addEventListener("click",event=>event.stopPropagation());
 document.addEventListener("click",closeLocalePicker);document.addEventListener("keydown",event=>{if(event.key==="Escape")closeLocalePicker()});
 function formatDates(){
