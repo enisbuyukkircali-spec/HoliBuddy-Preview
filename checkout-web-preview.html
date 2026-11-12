@@ -298,8 +298,57 @@ function loadFx(){
 updateLocale();loadCountryDefault();loadFx();
 document.getElementById("cardNumber").addEventListener("input",e=>{let v=e.target.value.replace(/\D/g,"").slice(0,19);e.target.value=v.replace(/(.{4})/g,"$1 ").trim()});
 document.getElementById("expiry").addEventListener("input",e=>{let v=e.target.value.replace(/\D/g,"").slice(0,4);if(v.length>2)v=v.slice(0,2)+" / "+v.slice(2);e.target.value=v});
-document.getElementById("checkoutForm").addEventListener("submit",e=>{e.preventDefault();const next=new URL("confirmation-web-preview.html",location.href);const safeKeys=["lang","currency","location","returnLocation","pickup","return","pickupTime","returnTime","pickupName","returnName","model","supplier","image","logo","category","transmission","seats","doors","pickupType","pickupLong","km","kmLabel","age","license","fuel","policy","day","price","coverage","extras","supplierCurrency","supplierPhone","depositAmount","depositCurrency","termsUrl","rentalAmount","protectionAmount","quoteCurrency","rentalDays"];for(const key of safeKeys){const value=params.get(key);if(value)next.searchParams.set(key,value)}next.searchParams.set("lang",activeLocale.id);next.searchParams.set("currency",activeCurrency);location.href=next.toString()});
-</script>
+const checkoutForm=document.getElementById("checkoutForm");
+const isEnuygunBooking=params.get("apiLive")==="1"&&params.get("requestId")&&params.get("referenceId");
+if(isEnuygunBooking){
+ document.body.classList.add("enuygun-booking");
+ document.getElementById("apiIdentityFields").hidden=false;
+ document.getElementById("birthDay").required=true;document.getElementById("identityNumber").required=true;
+ const cardSection=document.getElementById("cardNumber").closest("section");
+ cardSection.querySelector(".cardhead p").textContent="Bu rezervasyonda kart bilgisi alınmıyor; Enuygun B2B hesabı üzerinden işlem yapılır.";
+ cardSection.querySelector(".grid").hidden=true;
+ cardSection.querySelectorAll("input:not(#terms)").forEach(input=>{input.required=false;input.disabled=true});
+ document.querySelectorAll(".paynow").forEach(button=>button.textContent="Enuygun rezervasyonunu oluştur →");
+}
+checkoutForm.addEventListener("submit",async e=>{
+ e.preventDefault();
+ if(!isEnuygunBooking){
+  const next=new URL("confirmation-web-preview.html",location.href);
+  const safeKeys=["lang","currency","location","returnLocation","pickup","return","pickupTime","returnTime","pickupName","returnName","model","supplier","image","logo","category","transmission","seats","doors","pickupType","pickupLong","km","kmLabel","age","license","fuel","policy","day","price","coverage","extras","extraServices","apiLive","requestId","referenceId","provider","supplierCurrency","supplierPhone","depositAmount","depositCurrency","termsUrl","rentalAmount","protectionAmount","quoteCurrency","rentalDays"];
+  for(const key of safeKeys){const value=params.get(key);if(value)next.searchParams.set(key,value)}
+  next.searchParams.set("lang",activeLocale.id);next.searchParams.set("currency",activeCurrency);location.href=next.toString();return;
+ }
+ if(!confirm("Bu işlem Enuygun üzerinden gerçek bir araç rezervasyonu oluşturur. Devam edilsin mi?"))return;
+ const submitButtons=[...document.querySelectorAll(".paynow")];submitButtons.forEach(button=>{button.disabled=true;button.textContent="Rezervasyon gönderiliyor…"});
+ const phone=(document.getElementById("phone").value||"").trim();
+ const match=phone.match(/^\s*(\+?\d{1,4})[\s()-]*(.*)$/);
+ const idValue=document.getElementById("identityNumber").value.trim();
+ const contact={firstName:document.getElementById("first").value.trim(),lastName:document.getElementById("last").value.trim(),email:document.getElementById("email").value.trim(),phoneCountryCode:match?.[1]||"+90",phoneNumber:(match?.[2]||phone).replace(/[^0-9]/g,""),birthDay:document.getElementById("birthDay").value.trim()};
+ if(/^\d{11}$/.test(idValue))contact.citizenNumber=idValue;else contact.passportNumber=idValue;
+ if(document.getElementById("flightToggle").checked)contact.flightNumber=document.getElementById("flightNo").value.trim();
+ let extraServices=[];try{extraServices=JSON.parse(params.get("extraServices")||"[]")}catch{}
+ const payload={requestId:params.get("requestId"),referenceId:params.get("referenceId"),contact,extraServices,language:activeLocale.id.split("-")[0],market:"tr",brokerRezId:"HB-"+crypto.randomUUID()};
+ try{
+  const response=await fetch("/api/enuygun?action=book",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+  const result=await response.json().catch(()=>({}));
+  if(!response.ok)throw new Error(result.error||"Rezervasyon oluşturulamadı.");
+  const data=result.data||result;
+  const orderId=data.orderId||data.brokerOrderId||data.providerOrderId||"";
+  let reservationStatus=data.status||"";
+  try{
+   const check=await fetch("/api/enuygun?action=read-reservation",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({requestId:payload.requestId,referenceId:payload.referenceId})});
+   const checked=await check.json();reservationStatus=checked?.data?.reservation?.status||checked?.data?.status||reservationStatus;
+  }catch{}
+  const next=new URL("confirmation-web-preview.html",location.href);
+  const safeKeys=["lang","currency","location","returnLocation","pickup","return","pickupTime","returnTime","pickupName","returnName","model","supplier","image","logo","category","transmission","seats","doors","pickupType","pickupLong","km","kmLabel","age","license","fuel","policy","day","price","coverage","extras","extraServices","supplierCurrency","supplierPhone","depositAmount","depositCurrency","termsUrl","rentalAmount","protectionAmount","quoteCurrency","rentalDays"];
+  for(const key of safeKeys){const value=params.get(key);if(value)next.searchParams.set(key,value)}
+  next.searchParams.set("lang",activeLocale.id);next.searchParams.set("currency",activeCurrency);next.searchParams.set("providerOrderId",String(orderId));next.searchParams.set("requestId",payload.requestId);next.searchParams.set("referenceId",payload.referenceId);next.searchParams.set("reservationStatus",reservationStatus);
+  location.href=next.toString();
+ }catch(error){
+  alert(error.message+"\n\nTekrar göndermeden önce rezervasyon durumunu Enuygun desteğiyle doğrulayın; aynı talep ikinci kez gönderilmemelidir.");
+  submitButtons.forEach(button=>{button.disabled=false;button.textContent="Durumu kontrol etmeden tekrar gönderme"});
+ }
+});</script>
 </body>
 </html>
 
