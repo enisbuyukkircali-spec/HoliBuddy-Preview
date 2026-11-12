@@ -105,6 +105,8 @@ module.exports = async function handler(req, res) {
     const dropOff = new Date(body.dropOffDate + "T" + body.dropOffTime + ":00");
     if (!Number.isFinite(pickup.getTime()) || !Number.isFinite(dropOff.getTime()) || dropOff <= pickup) return send(res, 400, { error: "Drop-off must be after pickup." });
 
+    const driverAge = Number(body.driverAge ?? 30);
+    if (!Number.isInteger(driverAge) || driverAge < 18 || driverAge > 99) return send(res, 400, { error: "driverAge must be a valid age." });
     const payload = {
       pickupDate: body.pickupDate,
       pickupTime: body.pickupTime,
@@ -113,6 +115,7 @@ module.exports = async function handler(req, res) {
       pickupLocation: body.pickupLocation.trim(),
       dropOffLocation: body.dropOffLocation.trim(),
       currency,
+      driverAge,
       language
     };
     if (body.saleType === "corporate") payload.saleType = "corporate";
