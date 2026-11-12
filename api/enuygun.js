@@ -133,6 +133,72 @@ module.exports = async function handler(req, res) {
       return send(res, error.httpStatus || 502, { error: error.message || "Enuygun API is temporarily unavailable.", code: error.code || "ENUYGUN_UPSTREAM_ERROR" });
     }
   }
+
+  const postActions = new Set(["extras", "conditions", "read-reservation", "book"]);
+  if (postActions.has(action) && req.method === "POST") {
+    const body = await readBody(req);
+    if (!body) return send(res, 400, { error: "A JSON request body is required." });
+    for (const key of ["requestId", "referenceId"]) {
+      if (typeof body[key] !== "string" || !body[key].trim() || body[key].length > 180) {
+        return send(res, 400, { error: key + " is required." });
+      }
+    }
+    const payload = { requestId: body.requestId.trim(), referenceId: body.referenceId.trim() };
+    const language = String(body.language || "tr").toLowerCase();
+    if (!LANGUAGES.has(language)) return send(res, 400, { error: "Unsupported language." });
+    if (action === "extras" || action === "conditions") {
+      payload.language = language;
+      if (body.market) payload.market = String(body.market).slice(0, 8);
+    }
+    if (action === "book") {
+      const contact = body.contact;
+      if (!contact || typeof contact !== "object") return send(res, 400, { error: "Contact details are required." });
+      const required = ["firstName", "lastName", "email", "phoneCountryCode", "phoneNumber", "birthDay"];
+      for (const key of required) if (typeof contact[key] !== "string" || !contact[key].trim()) return send(res, 400, { error: key + " is required." });
+      if (!/^\\d{2}-\\d{2}-\\d{4}$/.test(contact.birthDay)) return send(res, 400, { error: "birthDay must use DD-MM-YYYY." });
+      if (!contact.citizenNumber && !contact.passportNumber) return send(res, 400, { error: "A national ID or passport number is required." });
+      if (contact.citizenNumber && !/^\\d{11}$/.test(contact.citizenNumber)) return send(res, 400, { error: "National ID must contain 11 digits." });
+      if (contact.passportNumber && !/^[A-Za-z0-9-]{4,24}$/.test(contact.passportNumber)) return send(res, 400, { error: "Passport number format is invalid." });
+      payload.contact = Object.fromEntries(required.map(key => [key, contact[key].trim()]));
+      payload.contact.phoneCountryCode = payload.contact.phoneCountryCode.startsWith("+") ? payload.contact.phoneCountryCode : "+" + payload.contact.phoneCountryCode;
+      payload.contact.phoneNumber = payload.contact.phoneNumber.replace(/[^0-9]/g, "");
+      if (contact.citizenNumber) payload.contact.citizenNumber = contact.citizenNumber;
+      if (contact.passportNumber) payload.contact.passportNumber = contact.passportNumber;
+      if (contact.flightNumber) payload.contact.flightNumber = String(contact.flightNumber).trim().slice(0, 32);
+      if (Array.isArray(body.extraServices)) {
+        if (body.extraServices.length > 30) return send(res, 400, { error: "Too many extra services." });
+        payload.extraServices = [];
+        for (const item of body.extraServices) {
+          if (!item || typeof item.slug !== "string" || !/^[A-Za-z0-9_-]{1,100}$/.test(item.slug) || !Number.isInteger(Number(item.count)) || Number(item.count) < 1 || Number(item.count) > 20) {
+            return send(res, 400, { error: "An extra service selection is invalid." });
+          }
+          payload.extraServices.push({ slug: item.slug, count: Number(item.count) });
+        }
+      }
+      if (body.invoice && typeof body.invoice === "object") payload.invoice = body.invoice;
+      if (body.contractType) payload.contractType = String(body.contractType).slice(0, 80);
+      if (body.brokerRezId) payload.brokerRezId = String(body.brokerRezId).slice(0, 100);
+    }
+    const endpoints = {
+      extras: "/api/v1/extra-services",
+      conditions: "/api/v1/rental-conditions",
+      "read-reservation": "/api/v1/read-reservation",
+      book: "/api/v1/book"
+    };
+    try {
+      const { response, result } = await authorizedRequest(endpoints[action], {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      if (!response.ok) return send(res, response.status, { error: result?.userMessage || result?.message || "Enuygun " + action + " failed.", code: result?.code || "ENUYGUN_API_ERROR" });
+      return send(res, 200, result);
+    } catch (error) {
+      if (error.code === "ENUYGUN_NOT_CONFIGURED") return send(res, 503, { error: "Enuygun API credentials are not configured.", code: error.code });
+      return send(res, error.httpStatus || 502, { error: error.message || "Enuygun API is temporarily unavailable.", code: error.code || "ENUYGUN_UPSTREAM_ERROR", verifyBeforeRetry: action === "book" });
+    }
+  }
+
   res.setHeader("Allow", "GET, POST");
   return send(res, 405, { error: "Unsupported Enuygun API operation." });
 };
