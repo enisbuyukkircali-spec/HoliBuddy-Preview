@@ -302,19 +302,21 @@ const checkoutForm=document.getElementById("checkoutForm");
 const isEnuygunBooking=params.get("apiLive")==="1"&&params.get("requestId")&&params.get("referenceId");
 if(isEnuygunBooking){
  document.body.classList.add("enuygun-booking");
- document.getElementById("apiIdentityFields").hidden=false;
+ document.getElementById("apiIdentityFields").hidden=false;document.getElementById("apiIdentityFields").style.display="grid";
  document.getElementById("birthDay").required=true;document.getElementById("identityNumber").required=true;
  const cardSection=document.getElementById("cardNumber").closest("section");
  cardSection.querySelector(".cardhead p").textContent="Bu rezervasyonda kart bilgisi alınmıyor; Enuygun B2B hesabı üzerinden işlem yapılır.";
- cardSection.querySelector(".grid").hidden=true;
+ cardSection.querySelector(".grid").hidden=true;cardSection.querySelector(".grid").style.display="none";
  cardSection.querySelectorAll("input:not(#terms)").forEach(input=>{input.required=false;input.disabled=true});
  document.querySelectorAll(".paynow").forEach(button=>button.textContent="Enuygun rezervasyonunu oluştur →");
+ if(params.get("pickupBoardingPass")==="true"){const flightToggle=document.getElementById("flightToggle");flightToggle.checked=true;document.getElementById("flightFields").classList.remove("hidden");document.getElementById("flightNo").required=true;document.getElementById("flightNo").placeholder="Uçuş numarası (zorunlu)";}
+
 }
 checkoutForm.addEventListener("submit",async e=>{
  e.preventDefault();
  if(!isEnuygunBooking){
   const next=new URL("confirmation-web-preview.html",location.href);
-  const safeKeys=["lang","currency","location","returnLocation","pickup","return","pickupTime","returnTime","pickupName","returnName","model","supplier","image","logo","category","transmission","seats","doors","pickupType","pickupLong","km","kmLabel","age","license","fuel","policy","day","price","coverage","extras","extraServices","apiLive","requestId","referenceId","provider","supplierCurrency","supplierPhone","depositAmount","depositCurrency","termsUrl","rentalAmount","protectionAmount","quoteCurrency","rentalDays"];
+  const safeKeys=["lang","currency","location","returnLocation","pickup","return","pickupTime","returnTime","pickupBoardingPass","pickupName","returnName","model","supplier","image","logo","category","transmission","seats","doors","pickupType","pickupLong","km","kmLabel","age","license","fuel","policy","day","price","coverage","extras","extraServices","apiLive","requestId","referenceId","provider","supplierCurrency","supplierPhone","depositAmount","depositCurrency","termsUrl","rentalAmount","protectionAmount","quoteCurrency","rentalDays"];
   for(const key of safeKeys){const value=params.get(key);if(value)next.searchParams.set(key,value)}
   next.searchParams.set("lang",activeLocale.id);next.searchParams.set("currency",activeCurrency);location.href=next.toString();return;
  }
@@ -359,4 +361,9 @@ checkoutForm.addEventListener("submit",async e=>{
 body.enuygun-booking .api-identity-fields{display:grid}
 body.enuygun-booking .card{scroll-margin-top:15px}
 .paynow:disabled{opacity:.65;cursor:wait}
+</style>
+
+<style id="enuygun-field-visibility">
+.api-identity-fields{display:none!important}
+body.enuygun-booking .api-identity-fields{display:grid!important}
 </style>
