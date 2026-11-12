@@ -319,11 +319,14 @@ checkoutForm.addEventListener("submit",async e=>{
   next.searchParams.set("lang",activeLocale.id);next.searchParams.set("currency",activeCurrency);location.href=next.toString();return;
  }
  if(!confirm("Bu işlem Enuygun üzerinden gerçek bir araç rezervasyonu oluşturur. Devam edilsin mi?"))return;
+ const attemptKey="hb-enuygun-attempt:"+params.get("requestId")+":"+params.get("referenceId");
+ if(sessionStorage.getItem(attemptKey)){alert("Bu teklif için daha önce rezervasyon isteği gönderildi. Yinelenen rezervasyon riskini önlemek için yeniden gönderilmedi.");return}
+ sessionStorage.setItem(attemptKey,"sent");
  const submitButtons=[...document.querySelectorAll(".paynow")];submitButtons.forEach(button=>{button.disabled=true;button.textContent="Rezervasyon gönderiliyor…"});
  const phone=(document.getElementById("phone").value||"").trim();
  const match=phone.match(/^\s*(\+?\d{1,4})[\s()-]*(.*)$/);
  const idValue=document.getElementById("identityNumber").value.trim();
- const contact={firstName:document.getElementById("first").value.trim(),lastName:document.getElementById("last").value.trim(),email:document.getElementById("email").value.trim(),phoneCountryCode:match?.[1]||"+90",phoneNumber:(match?.[2]||phone).replace(/[^0-9]/g,""),birthDay:document.getElementById("birthDay").value.trim()};
+ const contact={firstName:document.getElementById("first").value.trim(),lastName:document.getElementById("last").value.trim(),email:document.getElementById("email").value.trim(),phoneCountryCode:match?("+"+match[1]):"+90",phoneNumber:(match?match[2]:phone).replace(/[^0-9]/g,"").replace(/^0(?=\\d{10}$)/,""),birthDay:document.getElementById("birthDay").value.trim()};
  if(/^\d{11}$/.test(idValue))contact.citizenNumber=idValue;else contact.passportNumber=idValue;
  if(document.getElementById("flightToggle").checked)contact.flightNumber=document.getElementById("flightNo").value.trim();
  let extraServices=[];try{extraServices=JSON.parse(params.get("extraServices")||"[]")}catch{}
@@ -346,7 +349,7 @@ checkoutForm.addEventListener("submit",async e=>{
   location.href=next.toString();
  }catch(error){
   alert(error.message+"\n\nTekrar göndermeden önce rezervasyon durumunu Enuygun desteğiyle doğrulayın; aynı talep ikinci kez gönderilmemelidir.");
-  submitButtons.forEach(button=>{button.disabled=false;button.textContent="Durumu kontrol etmeden tekrar gönderme"});
+  submitButtons.forEach(button=>{button.disabled=true;button.textContent="Rezervasyon durumu doğrulanmalı"});
  }
 });</script>
 </body>
