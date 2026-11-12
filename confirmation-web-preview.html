@@ -96,9 +96,18 @@ function renderPage(){
  if(liveOrder){
   document.getElementById("reservation-code").textContent=liveOrder;
   const approved=liveStatus==="FINALIZE_SUCCESS";
-  document.querySelector('[data-t="title"]').textContent=approved?"Rezervasyonunuz tamamlandı":"Rezervasyon talebiniz alındı";
-  document.querySelector('[data-t="intro"]').textContent=approved?"Rezervasyonunuz Enuygun tarafından onaylandı. Araç tesliminde ihtiyaç duyacağınız bilgiler aşağıda.":"Rezervasyon isteğiniz Enuygun’a iletildi. Kesinleşme durumu doğrulanıyor; rezervasyon numaranız aşağıdadır.";
-  const mark=document.querySelector(".success .check");if(!approved)mark.textContent="…";
+  const pendingCopy={
+   tr:["Rezervasyon talebiniz alındı","İsteğiniz Enuygun’a iletildi. Kesinleşme durumu doğrulanıyor; rezervasyon numaranız aşağıdadır."],
+   "en-GB":["Booking request received","Your request was sent to Enuygun. The final status is being confirmed; your reference is below."],
+   "en-US":["Booking request received","Your request was sent to Enuygun. The final status is being confirmed; your reference is below."],
+   de:["Buchungsanfrage erhalten","Ihre Anfrage wurde an Enuygun gesendet. Der endgültige Status wird geprüft; Ihre Referenz steht unten."],
+   fr:["Demande de réservation reçue","Votre demande a été envoyée à Enuygun. Le statut final est en cours de vérification; votre référence figure ci-dessous."],
+   es:["Solicitud de reserva recibida","Tu solicitud se envió a Enuygun. Estamos verificando el estado final; tu referencia aparece abajo."],
+   pt:["Pedido de reserva recebido","O pedido foi enviado à Enuygun. O estado final está a ser confirmado; a referência está abaixo."],
+   nl:["Boekingsaanvraag ontvangen","Je aanvraag is naar Enuygun verstuurd. De definitieve status wordt gecontroleerd; je referentie staat hieronder."]
+  }[active.id]||["Rezervasyon talebiniz alındı","İsteğiniz Enuygun’a iletildi. Kesinleşme durumu doğrulanıyor; rezervasyon numaranız aşağıdadır."];
+  if(!approved){document.querySelector('[data-t="title"]').textContent=pendingCopy[0];document.querySelector('[data-t="intro"]').textContent=pendingCopy[1];document.querySelector(".success .check").textContent="…";document.querySelector(".voucher").hidden=true;}
+
  }
 
  document.documentElement.lang=active.id;document.title=data.confirm+" · HoliBuddy";
