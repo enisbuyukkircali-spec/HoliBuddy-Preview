@@ -162,6 +162,7 @@ module.exports = async function handler(req, res) {
       payload.contact = Object.fromEntries(required.map(key => [key, contact[key].trim()]));
       payload.contact.phoneCountryCode = payload.contact.phoneCountryCode.startsWith("+") ? payload.contact.phoneCountryCode : "+" + payload.contact.phoneCountryCode;
       payload.contact.phoneNumber = payload.contact.phoneNumber.replace(/[^0-9]/g, "");
+      if (!/^\\d{7,15}$/.test(payload.contact.phoneNumber)) return send(res, 400, { error: "phoneNumber must contain 7 to 15 digits." });
       if (contact.citizenNumber) payload.contact.citizenNumber = contact.citizenNumber;
       if (contact.passportNumber) payload.contact.passportNumber = contact.passportNumber;
       if (contact.flightNumber) payload.contact.flightNumber = String(contact.flightNumber).trim().slice(0, 32);
