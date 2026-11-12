@@ -155,9 +155,9 @@ module.exports = async function handler(req, res) {
       if (!contact || typeof contact !== "object") return send(res, 400, { error: "Contact details are required." });
       const required = ["firstName", "lastName", "email", "phoneCountryCode", "phoneNumber", "birthDay"];
       for (const key of required) if (typeof contact[key] !== "string" || !contact[key].trim()) return send(res, 400, { error: key + " is required." });
-      if (!/^\\d{2}-\\d{2}-\\d{4}$/.test(contact.birthDay)) return send(res, 400, { error: "birthDay must use DD-MM-YYYY." });
+      if (!/^\d{2}-\d{2}-\d{4}$/.test(contact.birthDay)) return send(res, 400, { error: "birthDay must use DD-MM-YYYY." });
       if (!contact.citizenNumber && !contact.passportNumber) return send(res, 400, { error: "A national ID or passport number is required." });
-      if (contact.citizenNumber && !/^\\d{11}$/.test(contact.citizenNumber)) return send(res, 400, { error: "National ID must contain 11 digits." });
+      if (contact.citizenNumber && !/^\d{11}$/.test(contact.citizenNumber)) return send(res, 400, { error: "National ID must contain 11 digits." });
       if (contact.passportNumber && !/^[A-Za-z0-9-]{4,24}$/.test(contact.passportNumber)) return send(res, 400, { error: "Passport number format is invalid." });
       payload.contact = Object.fromEntries(required.map(key => [key, contact[key].trim()]));
       payload.contact.phoneCountryCode = payload.contact.phoneCountryCode.startsWith("+") ? payload.contact.phoneCountryCode : "+" + payload.contact.phoneCountryCode;
