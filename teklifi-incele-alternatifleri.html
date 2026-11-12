@@ -412,7 +412,7 @@
 async function loadEnuygunDetails(){
  const requestId=query.get("requestId"),referenceId=query.get("referenceId");
  const status=await fetch("/api/enuygun?action=status").then(r=>r.json()).catch(()=>({configured:false}));
- if(!status.configured){if(requestId&&referenceId)showApiNotice("Enuygun bağlantısı hazır; API kullanıcı bilgileri tanımlanınca bu teklifin ek hizmetleri ve koşulları yüklenir.");return}
+ if(!status.configured){if(requestId&&referenceId){document.body.classList.add("api-pending");document.querySelector(".cover-section")?.setAttribute("hidden","");showApiNotice("Enuygun API kullanıcı bilgileri henüz tanımlı değil. Bu teklif için rezervasyon adımına geçilemiyor.");document.querySelectorAll("[data-continue],#mobile-continue").forEach(button=>{button.disabled=true;button.textContent="Enuygun bağlantısı bekleniyor"})}return}
  if(!requestId||!referenceId)return;
  document.body.classList.add("api-live");
  document.querySelector(".cover-section")?.setAttribute("hidden","");
@@ -543,3 +543,5 @@ body.api-live .cover-section{display:none!important}
 #rental-terms h3{margin:12px 0 3px;font-size:12px}
 #rental-terms p,#rental-terms li{font-size:10px;line-height:1.55}
 </style>
+
+<style id="enuygun-pending-state">body.api-pending .cover-section{display:none!important}body.api-pending .continue{opacity:.6;cursor:not-allowed}</style>
