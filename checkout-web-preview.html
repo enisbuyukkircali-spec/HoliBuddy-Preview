@@ -329,6 +329,7 @@ checkoutForm.addEventListener("submit",async e=>{
  const match=phone.match(/^\+(\d{1,4})\s*(.*)$/);
  const idValue=document.getElementById("identityNumber").value.trim();
  const contact={firstName:document.getElementById("first").value.trim(),lastName:document.getElementById("last").value.trim(),email:document.getElementById("email").value.trim(),phoneCountryCode:match?("+"+match[1]):"+90",phoneNumber:(match?match[2]:phone).replace(/[^0-9]/g,"").replace(/^0(?=\d{10}$)/,""),birthDay:document.getElementById("birthDay").value.trim()};
+ if(!match&&/^90\d{10}$/.test(contact.phoneNumber))contact.phoneNumber=contact.phoneNumber.slice(2);
  if(/^\d{11}$/.test(idValue))contact.citizenNumber=idValue;else contact.passportNumber=idValue;
  if(document.getElementById("flightToggle").checked)contact.flightNumber=document.getElementById("flightNo").value.trim();
  let extraServices=[];try{extraServices=JSON.parse(params.get("extraServices")||"[]")}catch{}
