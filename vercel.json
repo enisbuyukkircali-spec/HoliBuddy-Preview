@@ -4,6 +4,17 @@
       "source": "/holibuddy.html",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/gizlilik-politikasi.html",
+      "destination": "/gizlilik-politikasi",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/gizlilik-politikasi",
+      "destination": "/gizlilik-politikasi.html"
     }
   ]
 }
