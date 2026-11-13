@@ -9,12 +9,21 @@
       "source": "/gizlilik-politikasi.html",
       "destination": "/gizlilik-politikasi",
       "permanent": true
+    },
+    {
+      "source": "/iletisim.html",
+      "destination": "/iletisim",
+      "permanent": true
     }
   ],
   "rewrites": [
     {
       "source": "/gizlilik-politikasi",
       "destination": "/gizlilik-politikasi.html"
+    },
+    {
+      "source": "/iletisim",
+      "destination": "/iletisim.html"
     }
   ]
 }
