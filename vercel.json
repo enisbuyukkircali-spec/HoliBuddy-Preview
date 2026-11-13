@@ -1,9 +1,15 @@
 {
   "redirects": [
     {
+      "source": "/holibuddy.html",
+      "destination": "/",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
       "source": "/",
-      "destination": "/holibuddy.html",
-      "permanent": false
+      "destination": "/holibuddy.html"
     }
   ]
 }
