@@ -1,0 +1,21 @@
+{
+  "enabled": false,
+  "version": "2026-11-14",
+  "controller": "Holibuddy Turizm A.Ş.",
+  "channel": "EMAIL",
+  "privacyNoticeUrl": "/kvkk",
+  "commercialNoticeUrl": "/ticari-ileti",
+  "choices": [
+    {
+      "id": "marketingDataConsent",
+      "defaultChecked": false,
+      "text": "E-posta adresimin ve paylaşmayı seçersem adımın, Holibuddy Turizm A.Ş. tarafından HoliBuddy bülten ve kampanya e-postalarını iletmek amacıyla işlenmesine açık rıza veriyorum."
+    },
+    {
+      "id": "emailMarketingConsent",
+      "defaultChecked": false,
+      "text": "Holibuddy Turizm A.Ş. tarafından HoliBuddy araç kiralama fırsatları, kampanyaları ve hizmet duyuruları hakkında e-posta yoluyla ticari elektronik ileti gönderilmesini onaylıyorum."
+    }
+  ],
+  "helpText": "Bu seçimler isteğe bağlıdır; rezervasyon veya destek hizmeti almanızın koşulu değildir. Onayınızı ücretsiz olarak geri alabilirsiniz. E-posta onayı SMS veya telefon araması izni içermez."
+}

@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="tr">
 <head>
+<link rel="stylesheet" href="/privacy-manager.css"><script src="/privacy-manager.js"></script>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Rezervasyon onayı · HoliBuddy</title>
 <meta name="description" content="HoliBuddy rezervasyon onayı">
@@ -83,8 +84,8 @@ const flagMarkup=country=>{
         };
         return flags[country];
       };
-const params=new URLSearchParams(location.search);let stored="";try{stored=localStorage.getItem("hb-locale")||""}catch{}
-let active=locales.find(x=>x.id===(params.get("lang")||stored))||locales[0];let currency=params.get("currency")||(()=>{try{return localStorage.getItem("hb-currency")||active.currency}catch{return active.currency}})();if(!currencies[currency])currency=active.currency;
+const params=new URLSearchParams(location.search);let stored="";try{stored=window.HoliBuddyPrivacy.getPreference("hb-locale")||""}catch{}
+let active=locales.find(x=>x.id===(params.get("lang")||stored))||locales[0];let currency=params.get("currency")||(()=>{try{return window.HoliBuddyPrivacy.getPreference("hb-currency")||active.currency}catch{return active.currency}})();if(!currencies[currency])currency=active.currency;
 function renderPicker(){const data=words[active.id]||words["en-GB"];document.getElementById("hb-current-flag").innerHTML=flagMarkup(active.flag);document.getElementById("hb-current-locale").textContent=active.name;document.getElementById("hb-current-short").textContent=active.short;document.getElementById("hb-current-currency").textContent=currency+" "+currencies[currency];document.getElementById("hb-picker-language-title").textContent=data.choose;document.getElementById("hb-picker-count").textContent=data.count;document.getElementById("hb-picker-currency-title").textContent=data.currency;document.getElementById("hb-picker-default").textContent=data.recommended+": "+active.currency+" "+currencies[active.currency];document.getElementById("hb-picker-note").innerHTML=data.recommended+": <strong>"+active.currency+" "+currencies[active.currency]+"</strong> · "+data.current+": <strong>"+currency+" "+currencies[currency]+"</strong>. "+data.change;const lg=document.getElementById("hb-locale-options");lg.replaceChildren(...locales.map(l=>{const b=document.createElement("button");b.type="button";b.className="hb-locale-option";b.setAttribute("aria-pressed",String(l.id===active.id));b.innerHTML='<span class="hb-flag" aria-hidden="true">'+flagMarkup(l.flag)+'</span><span>'+l.name+'</span>';b.onclick=()=>{active=l;currency=l.currency;renderPage()};return b}));const cg=document.getElementById("hb-currency-options");cg.replaceChildren(...pickerCurrencies.map(cur=>{const b=document.createElement("button");b.type="button";b.className="hb-currency-option";b.setAttribute("aria-pressed",String(cur.id===currency));b.innerHTML="<b>"+cur.symbol+"</b><span>"+cur.id+"</span>";b.onclick=()=>{currency=cur.id;renderPage()};return b}))}
 let fxRates={EUR:1};
 function money(value,code=currency){return new Intl.NumberFormat(active.id,{style:"currency",currency:code,maximumFractionDigits:2}).format(value)}
@@ -143,7 +144,7 @@ function renderPage(){
  document.getElementById("rental-terms").textContent=data.termsText;
  const termsLink=document.querySelector(".terms-link");if(reservationData.termsUrl){termsLink.href=reservationData.termsUrl;termsLink.target="_blank";termsLink.rel="noopener"}else termsLink.setAttribute("aria-disabled","true");
  renderPicker();
- try{localStorage.setItem("hb-locale",active.id);localStorage.setItem("hb-currency",currency)}catch{}
+ try{window.HoliBuddyPrivacy.setPreference("hb-locale",active.id);window.HoliBuddyPrivacy.setPreference("hb-currency",currency)}catch{}
 }
 const trigger=document.getElementById("hb-locale-trigger"),panel=document.getElementById("hb-language-panel");trigger.onclick=e=>{e.stopPropagation();panel.hidden=!panel.hidden;trigger.setAttribute("aria-expanded",String(!panel.hidden))};panel.onclick=e=>e.stopPropagation();document.addEventListener("click",()=>{panel.hidden=true;trigger.setAttribute("aria-expanded","false")});document.addEventListener("keydown",e=>{if(e.key==="Escape"){panel.hidden=true;trigger.setAttribute("aria-expanded","false")}});
 renderPage();fetch("/api/fx",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(data=>{if(data&&data.rates){fxRates=data.rates;renderPage()}}).catch(()=>{});

@@ -14,6 +14,21 @@
       "source": "/iletisim.html",
       "destination": "/iletisim",
       "permanent": true
+    },
+    {
+      "source": "/cerez-politikasi.html",
+      "destination": "/cerez-politikasi",
+      "permanent": true
+    },
+    {
+      "source": "/kvkk.html",
+      "destination": "/kvkk",
+      "permanent": true
+    },
+    {
+      "source": "/ticari-ileti.html",
+      "destination": "/ticari-ileti",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -24,6 +39,18 @@
     {
       "source": "/iletisim",
       "destination": "/iletisim.html"
+    },
+    {
+      "source": "/cerez-politikasi",
+      "destination": "/cerez-politikasi.html"
+    },
+    {
+      "source": "/kvkk",
+      "destination": "/kvkk.html"
+    },
+    {
+      "source": "/ticari-ileti",
+      "destination": "/ticari-ileti.html"
     }
   ]
 }

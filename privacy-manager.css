@@ -1,0 +1,41 @@
+#hb-privacy-root{font-family:Arial,Helvetica,sans-serif;color:#173e4c;line-height:1.55;font-size:14px;text-align:left;color-scheme:light}
+#hb-privacy-root *,#hb-privacy-root *::before,#hb-privacy-root *::after{box-sizing:border-box}
+#hb-privacy-root [hidden]{display:none!important}
+#hb-privacy-root a{color:#066d89;text-decoration:underline;text-underline-offset:3px}
+.hb-cookie-banner{position:fixed;z-index:2147483000;bottom:22px;left:22px;right:22px;max-width:1120px;margin:0 auto;padding:24px 28px 18px;border:1px solid #cadfe7;border-top:4px solid #028eaf;border-radius:20px;background:#fff;box-shadow:0 14px 60px #00243b40;max-height:calc(100dvh - 44px);overflow:auto}
+.hb-cookie-kicker{display:block;font-size:10px;letter-spacing:1.6px;font-weight:700;color:#056e87;margin-bottom:7px}
+#hb-privacy-root h2{font-size:25px;line-height:1.2;margin:0 0 10px;color:#062847;font-weight:700}
+#hb-privacy-root p{margin:0 0 15px}
+.hb-cookie-actions{display:flex;gap:10px;align-items:stretch}
+#hb-privacy-root .hb-cookie-actions button{appearance:none;flex:1;display:inline-flex;justify-content:center;align-items:center;min-height:46px;border:1px solid #0a4961;border-radius:9px;background:#062847;color:#fff;font-family:inherit;font-size:14px;font-weight:700;padding:11px 14px;cursor:pointer;line-height:1.3;text-align:center;box-shadow:none}
+#hb-privacy-root .hb-cookie-actions button:hover{background:#0b4a61}
+#hb-privacy-root button:focus-visible,#hb-privacy-root a:focus-visible,.hb-privacy-link:focus-visible{outline:3px solid #00a3cb;outline-offset:4px}
+#hb-privacy-root .hb-cookie-hint{font-size:12px;color:#5b727e;margin:11px 0 0}
+.hb-cookie-dialog{position:fixed;inset:0;width:min(650px,calc(100% - 32px));max-height:calc(100dvh - 40px);border:1px solid #d1e2e9;border-radius:22px;padding:0;margin:auto;background:#fff;color:#173e4c;box-shadow:0 25px 90px #001a3755;overflow:auto}
+.hb-cookie-dialog::backdrop{background:#001d35a8}
+.hb-cookie-dialog-head{display:flex;gap:15px;justify-content:space-between;padding:26px 26px 15px;border-bottom:1px solid #e3edf2}
+#hb-privacy-root .hb-cookie-dialog-head h2{font-size:24px;margin:0}
+#hb-privacy-root .hb-cookie-close{flex:0 0 38px;align-self:flex-start;width:38px;height:38px;font:26px/1 Arial;border:1px solid #d4e4ea;border-radius:50%;background:#f1f7fa;color:#173e4c;cursor:pointer;padding:0}
+.hb-cookie-dialog-body{padding:20px 26px 6px}
+.hb-cookie-category{display:flex;gap:20px;justify-content:space-between;align-items:center;padding:18px 0;border-top:1px solid #e3edf2}
+#hb-privacy-root .hb-cookie-category h3,#hb-privacy-root .hb-cookie-category label,#hb-privacy-root .hb-cookie-inactive h3{display:block;margin:0 0 7px;font-size:15px;line-height:1.35;font-weight:700;color:#062847}
+#hb-privacy-root .hb-cookie-category p{font-size:13px;margin:0;color:#556f7a}
+.hb-cookie-fixed{flex:0 0 110px;white-space:nowrap;border-radius:20px;background:#e8f4f6;color:#116777;padding:5px 9px;font-size:11px;font-weight:700;text-align:center}
+#hb-privacy-root input[role=switch]{appearance:none;position:relative;flex:0 0 48px;width:48px;height:28px;border:1px solid #90aab5;border-radius:24px;background:#d7e1e6;cursor:pointer;margin:0}
+#hb-privacy-root input[role=switch]::after{content:'';position:absolute;width:20px;height:20px;top:3px;left:3px;border-radius:50%;background:#fff;box-shadow:0 1px 3px #173e4c33;transition:transform .16s}
+#hb-privacy-root input[role=switch]:checked{background:#007e9c;border-color:#007e9c}
+#hb-privacy-root input[role=switch]:checked::after{transform:translateX(20px)}
+#hb-privacy-root input[role=switch]:focus-visible{outline:3px solid #00a3cb;outline-offset:3px}
+.hb-cookie-inactive{padding:17px;border-radius:12px;background:#f1f7fa;margin:10px 0 16px}
+#hb-privacy-root .hb-cookie-inactive p,#hb-privacy-root .hb-cookie-detail{font-size:12px;margin:0;color:#556f7a}
+.hb-cookie-dialog-actions{position:sticky;bottom:0;padding:18px 26px 24px;background:#fff;border-top:1px solid #e3edf2;margin-top:18px}
+.hb-cookie-feedback{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.hb-privacy-links{flex-wrap:wrap!important;row-gap:12px!important}
+.hb-privacy-link{appearance:none;display:inline;background:none!important;border:0!important;border-radius:0!important;color:inherit!important;font:inherit!important;padding:0!important;cursor:pointer;text-decoration:underline;text-underline-offset:3px;white-space:normal;box-shadow:none!important}
+.hb-privacy-footer{display:flex;justify-content:center;gap:18px;padding:23px 20px;background:#062847;color:#c5dce6;font:13px/1.5 Arial,sans-serif}
+.hb-privacy-footer a{color:inherit;text-decoration:none}
+.hb-policy-action{display:inline-block;background:#062847;color:#fff;border:1px solid #0b4a61;border-radius:10px;padding:12px 18px;font:700 14px/1.4 Arial,sans-serif;cursor:pointer;text-decoration:none}
+.hb-legal-callout{border-left:3px solid #028eaf;background:#edf7fa;padding:16px 20px;border-radius:0 12px 12px 0;margin:18px 0}
+@media(max-width:600px){.hb-cookie-banner{left:12px;right:12px;bottom:12px;padding:18px;max-height:calc(100dvh - 24px);border-radius:16px}#hb-privacy-root h2{font-size:22px}.hb-cookie-actions{flex-direction:column;gap:8px}#hb-privacy-root .hb-cookie-actions button{min-height:44px;padding:10px}.hb-cookie-dialog-head{padding:20px 18px 16px}#hb-privacy-root .hb-cookie-dialog-head h2{font-size:21px}.hb-cookie-dialog-body{padding:16px 18px 6px}.hb-cookie-dialog-actions{padding:14px 18px 18px}.hb-cookie-category{gap:14px}.hb-cookie-fixed{flex-basis:auto;white-space:normal;max-width:90px}.hb-privacy-footer{gap:12px 18px}}
+@media(prefers-reduced-motion:reduce){#hb-privacy-root input[role=switch]::after{transition:none}}
+@media print{#hb-privacy-root,.hb-privacy-link{display:none!important}}
