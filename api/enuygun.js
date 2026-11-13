@@ -86,7 +86,7 @@ module.exports = async function handler(req, res) {
       return send(res, 200, result, "public, s-maxage=86400, stale-while-revalidate=3600");
     } catch (error) {
       if (error.code === "ENUYGUN_NOT_CONFIGURED") return send(res, 503, { error: "Enuygun API credentials are not configured.", code: error.code });
-      return send(res, error.httpStatus || 502, { error: error.message || "Enuygun API is temporarily unavailable.", code: error.code || "ENUYGUN_UPSTREAM_ERROR" });
+      return send(res, error.httpStatus || 502, { error: error.message || "Enuygun API is temporarily unavailable.", code: error.code || "ENUYGUN_UPSTREAM_ERROR", upstreamCode: /^[A-Z0-9_]{1,40}$/.test(String(error?.cause?.code || "")) ? String(error.cause.code) : undefined });
     }
   }
   if (action === "search" && req.method === "POST") {
@@ -130,7 +130,7 @@ module.exports = async function handler(req, res) {
       return send(res, 200, result);
     } catch (error) {
       if (error.code === "ENUYGUN_NOT_CONFIGURED") return send(res, 503, { error: "Enuygun API credentials are not configured.", code: error.code });
-      return send(res, error.httpStatus || 502, { error: error.message || "Enuygun API is temporarily unavailable.", code: error.code || "ENUYGUN_UPSTREAM_ERROR" });
+      return send(res, error.httpStatus || 502, { error: error.message || "Enuygun API is temporarily unavailable.", code: error.code || "ENUYGUN_UPSTREAM_ERROR", upstreamCode: /^[A-Z0-9_]{1,40}$/.test(String(error?.cause?.code || "")) ? String(error.cause.code) : undefined });
     }
   }
 
@@ -196,7 +196,7 @@ module.exports = async function handler(req, res) {
       return send(res, 200, result);
     } catch (error) {
       if (error.code === "ENUYGUN_NOT_CONFIGURED") return send(res, 503, { error: "Enuygun API credentials are not configured.", code: error.code });
-      return send(res, error.httpStatus || 502, { error: error.message || "Enuygun API is temporarily unavailable.", code: error.code || "ENUYGUN_UPSTREAM_ERROR", verifyBeforeRetry: action === "book" });
+      return send(res, error.httpStatus || 502, { error: error.message || "Enuygun API is temporarily unavailable.", code: error.code || "ENUYGUN_UPSTREAM_ERROR", upstreamCode: /^[A-Z0-9_]{1,40}$/.test(String(error?.cause?.code || "")) ? String(error.cause.code) : undefined, verifyBeforeRetry: action === "book" });
     }
   }
 
