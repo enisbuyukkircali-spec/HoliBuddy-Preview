@@ -101,13 +101,13 @@
     banner.hidden = Boolean(getChoice());
     let nav = document.querySelector('nav[aria-label="Alt menü"]');
     if (!nav) {
-      nav = document.createElement('nav'); nav.setAttribute('aria-label', 'Gizlilik ve yasal bilgiler'); nav.className = 'hb-privacy-footer';
+      nav = document.createElement('nav'); nav.setAttribute('aria-label', 'Yardım ve yasal bilgiler'); nav.className = 'hb-privacy-footer';
       const footer = document.querySelector('footer');
       if (footer) footer.insertAdjacentElement('afterend', nav); else document.body.insertBefore(nav, root);
       const privacy = document.createElement('a'); privacy.href = '/gizlilik-politikasi'; privacy.textContent = 'Gizlilik'; nav.append(privacy);
     }
     nav.classList.add('hb-privacy-links');
-    [['Çerez Politikası','/cerez-politikasi'],['KVKK','/kvkk'],['Ticari İleti','/ticari-ileti']].forEach(([label, href]) => {
+    [['Yardım','/yardim'],['Çerez Politikası','/cerez-politikasi'],['KVKK','/kvkk'],['Ticari İleti','/ticari-ileti']].forEach(([label, href]) => {
       if (nav.querySelector(`a[href="${href}"]`)) return;
       const link = document.createElement('a'); link.href = href; link.textContent = label; nav.append(link);
     });

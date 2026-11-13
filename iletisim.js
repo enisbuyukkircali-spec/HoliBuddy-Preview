@@ -110,5 +110,7 @@
     updateCategory();
     category.focus();
   });
+  const requestedCategory = new URLSearchParams(window.location.search).get('konu');
+  if (Object.prototype.hasOwnProperty.call(labels, requestedCategory)) category.value = requestedCategory;
   updateCategory();
 })();

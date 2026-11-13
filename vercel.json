@@ -29,6 +29,11 @@
       "source": "/ticari-ileti.html",
       "destination": "/ticari-ileti",
       "permanent": true
+    },
+    {
+      "source": "/yardim.html",
+      "destination": "/yardim",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -51,6 +56,10 @@
     {
       "source": "/ticari-ileti",
       "destination": "/ticari-ileti.html"
+    },
+    {
+      "source": "/yardim",
+      "destination": "/yardim.html"
     }
   ]
 }
