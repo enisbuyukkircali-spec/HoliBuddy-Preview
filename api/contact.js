@@ -1,4 +1,5 @@
 const { createHash } = require('node:crypto');
+const nodemailer = require('nodemailer');
 
 const ROUTES = Object.freeze({
   reservation: { label: 'Rezervasyon', to: 'cssupport@holibuddy.com' },
@@ -9,7 +10,7 @@ const ROUTES = Object.freeze({
 const ORIGINS = new Set(['https://holibuddy.com', 'https://www.holibuddy.com']);
 const WINDOW_MS = 15 * 60 * 1000;
 const limits = new Map();
-// Best-effort per-instance throttle; the delivery provider also filters abuse.
+// Best-effort per-instance throttle, not a distributed abuse limit.
 function limited(req) {
   const now = Date.now();
   for (const [key, entry] of limits) if (entry.until <= now) limits.delete(key);
@@ -35,8 +36,12 @@ function field(body, key, min, max, multiline = false) {
   return value;
 }
 module.exports = async function contact(req, res) {
+  const configured = process.env.CONTACT_EMAIL_ENABLED === 'true' &&
+    ['CONTACT_SMTP_HOST', 'CONTACT_SMTP_USER', 'CONTACT_SMTP_PASSWORD', 'CONTACT_FROM_EMAIL'].every(key => Boolean(process.env[key])) &&
+    [465, 587].includes(Number(process.env.CONTACT_SMTP_PORT || 587));
+  if (req.method === 'GET') return reply(res, 200, { mode: configured ? 'smtp' : 'email-draft' });
   if (req.method !== 'POST') {
-    res.setHeader('Allow', 'POST');
+    res.setHeader('Allow', 'GET, POST');
     return reply(res, 405, { ok: false, code: 'METHOD_NOT_ALLOWED' });
   }
   if (!ORIGINS.has(req.headers.origin)) return reply(res, 403, { ok: false, code: 'INVALID_ORIGIN' });
@@ -64,37 +69,29 @@ module.exports = async function contact(req, res) {
     if (!/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(data.email)) throw new Error('email');
     if (data.phone && !/^[+()\d\s.-]{6,30}$/.test(data.phone)) throw new Error('phone');
   } catch (error) { return reply(res, 400, { ok: false, code: 'VALIDATION_ERROR', field: error.message }); }
+  if (!configured) return reply(res, 503, { ok: false, code: 'DELIVERY_NOT_CONFIGURED' });
   if (limited(req)) {
     res.setHeader('Retry-After', '900');
     return reply(res, 429, { ok: false, code: 'RATE_LIMITED' });
   }
-  const payload = {
-    _subject: `HoliBuddy | ${route.label} talebi`,
-    _template: 'table',
-    _url: 'https://holibuddy.com/iletisim',
-    _replyto: data.email,
-    email: data.email,
-    'Talep türü': route.label,
-    'Ad soyad': data.name,
-    'Telefon': data.phone || 'Belirtilmedi',
-    'Rezervasyon numarası': data.reference || 'Belirtilmedi',
-    ...(data.company ? { 'Şirket': data.company } : {}),
-    'Mesaj': data.message
-  };
   try {
-    const response = await fetch(`https://formsubmit.co/ajax/${route.to}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify(payload),
-      signal: AbortSignal.timeout(15000),
-      redirect: 'error'
+    const port = Number(process.env.CONTACT_SMTP_PORT || 587);
+    const transport = nodemailer.createTransport({
+      host: process.env.CONTACT_SMTP_HOST, port,
+      secure: port === 465, requireTLS: true,
+      auth: { user: process.env.CONTACT_SMTP_USER, pass: process.env.CONTACT_SMTP_PASSWORD },
+      tls: { minVersion: 'TLSv1.2', rejectUnauthorized: true },
+      connectionTimeout: 10000, greetingTimeout: 10000, socketTimeout: 15000,
+      logger: false, debug: false,
+      disableFileAccess: true, disableUrlAccess: true
     });
-    const result = await response.json();
-    const note = typeof result.message === 'string' ? result.message : '';
-    if (/activat|confirm.{0,40}(?:form|email|mailbox)|(?:form|email|mailbox).{0,40}confirm|verif(?:y|ication)/i.test(note)) {
-      return reply(res, 503, { ok: false, code: 'DELIVERY_PENDING_ACTIVATION' });
-    }
-    if (!response.ok || !(result.success === true || result.success === 'true')) return reply(res, 502, { ok: false, code: 'DELIVERY_UNAVAILABLE' });
+    const result = await transport.sendMail({
+      from: { name: 'HoliBuddy İletişim', address: process.env.CONTACT_FROM_EMAIL },
+      to: route.to, replyTo: { name: data.name, address: data.email },
+      subject: `HoliBuddy | ${route.label} talebi`,
+      text: `Talep türü: ${route.label}\nAd soyad: ${data.name}\nE-posta: ${data.email}\nTelefon: ${data.phone || 'Belirtilmedi'}\nRezervasyon numarası: ${data.reference || 'Belirtilmedi'}\n${data.company ? 'Şirket: ' + data.company + '\n' : ''}\n${data.message}`
+    });
+    if (!result.accepted?.some(address => String(address).toLowerCase() === route.to) || result.rejected?.length) return reply(res, 502, { ok: false, code: 'DELIVERY_UNAVAILABLE' });
     return reply(res, 200, { ok: true, recipient: route.to });
   } catch {
     // Never report success or log personal form content when delivery is uncertain.

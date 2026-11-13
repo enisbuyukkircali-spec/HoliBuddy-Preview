@@ -1,8 +1,6 @@
 # HoliBuddy contact form
 
-The public form is `/iletisim`; the homepage and privacy-page footers link to it.
-`api/contact.js` forwards validated messages to FormSubmit's documented AJAX endpoint.
-No SMTP password or API key is placed in the browser or repository.
+The public page is `/iletisim`; homepage and privacy-page footers link to it.
 
 | Category value | Display label | Fixed recipient |
 | --- | --- | --- |
@@ -11,45 +9,62 @@ No SMTP password or API key is placed in the browser or repository.
 | partnership | Partnerlik | info@holibuddy.com |
 | other | Diğer | cssupport@holibuddy.com |
 
-The backend ignores client-supplied recipient, CC, subject and provider settings.
-The visitor's validated email is the reply-to address. There are no attachments or automatic replies to visitors.
+## Current delivery status
 
-## Recipient activation
+No email credentials are configured in Vercel. The live form currently prepares an
+email draft in the visitor's browser. The visitor must open the draft and send it
+from their email application. It does not claim that preparing the draft sends it.
+No form body is POSTed to our API in draft mode. `GET /api/contact` returns only the
+current mode, never settings or secrets.
 
-FormSubmit requires each receiving address to confirm the form. The first valid
-submission sends an activation email to the relevant recipient. The mailbox owner
-must verify the form URL `https://holibuddy.com/iletisim` and activate that form.
-Check both inboxes and spam folders. After activation, submit one clearly labelled
-test to each recipient and verify actual receipt, including a reply-to check.
+A FormSubmit integration was tried on 2026-11-13. The live support test did not
+return delivery success. A separate synthetic partnership test was explicitly
+rejected by the provider's Cloudflare security with error 1010. No inbox receipt
+was verified. The integration has been removed; do not bypass provider security
+or tell the owner that activating FormSubmit is sufficient.
 
-An accepted provider request is not proof of delivery to the inbox. Activation
-responses, failed upstream requests and timeouts must never display a success
-state. On failure the form preserves entered data and offers an explicit mailto
-draft link. FormSubmit documents retaining pending submissions for 30 days and
-forwarding them after activation; avoid repeatedly submitting the same real request.
+## Enable direct SMTP delivery
 
-## Validation and abuse handling
+First identify the existing email provider and confirm both recipient mailboxes
+exist. Use that provider's supported SMTP submission credentials. Some providers
+require OAuth, an app password or a relay service; do not disable account security.
+If OAuth is required, adapt the transport to that provider before enabling it.
 
-Only POST JSON requests from `https://holibuddy.com` or `https://www.holibuddy.com`
-are accepted. Fields have length/type checks and the payload is limited to 24 KB.
-The server has a honeypot check and a best-effort limit of five requests per IP hash
-per 15 minutes within a warm function instance. This is not a distributed limiter;
-FormSubmit also performs spam filtering. Do not describe the local limit as a
-global guarantee. Provider responses and form contents are not logged.
+Configure these server-side Vercel production environment variables:
 
-FormSubmit is disclosed in the form notice and privacy page. Its documented
-30-day submission retention is separate from retention of received company email.
-Review actual provider processing and international-transfer arrangements with
-the company before treating the privacy documentation as a complete compliance review.
+| Variable | Meaning |
+| --- | --- |
+| CONTACT_SMTP_HOST | Provider's SMTP host |
+| CONTACT_SMTP_PORT | 587 (STARTTLS) or 465 (TLS) |
+| CONTACT_SMTP_USER | Authorized SMTP account |
+| CONTACT_SMTP_PASSWORD | Provider-issued SMTP/app password, stored as sensitive |
+| CONTACT_FROM_EMAIL | Sender address authorized by the provider |
+| CONTACT_EMAIL_ENABLED | `true` after setup; otherwise draft mode |
 
-## Checks
+Never put passwords or API keys in the repository, browser code, or screenshots.
+Redeploy after changing environment variables. Verify authentication with
+Nodemailer's `transport.verify()` without sending; then send one clearly labelled
+synthetic test per recipient and confirm actual inbox receipt and reply-to behavior.
+An SMTP acceptance response is not proof of arrival in an inbox.
 
-Run `node --test test/contact.test.cjs`. Tests use a stub provider and send no email.
-They cover all recipient routes, recipient-injection resistance, activation and
-failure handling, request validation and the per-instance throttle.
+## Behavior and checks
 
-## References
+The server, not the visitor, selects the recipient from the four allowed categories.
+Visitor email is Reply-To, never From. No attachments or automatic replies are sent.
+SMTP requires TLS with certificate verification; network timeouts are bounded.
+Provider responses, message bodies and credentials are not logged.
 
-- https://formsubmit.co/documentation
-- https://formsubmit.co/ajax-documentation
-- https://formsubmit.co/help
+POST requests require JSON and the exact HoliBuddy origin. Fields have type/length
+validation, a 24 KB payload limit and a honeypot. The five-per-15-minute IP hash
+throttle is per warm function instance, not a distributed limit. Assess a durable
+limiter when enabling direct delivery for higher traffic.
+
+Failures preserve form data and offer an explicit mailto draft. Preparing a draft
+never displays the sent-success state. SMTP success requires the chosen recipient
+to be accepted and no rejected recipients.
+
+Run `npm ci --ignore-scripts` and `npm test` for routing, injection, TLS configuration,
+unconfigured mode, rejection, validation and throttling tests. UI checks cover all
+four category choices, conditional company/reference fields, draft routing and
+mobile layout. The privacy notice describes email providers without inventing an
+unconfirmed provider or retention period.

@@ -10,9 +10,21 @@
   const counter = document.getElementById('message-count');
   const fallback = document.getElementById('contact-fallback');
   const success = document.getElementById('contact-success');
+  const draftNotice = document.getElementById('contact-draft-notice');
   const labels = { reservation: 'Rezervasyon', aftersales: 'Satış sonrası', partnership: 'Partnerlik', other: 'Diğer' };
   const recipient = () => category.value === 'partnership' ? 'info@holibuddy.com' : 'cssupport@holibuddy.com';
   let sending = false;
+  let deliveryMode = 'email-draft';
+  const submitLabel = () => deliveryMode === 'smtp' ? 'Mesajı gönder' : 'E-posta taslağı oluştur';
+  fetch('/api/contact', { headers: { Accept: 'application/json' }, cache: 'no-store', signal: AbortSignal.timeout(5000) })
+    .then(response => response.ok ? response.json() : null)
+    .then(result => {
+      if (result?.mode === 'smtp') {
+        deliveryMode = 'smtp';
+        draftNotice.hidden = true;
+        if (!sending) submit.textContent = submitLabel();
+      }
+    }).catch(() => {});
   function updateCategory() {
     const partner = category.value === 'partnership';
     companyWrap.hidden = !partner;
@@ -38,10 +50,20 @@
     fallback.href = `mailto:${recipient()}?subject=${encodeURIComponent('HoliBuddy | ' + labels[data.category] + ' talebi')}&body=${encodeURIComponent(content)}`;
     fallback.hidden = false;
   }
+  form.addEventListener('input', () => {
+    if (!sending && !fallback.hidden) emailDraft(Object.fromEntries(new FormData(form)));
+  });
   form.addEventListener('submit', async event => {
     event.preventDefault();
     if (sending || !form.reportValidity()) return;
     const data = Object.fromEntries(new FormData(form));
+    if (deliveryMode !== 'smtp') {
+      emailDraft(data);
+      status.className = 'hb-form-status';
+      status.textContent = 'Taslağınız hazır. Aşağıdaki bağlantıyla e-posta uygulamanızı açıp mesajı oradan gönderin. Henüz mesaj gönderilmedi.';
+      fallback.focus();
+      return;
+    }
     sending = true;
     submit.disabled = true;
     category.disabled = true;
@@ -53,7 +75,7 @@
     try {
       const response = await fetch('/api/contact', {
         method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(data), signal: AbortSignal.timeout(20000)
+        body: JSON.stringify(data), signal: AbortSignal.timeout(45000)
       });
       const result = await response.json();
       if (!response.ok || result.ok !== true) {
@@ -76,7 +98,7 @@
       sending = false;
       category.disabled = false;
       submit.disabled = false;
-      submit.textContent = 'Mesajı gönder';
+      submit.textContent = submitLabel();
       form.removeAttribute('aria-busy');
     }
   });
