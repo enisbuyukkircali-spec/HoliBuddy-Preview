@@ -5,11 +5,5 @@
       "destination": "/",
       "permanent": true
     }
-  ],
-  "rewrites": [
-    {
-      "source": "/",
-      "destination": "/holibuddy.html"
-    }
   ]
 }
