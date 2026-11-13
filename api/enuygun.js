@@ -1,3 +1,4 @@
+const { createRequest } = require("../lib/enuygun-transport");
 const API_BASE = "https://cr-b2b.enyugun.com";
 const LANGUAGES = new Set(["tr", "en", "de", "ru", "es", "ar"]);
 let cachedToken = "";
@@ -17,15 +18,7 @@ const readBody = async (req) => {
   return null;
 };
 
-async function request(path, options = {}) {
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 40000);
-  try {
-    return await fetch(API_BASE + path, { ...options, signal: controller.signal });
-  } finally {
-    clearTimeout(timeout);
-  }
-}
+const request = createRequest(API_BASE, { proxyUrl: process.env.FIXIE_URL });
 
 async function login(force = false) {
   const username = process.env.ENUYGUN_API_USERNAME;
@@ -33,12 +26,11 @@ async function login(force = false) {
   if (!username || !password) throw Object.assign(new Error("Enuygun API credentials are not configured."), { code: "ENUYGUN_NOT_CONFIGURED" });
   if (!force && cachedToken && Date.now() < tokenExpiresAt - 60000) return cachedToken;
 
-  const response = await request("/api/v1/login", {
+  const { response, result } = await request("/api/v1/login", {
     method: "POST",
     headers: { "Content-Type": "application/json", Accept: "application/json" },
     body: JSON.stringify({ username, password })
   });
-  const result = await response.json().catch(() => ({}));
   const token = result?.data?.token;
   if (!response.ok || !token) {
     const error = new Error(result?.userMessage || result?.message || "Enuygun API login failed.");
@@ -55,11 +47,10 @@ async function login(force = false) {
 async function authorizedRequest(path, init = {}) {
   for (let attempt = 0; attempt < 2; attempt++) {
     const token = await login(attempt > 0);
-    const response = await request(path, {
+    const { response, result } = await request(path, {
       ...init,
       headers: { Accept: "application/json", ...(init.headers || {}), Authorization: "Bearer " + token }
     });
-    const result = await response.json().catch(() => ({}));
     const expired = response.status === 401 && String(result?.code || "") === "6004";
     if (expired && attempt === 0) {
       cachedToken = "";
@@ -203,3 +194,4 @@ module.exports = async function handler(req, res) {
   res.setHeader("Allow", "GET, POST");
   return send(res, 405, { error: "Unsupported Enuygun API operation." });
 };
+

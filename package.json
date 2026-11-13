@@ -1,0 +1,8 @@
+{
+  "name": "holibuddy-preview",
+  "version": "1.0.0",
+  "private": true,
+  "engines": { "node": "24.x" },
+  "scripts": { "test": "node test/run.cjs" },
+  "dependencies": { "undici": "8.12.4" }
+}
