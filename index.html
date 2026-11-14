@@ -275,9 +275,6 @@
     #hbMock .hb-social .hb-brand-icon { width:27px; height:27px; flex:0 0 27px; display:block; }
     #hbMock .hb-social .hb-apple-icon { width:21px; height:28px; flex-basis:21px; }
     #hbMock .hb-auth-legal { margin:15px 0 0; color:#798a96; font-size:10px; line-height:1.55; }
-    #hbMock .hb-auth-test-note { margin:0 0 16px; padding:11px 13px; border:1px solid #c9e4ef; border-radius:9px; background:#eef8fc; color:#31566d; font-size:12px; line-height:1.65; }
-    #hbMock .hb-auth-test-note a { display:block; margin-top:4px; color:#08719e; font-weight:650; text-underline-offset:3px; }
-    #hbMock .hb-auth-content { overflow-y:auto; justify-content:flex-start; }
     #hbMock .hb-auth-feedback { min-height:18px; margin:7px 0 0; color:#08719e; font-size:12px; }
     #hbMock .hb-auth-visual { position:relative; min-height:560px; overflow:hidden; background:#d6e9ee; }
     #hbMock .hb-auth-visual img { display:block; width:100%; height:100%; min-height:560px; object-fit:cover; }
@@ -381,7 +378,6 @@
         </div>
         <h2 class="hb-auth-title" id="hb-auth-title">Yolculuk planların burada buluşsun</h2>
         <p class="hb-auth-copy" id="hb-auth-copy">E-posta adresinle devam et veya tercih ettiğin hesapla kolayca bağlan.</p>
-        <p class="hb-auth-test-note" id="hb-auth-test-note">Gerçek üyelik henüz açık değil. <strong>test@holibuddy.com</strong> ile örnek hesap ekranını açabilirsiniz. <a id="hb-auth-test-link" href="/hesabim.html?mode=demo">Test hesabını görüntüle →</a></p>
         <form class="hb-auth-form"><label for="hb-auth-email">E-posta adresi</label><input class="hb-auth-email" id="hb-auth-email" type="email" autocomplete="email" placeholder="ornek@email.com" required><button class="hb-auth-continue" type="submit">E-posta ile devam et</button></form>
         <div class="hb-auth-or"><span>ya da hesabınla devam et</span></div>
         <div class="hb-socials">
@@ -843,10 +839,6 @@ const pickerLabels={"tr":{"choose":"Dilinizi seçin","count":"8 dil","currency":
         url.searchParams.set("currency", activeCurrency);
         window.location.assign(url.href);
       }
-      root.querySelector("#hb-auth-test-link").addEventListener("click", event => {
-        event.preventDefault();
-        openTestAccount();
-      });
       const closeAuth = () => { authOverlay.hidden = true; document.body.style.overflow = ""; authOpen.focus(); };
       authOpen.addEventListener("click", () => { authOverlay.hidden = false; document.body.style.overflow = "hidden"; authFeedback.textContent = ""; authEmail.placeholder=(authPhrases[activeLocale.id]||authPhrases.tr).emailPlaceholder; (authTabs.find(item=>item.getAttribute("aria-selected")==="true")||authTabs[0]).click(); authClose.focus(); });
       authClose.addEventListener("click", closeAuth);
