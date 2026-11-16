@@ -1,4 +1,4 @@
-const API_BASE = "https://cr-b2b.enyugun.com";
+const API_BASE = "https://cr-b2b.enuygun.com";
 const LANGUAGES = new Set(["tr", "en", "de", "ru", "es", "ar"]);
 let cachedToken = "";
 let tokenExpiresAt = 0;
