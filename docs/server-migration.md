@@ -2,8 +2,29 @@
 
 Hedef IP: **2.59.181.242**. Alan adları: **holibuddy.com** ve **www.holibuddy.com**.
 
-Bu dosya kurulum hazırlığıdır. Hedef sunucuya erişilip kurulum yapılmadı; DNS değiştirilmedi.
-Sunucunun işletim sistemi, yönetim paneli, Node.js desteği ve yetkili erişimi doğrulanmalıdır.
+## Kurulacak kaynak ve mevcut durum — 16 Kasım 2026
+
+Ubuntu kurulumu için kullanılacak kaynak **enisbuyukkircali-spec/HoliBuddy-Preview**,
+dal **main**. Vercel'de yayınlanan ve bu çalışmada geliştirilen sürüm bu depodur.
+Sunucu uyarlaması `9dd1601fc36d24bc36e5c53e45f254689c483f8e` commit'inde eklendi;
+bu uygulama kodunun 19 otomatik kontrolü geçti. Bu depo HTML/CSS/JavaScript ve Node.js
+kullanır; çalıştırma komutu `npm run serve:server` olur.
+
+**DNS işlemi tamamlandı:** GoDaddy'de `@` için tek A kaydı `2.59.181.242`, `www` için
+CNAME `holibuddy.com.` olarak kaydedildi ve dış DNS sorgusunda doğrulandı. Eski
+`216.150.1.1` ve `216.150.16.1` A değerleri artık kullanılmıyor. E-posta kayıtları korundu.
+
+**Hedef sunucu kurulumu henüz tarafımızdan yapılmadı veya doğrulanmadı.** Son bağlantı
+kontrolünde HTTPS bağlantı hatası alındı; tarayıcıda `ERR_SSL_PROTOCOL_ERROR` görüldü.
+Bu nedenle DNS'in doğru olması, uygulama ve API'lerin çalıştığı anlamına gelmez.
+Ubuntu sunucusundaki servis, ters vekil, sertifika ve ortam değişkenleri kontrol edilmelidir.
+
+Kurulum dosyaları:
+
+- `server/app.cjs`: mevcut dört API işlevini ve sayfaları çalıştıran HTTP sunucusu.
+- `server/build-public.cjs`: yayınlanacak dosyaları `dist/standalone` içine hazırlayan komut.
+- `deploy/holibuddy.service`: Ubuntu/systemd için uyarlanacak servis tanımı.
+- `deploy/holibuddy.env.example`: sunucuda tanımlanması gereken ortam değişkenleri.
 
 ## Uygulamayı çalıştırma
 
@@ -49,7 +70,7 @@ Sunucu Vercel'in ülke başlığını üretmez; `/api/country` boş ülke dönd�
 site içindeki mevcut dil/para birimi seçimini kullanabilir. Gerçek IP coğrafi konum
 tespiti ancak sunucunun güvenilir altyapısı ayrıca sağlıyorsa eklenmelidir.
 
-## Yayına geçmeden önce
+## Hedef sunucuda tamamlanacak kontroller
 
 1. Sunucuya mevcut sitelerle çakışmadan kurulum yap, gerekli ortam değerlerini aktar.
 2. Yerelde `/`, görseller, `/yardim`, `/iletisim?konu=aftersales`, `/api/contact`,
@@ -60,18 +81,22 @@ tespiti ancak sunucunun güvenilir altyapısı ayrıca sağlıyorsa eklenmelidir
    oluşturma veya ödeme işlemi kullanılmaz.
 4. Sunucunun gerçek dışarı çıkış IP'sini doğrula. Enuygun'un izin listesine girmesi gereken
    adres budur; NAT varsa hedef web IP'siyle aynı olmayabilir.
-5. `holibuddy.com` ve `www.holibuddy.com` için geçerli TLS sertifikası hazırla.
-   DNS sağlayıcısında DNS-01 doğrulaması kullanılabilirse web DNS'ini değiştirmeden
-   sertifika alınabilir. Sertifika doğrulamasını kapatma. Yeni sunucuyu alan adı ile
-   test etmek için yerel `curl --resolve` veya hosts kaydı kullanılabilir.
+5. `holibuddy.com` ve `www.holibuddy.com` için geçerli TLS sertifikasını ve 443 portundaki
+   HTTPS yapılandırmasını kontrol et. Alan adı yeni IP'ye yönleniyor. Sertifika
+   doğrulamasını kapatma. Yeni sunucuyu alan adı ile test etmek için yerel
+   `curl --resolve` veya hosts kaydı kullanılabilir.
 6. Hedef hosting sağlayıcısı/ülkesi kesinleşince gizlilik metnindeki Vercel açıklamasını
    gerçek altyapıya göre güncelle. Taşınmadan önce gerçeğe aykırı bir sağlayıcı yazma.
-7. GoDaddy'de mevcut web A/AAAA/CNAME kayıtlarını yedekle. `@` A kaydı `2.59.181.242`
-   olur. `www` ana alan adına CNAME olabilir; o isimde çakışan kayıt bırakma.
-   Eski IPv6/AAAA kaydı varsa yeni sunucunun IPv6 desteğine göre değerlendir.
-   **MX, SPF, DKIM, DMARC ve diğer e-posta kayıtlarını koru.**
+7. GoDaddy'deki mevcut yönlendirmeyi koru: `@` A kaydı `2.59.181.242`, `www` CNAME
+   kaydı `holibuddy.com.`. Aynı isimler için eski sunucuya giden ek kayıt oluşturma.
+   Son DNS incelemesinde AAAA kaydı yoktu. **MX, SPF, DKIM, DMARC ve diğer e-posta
+   kayıtlarını koru.**
 8. DNS yayılımı ve hem ana alan adı hem www için HTTPS, yönlendirme ve API sorgularını
    doğrula. Geri dönüş için eski Vercel dağıtımını ve önceki DNS değerlerini sakla.
+
+Gerekirse ayrıca yetkilendirilecek DNS geri dönüşünde önceki kayıtlar: `@` A
+`216.150.1.1` ve `216.150.16.1` (TTL 600); `www` CNAME
+`11020a514e932cbe.vercel-dns-016.com.` (TTL 3600). Bunlar mevcut yönlendirme değildir.
 
 ## Mevcut işlevlerin sınırları
 
