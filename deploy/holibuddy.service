@@ -1,0 +1,22 @@
+[Unit]
+Description=HoliBuddy website and API
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=holibuddy
+Group=holibuddy
+WorkingDirectory=/opt/holibuddy/current
+EnvironmentFile=/etc/holibuddy/holibuddy.env
+ExecStart=/usr/bin/node server/app.cjs
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=195
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target
